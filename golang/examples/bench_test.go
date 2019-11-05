@@ -29,21 +29,28 @@ import (
 
 // The following IBM Cloud items need to be changed prior to running the sample program
 // const address = "ep11.us-south.hs-crypto.test.cloud.ibm.com:9245"
-//
-// var callOpts = []grpc.DialOption{
+
+// var dialOpts = []grpc.DialOption{
 // 	grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})),
 // 	grpc.WithPerRPCCredentials(&util.IAMPerRPCCredentials{
-// 		APIKey: "pIZrPjbzTG0GQa6BR5ZEHrKIoDfW9C746RsKoCEWu3tJ",
+// 		APIKey:   "pIZrPjbzTG0GQa6BR5ZEHrKIoDfW9C746RsKoCEWu3tJ",
 // 		Endpoint: "https://iam.test.cloud.ibm.com",
 // 		Instance: "702f0996-12ec-4b0c-acc9-eb8b86eb6643",
 // 	}),
+// }
+
+// const address = "9.26.176.34:9879"
+
+// var dialOpts = []grpc.DialOption{
+// 	grpc.WithInsecure(),
+// 	grpc.WithBlock(),
 // }
 
 /////////// Get Mechanism //////////////////
 // Example_getMechanismInfo retrieves a mechanism list and retrieves detailed information for the CKM_RSA_PKCS mechanism
 // Flow: connect, get mechanism list, get mechanism info
 func getMechanismInfo() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -78,7 +85,7 @@ func BenchmarkMechanismInfo(b *testing.B) {
 // Example_encryptAndDecrypt encrypts and decrypts plain text
 // Flow: connect, generate AES key, generate IV, encrypt multi-part data, decrypt multi-part data
 func encryptAndDecrypt() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -249,63 +256,7 @@ func BenchmarkEncryptAndDecrypt(b *testing.B) {
 //////////// Wrap and Unwrap of Key ////////////////
 // Example_wrapAndUnWrapKey wraps an AES key with a RSA public key and then unwraps it with the private key
 // Flow: connect, generate AES key, generate RSA key pair, wrap/unwrap AES key with RSA key pair
-func wrapAndUnwrapKey() {
-	conn, err := grpc.Dial(address, callOpts...)
-	if err != nil {
-		panic(fmt.Errorf("Could not connect to server: %s", err))
-	}
-	defer conn.Close()
-
-	cryptoClient := pb.NewCryptoClient(conn)
-
-	// Generate a AES key
-	desKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_VALUE_LEN, (uint64)(128/8)),
-		util.NewAttribute(ep11.CKA_ENCRYPT, true),
-		util.NewAttribute(ep11.CKA_DECRYPT, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, true), // must be true to be wrapped
-	)
-	generateKeyRequest := &pb.GenerateKeyRequest{
-		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
-		Template: desKeyTemplate,
-		KeyId:    uuid.NewV4().String(), // optional
-	}
-	generateNewKeyStatus, err := cryptoClient.GenerateKey(context.Background(), generateKeyRequest)
-	if err != nil {
-		panic(fmt.Errorf("Generate AES key error: %s", err))
-	} else {
-		// fmt.Println("Generated AES key")
-	}
-
-	// Generate RSA key pairs
-	publicExponent := []byte{0x11}
-	publicKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_ENCRYPT, true),
-		util.NewAttribute(ep11.CKA_WRAP, true), // to wrap a key
-		util.NewAttribute(ep11.CKA_MODULUS_BITS, uint64(2048)),
-		util.NewAttribute(ep11.CKA_PUBLIC_EXPONENT, publicExponent),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
-	privateKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_PRIVATE, true),
-		util.NewAttribute(ep11.CKA_SENSITIVE, true),
-		util.NewAttribute(ep11.CKA_DECRYPT, true),
-		util.NewAttribute(ep11.CKA_UNWRAP, true), // to unwrap a key
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
-	generateKeypairRequest := &pb.GenerateKeyPairRequest{
-		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS_KEY_PAIR_GEN},
-		PubKeyTemplate:  publicKeyTemplate,
-		PrivKeyTemplate: privateKeyTemplate,
-		PrivKeyId:       uuid.NewV4().String(),
-		PubKeyId:        uuid.NewV4().String(),
-	}
-	generateKeyPairStatus, err := cryptoClient.GenerateKeyPair(context.Background(), generateKeypairRequest)
-	if err != nil {
-		panic(fmt.Errorf("GenerateKeyPair error: %s", err))
-	}
-	// fmt.Println("Generated PKCS key pair")
-
+func wrapAndUnwrapKey(cryptoClient pb.CryptoClient, generateNewKeyStatus *pb.GenerateKeyResponse, generateKeyPairStatus *pb.GenerateKeyPairResponse) {
 	wrapKeyRequest := &pb.WrapKeyRequest{
 		Mech: &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS},
 		KeK:  generateKeyPairStatus.PubKey,
@@ -343,16 +294,16 @@ func wrapAndUnwrapKey() {
 
 }
 
-func wrapAndUnwrapKeyWorker(id int, wg *sync.WaitGroup) {
-	wrapAndUnwrapKey()
+func wrapAndUnwrapKeyWorker(wg *sync.WaitGroup, client pb.CryptoClient, aesKey *pb.GenerateKeyResponse, keyPair *pb.GenerateKeyPairResponse) {
+	wrapAndUnwrapKey(client, aesKey, keyPair)
 	wg.Done()
 }
 
-func WrapAndUnwrapKeyParallel(worker int) {
+func WrapAndUnwrapKeyParallel(worker int, clients []pb.CryptoClient, aesKeys []*pb.GenerateKeyResponse, keyPairs []*pb.GenerateKeyPairResponse) {
 	var wg sync.WaitGroup
 	for j := 0; j < worker; j++ {
 		wg.Add(1)
-		go wrapAndUnwrapKeyWorker(j, &wg)
+		go wrapAndUnwrapKeyWorker(&wg, clients[j], aesKeys[j], keyPairs[j])
 	}
 	wg.Wait()
 }
@@ -362,24 +313,51 @@ func BenchmarkWrapAndUnwrapKeyParallel(b *testing.B) {
 		name    string
 		workers int
 	}{
-		{"032-worker", 32},
-		{"064-worker", 64},
-		{"128-worker", 128},
+		{"002-worker", 2},
+		{"004-worker", 4},
+		{"016-worker", 16},
+		// {"032-worker", 32},
+		// {"064-worker", 64},
+		// {"128-worker", 128},
 	}
 
 	for _, bm := range benchmarks {
+		aesKeys := make([]*pb.GenerateKeyResponse, 0)
+		keyPairs := make([]*pb.GenerateKeyPairResponse, 0)
+		connections := make([]*grpc.ClientConn, 0)
+		clients := make([]pb.CryptoClient, 0)
+
+		// Setup clients and keys
+		for i := 0; i < bm.workers; i++ {
+			cryptoClient, conn := setupClient()
+			generateNewKeyStatus, generateKeyPairStatus := setupKeys(cryptoClient)
+			clients = append(clients, cryptoClient)
+			connections = append(connections, conn)
+			aesKeys = append(aesKeys, generateNewKeyStatus)
+			keyPairs = append(keyPairs, generateKeyPairStatus)
+		}
+
 		b.Run(bm.name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				WrapAndUnwrapKeyParallel(bm.workers)
+				WrapAndUnwrapKeyParallel(bm.workers, clients, aesKeys, keyPairs)
 			}
 		})
+
+		// Close worker client connections
+		for _, conn := range connections {
+			conn.Close()
+		}
 		time.Sleep(10 * time.Second)
 	}
 }
 
 func BenchmarkWrapAndUnwrapKey(b *testing.B) {
+	cryptoClient, conn := setupClient()
+	defer conn.Close()
+	generateNewKeyStatus, generateKeyPairStatus := setupKeys(cryptoClient)
+
 	for i := 0; i < b.N; i++ {
-		wrapAndUnwrapKey()
+		wrapAndUnwrapKey(cryptoClient, generateNewKeyStatus, generateKeyPairStatus)
 	}
 }
 
@@ -387,7 +365,7 @@ func BenchmarkWrapAndUnwrapKey(b *testing.B) {
 // Example_digest calculates the digest of some plain text
 // Flow: connect, digest single-part data, digest multi-part data
 func digest() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -460,7 +438,7 @@ func BenchmarkDigest(b *testing.B) {
 // Example_signAndVerifyUsingRSAKeyPair signs some data and verifies it
 // Flow: connect, generate RSA key pair, sign single-part data, verify single-part data
 func signAndVerifyUsingRSAKeyPair() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("did not connect: %v", err))
 	}
@@ -552,7 +530,7 @@ func BenchmarkSignAndVerifyUsingRSAKeyPair(b *testing.B) {
 // Example_signAndVerifyUsingECDSAKeyPair generates an ECDSA key pair and uses the key pair to sign and verify data
 // Flow: connect, generate ECDSA key pair, sign single-part data, verify single-part data
 func signAndVerifyUsingECDSAKeyPair() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -641,7 +619,7 @@ func BenchmarkSignAndVerifyUsingECDSAKeyPair(b *testing.B) {
 // Flow: connect, generate ECDSA key pair, sign single-part data, modify signature to force verify error,
 //                verify single-part data, ensure proper error is returned
 func signAndVerifyToTestErrorHandling() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -734,7 +712,7 @@ func BenchmarkSignAndVerifyToTestErrorHandling(b *testing.B) {
 // The names Alice and Bob are described in https://en.wikipedia.org/wiki/Diffie–Hellman_key_exchange.
 // Flow: connect, generate key pairs, derive AES key for Bob, derive AES key for Alice, encrypt with Alice's AES key and decrypt with Bob's AES key
 func deriveKey() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -853,4 +831,64 @@ func BenchmarkDeriveKey(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		deriveKey()
 	}
+}
+
+func setupKeys(cryptoClient pb.CryptoClient) (*pb.GenerateKeyResponse, *pb.GenerateKeyPairResponse) {
+	// Generate a AES key
+	desKeyTemplate := util.NewAttributeMap(
+		util.NewAttribute(ep11.CKA_VALUE_LEN, (uint64)(128/8)),
+		util.NewAttribute(ep11.CKA_ENCRYPT, true),
+		util.NewAttribute(ep11.CKA_DECRYPT, true),
+		util.NewAttribute(ep11.CKA_EXTRACTABLE, true), // must be true to be wrapped
+	)
+	generateKeyRequest := &pb.GenerateKeyRequest{
+		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
+		Template: desKeyTemplate,
+		KeyId:    uuid.NewV4().String(), // optional
+	}
+	generateNewKeyStatus, err := cryptoClient.GenerateKey(context.Background(), generateKeyRequest)
+	if err != nil {
+		panic(fmt.Errorf("Generate AES key error: %s", err))
+	} else {
+		// fmt.Println("Generated AES key")
+	}
+
+	// Generate RSA key pairs
+	publicExponent := []byte{0x11}
+	publicKeyTemplate := util.NewAttributeMap(
+		util.NewAttribute(ep11.CKA_ENCRYPT, true),
+		util.NewAttribute(ep11.CKA_WRAP, true), // to wrap a key
+		util.NewAttribute(ep11.CKA_MODULUS_BITS, uint64(2048)),
+		util.NewAttribute(ep11.CKA_PUBLIC_EXPONENT, publicExponent),
+		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
+	)
+	privateKeyTemplate := util.NewAttributeMap(
+		util.NewAttribute(ep11.CKA_PRIVATE, true),
+		util.NewAttribute(ep11.CKA_SENSITIVE, true),
+		util.NewAttribute(ep11.CKA_DECRYPT, true),
+		util.NewAttribute(ep11.CKA_UNWRAP, true), // to unwrap a key
+		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
+	)
+	generateKeypairRequest := &pb.GenerateKeyPairRequest{
+		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS_KEY_PAIR_GEN},
+		PubKeyTemplate:  publicKeyTemplate,
+		PrivKeyTemplate: privateKeyTemplate,
+		PrivKeyId:       uuid.NewV4().String(),
+		PubKeyId:        uuid.NewV4().String(),
+	}
+	generateKeyPairStatus, err := cryptoClient.GenerateKeyPair(context.Background(), generateKeypairRequest)
+	if err != nil {
+		panic(fmt.Errorf("GenerateKeyPair error: %s", err))
+	}
+
+	return generateNewKeyStatus, generateKeyPairStatus
+}
+
+func setupClient() (pb.CryptoClient, *grpc.ClientConn) {
+	conn, err := grpc.Dial(address, dialOpts...)
+	if err != nil {
+		panic(fmt.Errorf("Could not connect to server: %s", err))
+	}
+
+	return pb.NewCryptoClient(conn), conn
 }

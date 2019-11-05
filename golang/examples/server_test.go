@@ -5,9 +5,13 @@ import (
 	"context"
 	"crypto/sha256"
 	"crypto/tls"
+	"crypto/x509"
 	"encoding/asn1"
+	"encoding/pem"
 	"fmt"
+	"io/ioutil"
 	"reflect"
+	"strings"
 
 	"github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11"
 	pb "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/grpc"
@@ -18,21 +22,43 @@ import (
 )
 
 // The following IBM Cloud items need to be changed prior to running the sample program
-const address = "<grep11_server_address>:<port>"
+// const address = "<grep11_server_address>:<port>"
 
-var callOpts = []grpc.DialOption{
-	grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})),
-	grpc.WithPerRPCCredentials(&util.IAMPerRPCCredentials{
-		APIKey:   "<ibm_cloud_apikey>",
-		Endpoint: "<https://<iam_ibm_cloud_endpoint>",
-		Instance: "<hpcs_instance_id>",
-	}),
+// var dialOpts = []grpc.DialOption{
+// 	grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})),
+// 	grpc.WithPerRPCCredentials(&util.IAMPerRPCCredentials{
+// 		APIKey:   "<ibm_cloud_apikey>",
+// 		Endpoint: "<https://<iam_ibm_cloud_endpoint>",
+// 		Instance: "<hpcs_instance_id>",
+// 	}),
+// }
+
+const address = "zlxcn002.torolab.ibm.com:9879"
+
+var tlsOpts = TLSOpts{
+	Enabled:  true,
+	Mutual:   true,
+	RootCert: "/workspace/jharriso/certs/server_cert.pem",
+	PubCert:  "/workspace/jharriso/certs/johns_cert.pem",
+	Key:      "/workspace/jharriso/certs/john_key.pem",
+}
+
+var dialOpts []grpc.DialOption
+
+func init() {
+	tlsDialOpts, err := GetTLSClientOpts(tlsOpts)
+	if err != nil {
+		panic("Could not create tls dial options")
+	}
+	dialOpts = []grpc.DialOption{
+		tlsDialOpts,
+	}
 }
 
 // Example_getMechanismInfo retrieves a mechanism list and retrieves detailed information for the CKM_RSA_PKCS mechanism
 // Flow: connect, get mechanism list, get mechanism info
 func Example_getMechanismInfo() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -63,7 +89,7 @@ func Example_getMechanismInfo() {
 // Example_encryptAndDecrypt encrypts and decrypts plain text
 // Flow: connect, generate AES key, generate IV, encrypt multi-part data, decrypt multi-part data
 func Example_encryptAndDecrypt() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -200,7 +226,7 @@ func Example_encryptAndDecrypt() {
 // Example_digest calculates the digest of some plain text
 // Flow: connect, digest single-part data, digest multi-part data
 func Example_digest() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -266,7 +292,7 @@ func Example_digest() {
 // Example_signAndVerifyUsingRSAKeyPair signs some data and verifies it
 // Flow: connect, generate RSA key pair, sign single-part data, verify single-part data
 func Example_signAndVerifyUsingRSAKeyPair() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("did not connect: %v", err))
 	}
@@ -356,7 +382,7 @@ func Example_signAndVerifyUsingRSAKeyPair() {
 // Example_signAndVerifyUsingECDSAKeyPair generates an ECDSA key pair and uses the key pair to sign and verify data
 // Flow: connect, generate ECDSA key pair, sign single-part data, verify single-part data
 func Example_signAndVerifyUsingECDSAKeyPair() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -443,7 +469,7 @@ func Example_signAndVerifyUsingECDSAKeyPair() {
 // Flow: connect, generate ECDSA key pair, sign single-part data, modify signature to force verify error,
 //                verify single-part data, ensure proper error is returned
 func Example_signAndVerifyToTestErrorHandling() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -532,7 +558,7 @@ func Example_signAndVerifyToTestErrorHandling() {
 // Example_wrapAndUnWrapKey wraps an AES key with a RSA public key and then unwraps it with the private key
 // Flow: connect, generate AES key, generate RSA key pair, wrap/unwrap AES key with RSA key pair
 func Example_wrapAndUnwrapKey() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -634,7 +660,7 @@ func Example_wrapAndUnwrapKey() {
 // The names Alice and Bob are described in https://en.wikipedia.org/wiki/Diffie–Hellman_key_exchange.
 // Flow: connect, generate key pairs, derive AES key for Bob, derive AES key for Alice, encrypt with Alice's AES key and decrypt with Bob's AES key
 func Example_deriveKey() {
-	conn, err := grpc.Dial(address, callOpts...)
+	conn, err := grpc.Dial(address, dialOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
 	}
@@ -751,4 +777,90 @@ func Example_deriveKey() {
 	// Generated Alice EC key pair
 	// Generated Bob EC key pair
 	// Alice and Bob get the same derived key
+}
+
+type TLSOpts struct {
+	Enabled bool
+	Mutual  bool
+
+	RootCert string
+	PubCert  string
+	Key      string
+
+	RootCertBytes string
+	PubCertBytes  string
+	KeyBytes      string
+}
+
+// GetTLSClientConfig returns a TLS configuration object based on specified options
+func GetTLSClientConfig(opts TLSOpts) (*tls.Config, error) {
+	tlsConfig := &tls.Config{}
+	if opts.Mutual {
+		certPEMBlock, err := readConfigVarOrFile(opts.PubCertBytes, opts.PubCert)
+		if err != nil {
+			fmt.Printf("Could not load certificate: %s", err)
+			return nil, err
+		}
+		keyPEMBlock, err := readConfigVarOrFile(opts.KeyBytes, opts.Key)
+		if err != nil {
+			fmt.Printf("Could not load private key: %s", err)
+			return nil, err
+		}
+		cer, err := tls.X509KeyPair(certPEMBlock, keyPEMBlock)
+		if err != nil {
+			fmt.Printf("Could not load key pair: [%s:%s] %s", certPEMBlock, keyPEMBlock, err)
+			return nil, err
+		}
+		tlsConfig.Certificates = []tls.Certificate{cer}
+	}
+
+	if len(opts.RootCertBytes) != 0 || len(opts.RootCert) != 0 {
+		ca, err := readConfigVarOrFile(opts.RootCertBytes, opts.RootCert)
+		if err != nil {
+			fmt.Printf("Could not load root CA cert: %s", err)
+			return nil, err
+		}
+		cp := x509.NewCertPool()
+		if !cp.AppendCertsFromPEM(ca) {
+			fmt.Printf("Could not append root cert %s to pool", opts.RootCert)
+			return nil, fmt.Errorf("could not append root cert %s to pool", opts.RootCert)
+		}
+		tlsConfig.RootCAs = cp
+	}
+	return tlsConfig, nil
+}
+
+// GetTLSClientOpts returns a dial option based on specified TLS options
+func GetTLSClientOpts(opts TLSOpts) (grpc.DialOption, error) {
+	if opts.Enabled {
+		tlsConfig, err := GetTLSClientConfig(opts)
+		if err != nil {
+			return nil, err
+		}
+		creds := credentials.NewTLS(tlsConfig)
+		fmt.Println("TLS is enabled for the GREP11 client")
+		return grpc.WithTransportCredentials(creds), nil
+	}
+
+	fmt.Println("TLS is not enabled for the GREP11 client!")
+	return grpc.WithInsecure(), nil
+}
+
+func readConfigVarOrFile(configVar, filePath string) ([]byte, error) {
+	if configVar == "" {
+		// nosec added since the filePath comes from a trusted source (config file)
+		PEMBlock, err := ioutil.ReadFile(filePath) // #nosec
+		if err != nil {
+			return nil, err
+		}
+		return PEMBlock, nil
+	}
+	// PEM decoder must have newlines after dashes.. all the other white-space if 'fudgeable' so leave it be
+	PEMBlock := []byte(strings.Replace(strings.Replace(configVar, "----- ", "-----\n", -1), " -----", "\n-----", -1))
+	block, _ := pem.Decode(PEMBlock)
+	if block == nil {
+		return nil, fmt.Errorf("could not decode PEM %s", string(PEMBlock))
+	}
+	return PEMBlock, nil
+
 }
