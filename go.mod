@@ -3,9 +3,9 @@ module github.com/ibm-developer/ibm-cloud-hyperprotectcrypto
 go 1.13
 
 require (
-	github.com/gogo/protobuf v1.2.1
+	github.com/gogo/protobuf v1.3.1
 	github.com/golang/mock v1.3.1-0.20190508161146-9fa652df1129
-	github.com/golang/protobuf v1.3.1
+	github.com/golang/protobuf v1.3.2
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/satori/go.uuid v1.2.0
 	golang.org/x/net v0.0.0-20190611141213-3f473d35a33a

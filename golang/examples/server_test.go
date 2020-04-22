@@ -10,7 +10,6 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
-	"crypto/tls"
 	"encoding/asn1"
 	"fmt"
 	"reflect"
@@ -20,7 +19,6 @@ import (
 	"github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/util"
 	uuid "github.com/satori/go.uuid"
 	grpc "google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 // The following IBM Cloud items need to be changed prior to running the sample program
@@ -35,15 +33,17 @@ import (
 // 	}),
 // }
 
-const address = "ep11.us-south.hs-crypto.test.cloud.ibm.com:9333"
+// const address = "ep11.us-south.hs-crypto.test.cloud.ibm.com:9333"
+const address = "zlxcn002.torolab.ibm.com:9879"
 
 var callOpts = []grpc.DialOption{
-	grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})),
-	grpc.WithPerRPCCredentials(&util.IAMPerRPCCredentials{
-		APIKey:   "nGzeigmosHUohp8K7O1hb3M9BtgfBPRZAgNFWhVQHeZe",
-		Endpoint: "https://iam.test.cloud.ibm.com",
-		Instance: "367db53c-24cc-4410-962b-3a308fdeaf02",
-	}),
+	// grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})),
+	// grpc.WithPerRPCCredentials(&util.IAMPerRPCCredentials{
+	// 	APIKey:   "nGzeigmosHUohp8K7O1hb3M9BtgfBPRZAgNFWhVQHeZe",
+	// 	Endpoint: "https://iam.test.cloud.ibm.com",
+	// 	Instance: "367db53c-24cc-4410-962b-3a308fdeaf02",
+	// }),
+	grpc.WithInsecure(),
 }
 
 // Example_getMechanismInfo retrieves a mechanism list and retrieves detailed information for the CKM_RSA_PKCS mechanism
@@ -88,19 +88,19 @@ func Example_encryptAndDecrypt() {
 
 	cryptoClient := pb.NewCryptoClient(conn)
 	keyLen := 128
-	keyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_VALUE_LEN, (uint64)(keyLen/8)),
-		util.NewAttribute(ep11.CKA_WRAP, false),
-		util.NewAttribute(ep11.CKA_UNWRAP, false),
-		util.NewAttribute(ep11.CKA_ENCRYPT, true),
-		util.NewAttribute(ep11.CKA_DECRYPT, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false), // set to false!
-		util.NewAttribute(ep11.CKA_TOKEN, true),        // ignored by EP11
-	)
+	keyTemplate := ep11.EP11Attributes{
+		ep11.CKA_VALUE_LEN:   keyLen / 8,
+		ep11.CKA_WRAP:        false,
+		ep11.CKA_UNWRAP:      false,
+		ep11.CKA_ENCRYPT:     true,
+		ep11.CKA_DECRYPT:     true,
+		ep11.CKA_EXTRACTABLE: false, // set to false!
+		ep11.CKA_TOKEN:       true,  // ignored by EP11
+	}
 
 	keygenmsg := &pb.GenerateKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
-		Template: keyTemplate,
+		Template: util.AttributeMap(keyTemplate),
 		KeyId:    uuid.NewV4().String(), // optional
 	}
 
@@ -121,7 +121,7 @@ func Example_encryptAndDecrypt() {
 	fmt.Println("Generated IV")
 
 	encipherInitInfo := &pb.EncryptInitRequest{
-		Mech: &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: iv},
+		Mech: &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
 		Key:  generateKeyStatus.Key, // you may want to store this
 	}
 	cipherStateInit, err := cryptoClient.EncryptInit(context.Background(), encipherInitInfo)
@@ -163,7 +163,7 @@ func Example_encryptAndDecrypt() {
 	fmt.Println("Encrypted message")
 
 	decipherInitInfo := &pb.DecryptInitRequest{
-		Mech: &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: iv},
+		Mech: &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
 		Key:  generateKeyStatus.Key, // you may want to store this
 	}
 	decipherStateInit, err := cryptoClient.DecryptInit(context.Background(), decipherInitInfo)
@@ -293,24 +293,24 @@ func Example_signAndVerifyUsingRSAKeyPair() {
 
 	// Generate RSA key pairs
 	publicExponent := []byte{0x11}
-	publicKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_ENCRYPT, true),
-		util.NewAttribute(ep11.CKA_VERIFY, true), // to verify a signature
-		util.NewAttribute(ep11.CKA_MODULUS_BITS, uint64(2048)),
-		util.NewAttribute(ep11.CKA_PUBLIC_EXPONENT, publicExponent),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
-	privateKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_PRIVATE, true),
-		util.NewAttribute(ep11.CKA_SENSITIVE, true),
-		util.NewAttribute(ep11.CKA_DECRYPT, true),
-		util.NewAttribute(ep11.CKA_SIGN, true), // to generate a signature
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
+	publicKeyTemplate := ep11.EP11Attributes{
+		ep11.CKA_ENCRYPT:         true,
+		ep11.CKA_VERIFY:          true, // to verify a signature
+		ep11.CKA_MODULUS_BITS:    2048,
+		ep11.CKA_PUBLIC_EXPONENT: publicExponent,
+		ep11.CKA_EXTRACTABLE:     false,
+	}
+	privateKeyTemplate := ep11.EP11Attributes{
+		ep11.CKA_PRIVATE:     true,
+		ep11.CKA_SENSITIVE:   true,
+		ep11.CKA_DECRYPT:     true,
+		ep11.CKA_SIGN:        true, // to generate a signature
+		ep11.CKA_EXTRACTABLE: false,
+	}
 	generateKeypairRequest := &pb.GenerateKeyPairRequest{
 		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS_KEY_PAIR_GEN},
-		PubKeyTemplate:  publicKeyTemplate,
-		PrivKeyTemplate: privateKeyTemplate,
+		PubKeyTemplate:  util.AttributeMap(publicKeyTemplate),
+		PrivKeyTemplate: util.AttributeMap(privateKeyTemplate),
 		PrivKeyId:       uuid.NewV4().String(),
 		PubKeyId:        uuid.NewV4().String(),
 	}
@@ -330,10 +330,10 @@ func Example_signAndVerifyUsingRSAKeyPair() {
 		panic(fmt.Errorf("SignInit error: %s", err))
 	}
 
-	signData := sha256.New().Sum([]byte("This data needs to be signed"))
+	signData := sha256.Sum256([]byte("This data needs to be signed"))
 	signRequest := &pb.SignRequest{
 		State: signInitResponse.State,
-		Data:  signData,
+		Data:  []byte(signData[:]),
 	}
 	SignResponse, err := cryptoClient.Sign(context.Background(), signRequest)
 	if err != nil {
@@ -351,7 +351,7 @@ func Example_signAndVerifyUsingRSAKeyPair() {
 	}
 	verifyRequest := &pb.VerifyRequest{
 		State:     verifyInitResponse.State,
-		Data:      signData,
+		Data:      []byte(signData[:]),
 		Signature: SignResponse.Signature,
 	}
 	_, err = cryptoClient.Verify(context.Background(), verifyRequest)
@@ -386,19 +386,19 @@ func Example_signAndVerifyUsingECDSAKeyPair() {
 		panic(fmt.Errorf("Unable to encode parameter OID: %s", err))
 	}
 
-	publicKeyECTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_EC_PARAMS, ecParameters),
-		util.NewAttribute(ep11.CKA_VERIFY, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
-	privateKeyECTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_SIGN, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
+	publicKeyECTemplate := ep11.EP11Attributes{
+		ep11.CKA_EC_PARAMS:   ecParameters,
+		ep11.CKA_VERIFY:      true,
+		ep11.CKA_EXTRACTABLE: false,
+	}
+	privateKeyECTemplate := ep11.EP11Attributes{
+		ep11.CKA_SIGN:        true,
+		ep11.CKA_EXTRACTABLE: false,
+	}
 	generateECKeypairRequest := &pb.GenerateKeyPairRequest{
 		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_EC_KEY_PAIR_GEN},
-		PubKeyTemplate:  publicKeyECTemplate,
-		PrivKeyTemplate: privateKeyECTemplate,
+		PubKeyTemplate:  util.AttributeMap(publicKeyECTemplate),
+		PrivKeyTemplate: util.AttributeMap(privateKeyECTemplate),
 	}
 	generateKeyPairStatus, err := cryptoClient.GenerateKeyPair(context.Background(), generateECKeypairRequest)
 	if err != nil {
@@ -416,10 +416,10 @@ func Example_signAndVerifyUsingECDSAKeyPair() {
 	if err != nil {
 		panic(fmt.Errorf("SignInit error: %s", err))
 	}
-	signData := sha256.New().Sum([]byte("This data needs to be signed"))
+	signData := sha256.Sum256([]byte("This data needs to be signed"))
 	signRequest := &pb.SignRequest{
 		State: signInitResponse.State,
-		Data:  signData,
+		Data:  signData[:],
 	}
 	SignResponse, err := cryptoClient.Sign(context.Background(), signRequest)
 	if err != nil {
@@ -437,7 +437,7 @@ func Example_signAndVerifyUsingECDSAKeyPair() {
 	}
 	verifyRequest := &pb.VerifyRequest{
 		State:     verifyInitResponse.State,
-		Data:      signData,
+		Data:      []byte(signData[:]),
 		Signature: SignResponse.Signature,
 	}
 	_, err = cryptoClient.Verify(context.Background(), verifyRequest)
@@ -473,19 +473,19 @@ func Example_signAndVerifyToTestErrorHandling() {
 		panic(fmt.Errorf("Unable to encode parameter OID: %s", err))
 	}
 
-	publicKeyECTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_EC_PARAMS, ecParameters),
-		util.NewAttribute(ep11.CKA_VERIFY, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
-	privateKeyECTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_SIGN, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
+	publicKeyECTemplate := ep11.EP11Attributes{
+		ep11.CKA_EC_PARAMS:   ecParameters,
+		ep11.CKA_VERIFY:      true,
+		ep11.CKA_EXTRACTABLE: false,
+	}
+	privateKeyECTemplate := ep11.EP11Attributes{
+		ep11.CKA_SIGN:        true,
+		ep11.CKA_EXTRACTABLE: false,
+	}
 	generateECKeypairRequest := &pb.GenerateKeyPairRequest{
 		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_EC_KEY_PAIR_GEN},
-		PubKeyTemplate:  publicKeyECTemplate,
-		PrivKeyTemplate: privateKeyECTemplate,
+		PubKeyTemplate:  util.AttributeMap(publicKeyECTemplate),
+		PrivKeyTemplate: util.AttributeMap(privateKeyECTemplate),
 	}
 	generateKeyPairStatus, err := cryptoClient.GenerateKeyPair(context.Background(), generateECKeypairRequest)
 	if err != nil {
@@ -503,10 +503,10 @@ func Example_signAndVerifyToTestErrorHandling() {
 	if err != nil {
 		panic(fmt.Errorf("SignInit error: %s", err))
 	}
-	signData := sha256.New().Sum([]byte("This data needs to be signed"))
+	signData := sha256.Sum256([]byte("This data needs to be signed"))
 	signRequest := &pb.SignRequest{
 		State: signInitResponse.State,
-		Data:  signData,
+		Data:  signData[:],
 	}
 	SignResponse, err := cryptoClient.Sign(context.Background(), signRequest)
 	if err != nil {
@@ -527,7 +527,7 @@ func Example_signAndVerifyToTestErrorHandling() {
 	}
 	verifyRequest := &pb.VerifyRequest{
 		State:     verifyInitResponse.State,
-		Data:      signData,
+		Data:      []byte(signData[:]),
 		Signature: SignResponse.Signature,
 	}
 	_, err = cryptoClient.Verify(context.Background(), verifyRequest)
@@ -558,15 +558,15 @@ func Example_wrapAndUnwrapKey() {
 	cryptoClient := pb.NewCryptoClient(conn)
 
 	// Generate a AES key
-	desKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_VALUE_LEN, (uint64)(128/8)),
-		util.NewAttribute(ep11.CKA_ENCRYPT, true),
-		util.NewAttribute(ep11.CKA_DECRYPT, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, true), // must be true to be wrapped
-	)
+	desKeyTemplate := ep11.EP11Attributes{
+		ep11.CKA_VALUE_LEN:   128 / 8,
+		ep11.CKA_ENCRYPT:     true,
+		ep11.CKA_DECRYPT:     true,
+		ep11.CKA_EXTRACTABLE: true, // must be true to be wrapped
+	}
 	generateKeyRequest := &pb.GenerateKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
-		Template: desKeyTemplate,
+		Template: util.AttributeMap(desKeyTemplate),
 		KeyId:    uuid.NewV4().String(), // optional
 	}
 	generateNewKeyStatus, err := cryptoClient.GenerateKey(context.Background(), generateKeyRequest)
@@ -578,24 +578,24 @@ func Example_wrapAndUnwrapKey() {
 
 	// Generate RSA key pairs
 	publicExponent := []byte{0x11}
-	publicKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_ENCRYPT, true),
-		util.NewAttribute(ep11.CKA_WRAP, true), // to wrap a key
-		util.NewAttribute(ep11.CKA_MODULUS_BITS, uint64(2048)),
-		util.NewAttribute(ep11.CKA_PUBLIC_EXPONENT, publicExponent),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
-	privateKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_PRIVATE, true),
-		util.NewAttribute(ep11.CKA_SENSITIVE, true),
-		util.NewAttribute(ep11.CKA_DECRYPT, true),
-		util.NewAttribute(ep11.CKA_UNWRAP, true), // to unwrap a key
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
+	publicKeyTemplate := ep11.EP11Attributes{
+		ep11.CKA_ENCRYPT:         true,
+		ep11.CKA_WRAP:            true, // to wrap a key
+		ep11.CKA_MODULUS_BITS:    2048,
+		ep11.CKA_PUBLIC_EXPONENT: publicExponent,
+		ep11.CKA_EXTRACTABLE:     false,
+	}
+	privateKeyTemplate := ep11.EP11Attributes{
+		ep11.CKA_PRIVATE:     true,
+		ep11.CKA_SENSITIVE:   true,
+		ep11.CKA_DECRYPT:     true,
+		ep11.CKA_UNWRAP:      true, // to unwrap a key
+		ep11.CKA_EXTRACTABLE: false,
+	}
 	generateKeypairRequest := &pb.GenerateKeyPairRequest{
 		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS_KEY_PAIR_GEN},
-		PubKeyTemplate:  publicKeyTemplate,
-		PrivKeyTemplate: privateKeyTemplate,
+		PubKeyTemplate:  util.AttributeMap(publicKeyTemplate),
+		PrivKeyTemplate: util.AttributeMap(privateKeyTemplate),
 		PrivKeyId:       uuid.NewV4().String(),
 		PubKeyId:        uuid.NewV4().String(),
 	}
@@ -616,19 +616,19 @@ func Example_wrapAndUnwrapKey() {
 	}
 	fmt.Println("Wraped AES key")
 
-	desUnwrapKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_CLASS, ep11.CKO_SECRET_KEY),
-		util.NewAttribute(ep11.CKA_KEY_TYPE, ep11.CKK_AES),
-		util.NewAttribute(ep11.CKA_VALUE_LEN, (uint64)(128/8)),
-		util.NewAttribute(ep11.CKA_ENCRYPT, true),
-		util.NewAttribute(ep11.CKA_DECRYPT, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, true), // must be true to be wrapped
-	)
+	desUnwrapKeyTemplate := ep11.EP11Attributes{
+		ep11.CKA_CLASS:       ep11.CKO_SECRET_KEY,
+		ep11.CKA_KEY_TYPE:    ep11.CKK_AES,
+		ep11.CKA_VALUE_LEN:   128 / 8,
+		ep11.CKA_ENCRYPT:     true,
+		ep11.CKA_DECRYPT:     true,
+		ep11.CKA_EXTRACTABLE: true, // must be true to be wrapped
+	}
 	unwrapRequest := &pb.UnwrapKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS},
 		KeK:      generateKeyPairStatus.PrivKey,
 		Wrapped:  wrapKeyResponse.Wrapped,
-		Template: desUnwrapKeyTemplate,
+		Template: util.AttributeMap(desUnwrapKeyTemplate),
 	}
 	unWrapedResponse, err := cryptoClient.UnwrapKey(context.Background(), unwrapRequest)
 	if err != nil {
@@ -664,18 +664,18 @@ func Example_deriveKey() {
 		panic(fmt.Errorf("Unable to encode parameter OID: %s", err))
 	}
 
-	publicKeyECTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_EC_PARAMS, ecParameters),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
-	privateKeyECTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_DERIVE, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
+	publicKeyECTemplate := ep11.EP11Attributes{
+		ep11.CKA_EC_PARAMS:   ecParameters,
+		ep11.CKA_EXTRACTABLE: false,
+	}
+	privateKeyECTemplate := ep11.EP11Attributes{
+		ep11.CKA_DERIVE:      true,
+		ep11.CKA_EXTRACTABLE: false,
+	}
 	generateECKeypairRequest := &pb.GenerateKeyPairRequest{
 		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_EC_KEY_PAIR_GEN},
-		PubKeyTemplate:  publicKeyECTemplate,
-		PrivKeyTemplate: privateKeyECTemplate,
+		PubKeyTemplate:  util.AttributeMap(publicKeyECTemplate),
+		PrivKeyTemplate: util.AttributeMap(privateKeyECTemplate),
 	}
 	aliceECKeypairResponse, err := cryptoClient.GenerateKeyPair(context.Background(), generateECKeypairRequest)
 	if err != nil {
@@ -690,20 +690,20 @@ func Example_deriveKey() {
 	fmt.Println("Generated Bob EC key pair")
 
 	// Derive AES key for Alice
-	deriveKeyTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_CLASS, uint64(ep11.CKO_SECRET_KEY)),
-		util.NewAttribute(ep11.CKA_KEY_TYPE, uint64(ep11.CKK_AES)),
-		util.NewAttribute(ep11.CKA_VALUE_LEN, (uint64)(128/8)),
-		util.NewAttribute(ep11.CKA_ENCRYPT, true),
-		util.NewAttribute(ep11.CKA_DECRYPT, true),
-	)
+	deriveKeyTemplate := ep11.EP11Attributes{
+		ep11.CKA_CLASS:     ep11.CKO_SECRET_KEY,
+		ep11.CKA_KEY_TYPE:  ep11.CKK_AES,
+		ep11.CKA_VALUE_LEN: 128 / 8,
+		ep11.CKA_ENCRYPT:   true,
+		ep11.CKA_DECRYPT:   true,
+	}
 	combinedCoordinates, err := util.GetPubkeyBytesFromSPKI(bobECKeypairResponse.PubKey)
 	if err != nil {
 		panic(fmt.Errorf("Bob's EC key cannot obtain coordinates: %s", err))
 	}
 	aliceDerivekeyRequest := &pb.DeriveKeyRequest{
-		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_ECDH1_DERIVE, Parameter: combinedCoordinates},
-		Template: deriveKeyTemplate,
+		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_ECDH1_DERIVE, Parameter: &pb.Mechanism_ParameterB{ParameterB: combinedCoordinates}},
+		Template: util.AttributeMap(deriveKeyTemplate),
 		BaseKey:  aliceECKeypairResponse.PrivKey,
 	}
 	aliceDerivekeyResponse, err := cryptoClient.DeriveKey(context.Background(), aliceDerivekeyRequest)
@@ -717,8 +717,8 @@ func Example_deriveKey() {
 		panic(fmt.Errorf("Alice's EC key cannot obtain coordinates: %s", err))
 	}
 	bobDerivekeyRequest := &pb.DeriveKeyRequest{
-		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_ECDH1_DERIVE, Parameter: combinedCoordinates},
-		Template: deriveKeyTemplate,
+		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_ECDH1_DERIVE, Parameter: &pb.Mechanism_ParameterB{ParameterB: combinedCoordinates}},
+		Template: util.AttributeMap(deriveKeyTemplate),
 		BaseKey:  bobECKeypairResponse.PrivKey,
 	}
 	bobDerivekeyResponse, err := cryptoClient.DeriveKey(context.Background(), bobDerivekeyRequest)
@@ -738,7 +738,7 @@ func Example_deriveKey() {
 	iv := rng.Rnd[:ep11.AES_BLOCK_SIZE]
 	encryptRequest := &pb.EncryptSingleRequest{
 		Key:   aliceDerivekeyResponse.NewKey,
-		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: iv},
+		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
 		Plain: msg,
 	}
 	encryptResponse, err := cryptoClient.EncryptSingle(context.Background(), encryptRequest)
@@ -748,7 +748,7 @@ func Example_deriveKey() {
 
 	decryptRequest := &pb.DecryptSingleRequest{
 		Key:      bobDerivekeyResponse.NewKey,
-		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: iv},
+		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
 		Ciphered: encryptResponse.Ciphered,
 	}
 	decryptResponse, err := cryptoClient.DecryptSingle(context.Background(), decryptRequest)

@@ -28,6 +28,143 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
+type RSAOAEPParm_Mask int32
+
+const (
+	RSAOAEPParm_CkgMgf1None   RSAOAEPParm_Mask = 0
+	RSAOAEPParm_CkgMgf1Sha1   RSAOAEPParm_Mask = 1
+	RSAOAEPParm_CkgMgf1Sha256 RSAOAEPParm_Mask = 2
+	RSAOAEPParm_CkgMgf1Sha384 RSAOAEPParm_Mask = 3
+	RSAOAEPParm_CkgMgf1Sha512 RSAOAEPParm_Mask = 4
+	RSAOAEPParm_CkgMgf1Sha224 RSAOAEPParm_Mask = 5
+)
+
+var RSAOAEPParm_Mask_name = map[int32]string{
+	0: "CkgMgf1None",
+	1: "CkgMgf1Sha1",
+	2: "CkgMgf1Sha256",
+	3: "CkgMgf1Sha384",
+	4: "CkgMgf1Sha512",
+	5: "CkgMgf1Sha224",
+}
+var RSAOAEPParm_Mask_value = map[string]int32{
+	"CkgMgf1None":   0,
+	"CkgMgf1Sha1":   1,
+	"CkgMgf1Sha256": 2,
+	"CkgMgf1Sha384": 3,
+	"CkgMgf1Sha512": 4,
+	"CkgMgf1Sha224": 5,
+}
+
+func (x RSAOAEPParm_Mask) String() string {
+	return proto.EnumName(RSAOAEPParm_Mask_name, int32(x))
+}
+func (RSAOAEPParm_Mask) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{75, 0}
+}
+
+type RSAOAEPParm_ParmType int32
+
+const (
+	RSAOAEPParm_CkzNoDataSpecified RSAOAEPParm_ParmType = 0
+	RSAOAEPParm_CkzDataSpecifiied  RSAOAEPParm_ParmType = 1
+)
+
+var RSAOAEPParm_ParmType_name = map[int32]string{
+	0: "CkzNoDataSpecified",
+	1: "CkzDataSpecifiied",
+}
+var RSAOAEPParm_ParmType_value = map[string]int32{
+	"CkzNoDataSpecified": 0,
+	"CkzDataSpecifiied":  1,
+}
+
+func (x RSAOAEPParm_ParmType) String() string {
+	return proto.EnumName(RSAOAEPParm_ParmType_name, int32(x))
+}
+func (RSAOAEPParm_ParmType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{75, 1}
+}
+
+type RSAPSSParm_Mask int32
+
+const (
+	RSAPSSParm_CkgMgf1None   RSAPSSParm_Mask = 0
+	RSAPSSParm_CkgMgf1Sha1   RSAPSSParm_Mask = 1
+	RSAPSSParm_CkgMgf1Sha256 RSAPSSParm_Mask = 2
+	RSAPSSParm_CkgMgf1Sha384 RSAPSSParm_Mask = 3
+	RSAPSSParm_CkgMgf1Sha512 RSAPSSParm_Mask = 4
+	RSAPSSParm_CkgMgf1Sha224 RSAPSSParm_Mask = 5
+)
+
+var RSAPSSParm_Mask_name = map[int32]string{
+	0: "CkgMgf1None",
+	1: "CkgMgf1Sha1",
+	2: "CkgMgf1Sha256",
+	3: "CkgMgf1Sha384",
+	4: "CkgMgf1Sha512",
+	5: "CkgMgf1Sha224",
+}
+var RSAPSSParm_Mask_value = map[string]int32{
+	"CkgMgf1None":   0,
+	"CkgMgf1Sha1":   1,
+	"CkgMgf1Sha256": 2,
+	"CkgMgf1Sha384": 3,
+	"CkgMgf1Sha512": 4,
+	"CkgMgf1Sha224": 5,
+}
+
+func (x RSAPSSParm_Mask) String() string {
+	return proto.EnumName(RSAPSSParm_Mask_name, int32(x))
+}
+func (RSAPSSParm_Mask) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{76, 0}
+}
+
+type ECDH1DeriveParm_KeyDerivationFunction int32
+
+const (
+	ECDH1DeriveParm_CkdNotUsed0  ECDH1DeriveParm_KeyDerivationFunction = 0
+	ECDH1DeriveParm_CkdNull      ECDH1DeriveParm_KeyDerivationFunction = 1
+	ECDH1DeriveParm_CkdSha1Kdf   ECDH1DeriveParm_KeyDerivationFunction = 2
+	ECDH1DeriveParm_CkdNotUsed3  ECDH1DeriveParm_KeyDerivationFunction = 3
+	ECDH1DeriveParm_CkdNotUsed4  ECDH1DeriveParm_KeyDerivationFunction = 4
+	ECDH1DeriveParm_CkdSha224Kdf ECDH1DeriveParm_KeyDerivationFunction = 5
+	ECDH1DeriveParm_CkdSha256Kdf ECDH1DeriveParm_KeyDerivationFunction = 6
+	ECDH1DeriveParm_CkdSha384Kdf ECDH1DeriveParm_KeyDerivationFunction = 7
+	ECDH1DeriveParm_CkdSha512Kdf ECDH1DeriveParm_KeyDerivationFunction = 8
+)
+
+var ECDH1DeriveParm_KeyDerivationFunction_name = map[int32]string{
+	0: "CkdNotUsed0",
+	1: "CkdNull",
+	2: "CkdSha1Kdf",
+	3: "CkdNotUsed3",
+	4: "CkdNotUsed4",
+	5: "CkdSha224Kdf",
+	6: "CkdSha256Kdf",
+	7: "CkdSha384Kdf",
+	8: "CkdSha512Kdf",
+}
+var ECDH1DeriveParm_KeyDerivationFunction_value = map[string]int32{
+	"CkdNotUsed0":  0,
+	"CkdNull":      1,
+	"CkdSha1Kdf":   2,
+	"CkdNotUsed3":  3,
+	"CkdNotUsed4":  4,
+	"CkdSha224Kdf": 5,
+	"CkdSha256Kdf": 6,
+	"CkdSha384Kdf": 7,
+	"CkdSha512Kdf": 8,
+}
+
+func (x ECDH1DeriveParm_KeyDerivationFunction) String() string {
+	return proto.EnumName(ECDH1DeriveParm_KeyDerivationFunction_name, int32(x))
+}
+func (ECDH1DeriveParm_KeyDerivationFunction) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{77, 0}
+}
+
 type GenerateRandomRequest struct {
 	Len                  uint64   `protobuf:"varint,1,opt,name=Len,proto3" json:"Len,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -39,7 +176,7 @@ func (m *GenerateRandomRequest) Reset()         { *m = GenerateRandomRequest{} }
 func (m *GenerateRandomRequest) String() string { return proto.CompactTextString(m) }
 func (*GenerateRandomRequest) ProtoMessage()    {}
 func (*GenerateRandomRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{0}
+	return fileDescriptor_server_974d68ed10a22135, []int{0}
 }
 func (m *GenerateRandomRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -86,7 +223,7 @@ func (m *GenerateRandomResponse) Reset()         { *m = GenerateRandomResponse{}
 func (m *GenerateRandomResponse) String() string { return proto.CompactTextString(m) }
 func (*GenerateRandomResponse) ProtoMessage()    {}
 func (*GenerateRandomResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{1}
+	return fileDescriptor_server_974d68ed10a22135, []int{1}
 }
 func (m *GenerateRandomResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -133,7 +270,7 @@ func (m *DigestInitRequest) Reset()         { *m = DigestInitRequest{} }
 func (m *DigestInitRequest) String() string { return proto.CompactTextString(m) }
 func (*DigestInitRequest) ProtoMessage()    {}
 func (*DigestInitRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{2}
+	return fileDescriptor_server_974d68ed10a22135, []int{2}
 }
 func (m *DigestInitRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -180,7 +317,7 @@ func (m *DigestInitResponse) Reset()         { *m = DigestInitResponse{} }
 func (m *DigestInitResponse) String() string { return proto.CompactTextString(m) }
 func (*DigestInitResponse) ProtoMessage()    {}
 func (*DigestInitResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{3}
+	return fileDescriptor_server_974d68ed10a22135, []int{3}
 }
 func (m *DigestInitResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -228,7 +365,7 @@ func (m *DigestRequest) Reset()         { *m = DigestRequest{} }
 func (m *DigestRequest) String() string { return proto.CompactTextString(m) }
 func (*DigestRequest) ProtoMessage()    {}
 func (*DigestRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{4}
+	return fileDescriptor_server_974d68ed10a22135, []int{4}
 }
 func (m *DigestRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -282,7 +419,7 @@ func (m *DigestResponse) Reset()         { *m = DigestResponse{} }
 func (m *DigestResponse) String() string { return proto.CompactTextString(m) }
 func (*DigestResponse) ProtoMessage()    {}
 func (*DigestResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{5}
+	return fileDescriptor_server_974d68ed10a22135, []int{5}
 }
 func (m *DigestResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -330,7 +467,7 @@ func (m *DigestUpdateRequest) Reset()         { *m = DigestUpdateRequest{} }
 func (m *DigestUpdateRequest) String() string { return proto.CompactTextString(m) }
 func (*DigestUpdateRequest) ProtoMessage()    {}
 func (*DigestUpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{6}
+	return fileDescriptor_server_974d68ed10a22135, []int{6}
 }
 func (m *DigestUpdateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -384,7 +521,7 @@ func (m *DigestUpdateResponse) Reset()         { *m = DigestUpdateResponse{} }
 func (m *DigestUpdateResponse) String() string { return proto.CompactTextString(m) }
 func (*DigestUpdateResponse) ProtoMessage()    {}
 func (*DigestUpdateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{7}
+	return fileDescriptor_server_974d68ed10a22135, []int{7}
 }
 func (m *DigestUpdateResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -432,7 +569,7 @@ func (m *DigestKeyRequest) Reset()         { *m = DigestKeyRequest{} }
 func (m *DigestKeyRequest) String() string { return proto.CompactTextString(m) }
 func (*DigestKeyRequest) ProtoMessage()    {}
 func (*DigestKeyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{8}
+	return fileDescriptor_server_974d68ed10a22135, []int{8}
 }
 func (m *DigestKeyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -486,7 +623,7 @@ func (m *DigestKeyResponse) Reset()         { *m = DigestKeyResponse{} }
 func (m *DigestKeyResponse) String() string { return proto.CompactTextString(m) }
 func (*DigestKeyResponse) ProtoMessage()    {}
 func (*DigestKeyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{9}
+	return fileDescriptor_server_974d68ed10a22135, []int{9}
 }
 func (m *DigestKeyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -533,7 +670,7 @@ func (m *DigestFinalRequest) Reset()         { *m = DigestFinalRequest{} }
 func (m *DigestFinalRequest) String() string { return proto.CompactTextString(m) }
 func (*DigestFinalRequest) ProtoMessage()    {}
 func (*DigestFinalRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{10}
+	return fileDescriptor_server_974d68ed10a22135, []int{10}
 }
 func (m *DigestFinalRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -580,7 +717,7 @@ func (m *DigestFinalResponse) Reset()         { *m = DigestFinalResponse{} }
 func (m *DigestFinalResponse) String() string { return proto.CompactTextString(m) }
 func (*DigestFinalResponse) ProtoMessage()    {}
 func (*DigestFinalResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{11}
+	return fileDescriptor_server_974d68ed10a22135, []int{11}
 }
 func (m *DigestFinalResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -628,7 +765,7 @@ func (m *DigestSingleRequest) Reset()         { *m = DigestSingleRequest{} }
 func (m *DigestSingleRequest) String() string { return proto.CompactTextString(m) }
 func (*DigestSingleRequest) ProtoMessage()    {}
 func (*DigestSingleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{12}
+	return fileDescriptor_server_974d68ed10a22135, []int{12}
 }
 func (m *DigestSingleRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -682,7 +819,7 @@ func (m *DigestSingleResponse) Reset()         { *m = DigestSingleResponse{} }
 func (m *DigestSingleResponse) String() string { return proto.CompactTextString(m) }
 func (*DigestSingleResponse) ProtoMessage()    {}
 func (*DigestSingleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{13}
+	return fileDescriptor_server_974d68ed10a22135, []int{13}
 }
 func (m *DigestSingleResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -730,7 +867,7 @@ func (m *EncryptInitRequest) Reset()         { *m = EncryptInitRequest{} }
 func (m *EncryptInitRequest) String() string { return proto.CompactTextString(m) }
 func (*EncryptInitRequest) ProtoMessage()    {}
 func (*EncryptInitRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{14}
+	return fileDescriptor_server_974d68ed10a22135, []int{14}
 }
 func (m *EncryptInitRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -784,7 +921,7 @@ func (m *EncryptInitResponse) Reset()         { *m = EncryptInitResponse{} }
 func (m *EncryptInitResponse) String() string { return proto.CompactTextString(m) }
 func (*EncryptInitResponse) ProtoMessage()    {}
 func (*EncryptInitResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{15}
+	return fileDescriptor_server_974d68ed10a22135, []int{15}
 }
 func (m *EncryptInitResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -832,7 +969,7 @@ func (m *DecryptInitRequest) Reset()         { *m = DecryptInitRequest{} }
 func (m *DecryptInitRequest) String() string { return proto.CompactTextString(m) }
 func (*DecryptInitRequest) ProtoMessage()    {}
 func (*DecryptInitRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{16}
+	return fileDescriptor_server_974d68ed10a22135, []int{16}
 }
 func (m *DecryptInitRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -886,7 +1023,7 @@ func (m *DecryptInitResponse) Reset()         { *m = DecryptInitResponse{} }
 func (m *DecryptInitResponse) String() string { return proto.CompactTextString(m) }
 func (*DecryptInitResponse) ProtoMessage()    {}
 func (*DecryptInitResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{17}
+	return fileDescriptor_server_974d68ed10a22135, []int{17}
 }
 func (m *DecryptInitResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -934,7 +1071,7 @@ func (m *EncryptUpdateRequest) Reset()         { *m = EncryptUpdateRequest{} }
 func (m *EncryptUpdateRequest) String() string { return proto.CompactTextString(m) }
 func (*EncryptUpdateRequest) ProtoMessage()    {}
 func (*EncryptUpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{18}
+	return fileDescriptor_server_974d68ed10a22135, []int{18}
 }
 func (m *EncryptUpdateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -989,7 +1126,7 @@ func (m *EncryptUpdateResponse) Reset()         { *m = EncryptUpdateResponse{} }
 func (m *EncryptUpdateResponse) String() string { return proto.CompactTextString(m) }
 func (*EncryptUpdateResponse) ProtoMessage()    {}
 func (*EncryptUpdateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{19}
+	return fileDescriptor_server_974d68ed10a22135, []int{19}
 }
 func (m *EncryptUpdateResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1044,7 +1181,7 @@ func (m *DecryptUpdateRequest) Reset()         { *m = DecryptUpdateRequest{} }
 func (m *DecryptUpdateRequest) String() string { return proto.CompactTextString(m) }
 func (*DecryptUpdateRequest) ProtoMessage()    {}
 func (*DecryptUpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{20}
+	return fileDescriptor_server_974d68ed10a22135, []int{20}
 }
 func (m *DecryptUpdateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1099,7 +1236,7 @@ func (m *DecryptUpdateResponse) Reset()         { *m = DecryptUpdateResponse{} }
 func (m *DecryptUpdateResponse) String() string { return proto.CompactTextString(m) }
 func (*DecryptUpdateResponse) ProtoMessage()    {}
 func (*DecryptUpdateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{21}
+	return fileDescriptor_server_974d68ed10a22135, []int{21}
 }
 func (m *DecryptUpdateResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1154,7 +1291,7 @@ func (m *EncryptRequest) Reset()         { *m = EncryptRequest{} }
 func (m *EncryptRequest) String() string { return proto.CompactTextString(m) }
 func (*EncryptRequest) ProtoMessage()    {}
 func (*EncryptRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{22}
+	return fileDescriptor_server_974d68ed10a22135, []int{22}
 }
 func (m *EncryptRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1208,7 +1345,7 @@ func (m *EncryptResponse) Reset()         { *m = EncryptResponse{} }
 func (m *EncryptResponse) String() string { return proto.CompactTextString(m) }
 func (*EncryptResponse) ProtoMessage()    {}
 func (*EncryptResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{23}
+	return fileDescriptor_server_974d68ed10a22135, []int{23}
 }
 func (m *EncryptResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1256,7 +1393,7 @@ func (m *DecryptRequest) Reset()         { *m = DecryptRequest{} }
 func (m *DecryptRequest) String() string { return proto.CompactTextString(m) }
 func (*DecryptRequest) ProtoMessage()    {}
 func (*DecryptRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{24}
+	return fileDescriptor_server_974d68ed10a22135, []int{24}
 }
 func (m *DecryptRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1310,7 +1447,7 @@ func (m *DecryptResponse) Reset()         { *m = DecryptResponse{} }
 func (m *DecryptResponse) String() string { return proto.CompactTextString(m) }
 func (*DecryptResponse) ProtoMessage()    {}
 func (*DecryptResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{25}
+	return fileDescriptor_server_974d68ed10a22135, []int{25}
 }
 func (m *DecryptResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1357,7 +1494,7 @@ func (m *EncryptFinalRequest) Reset()         { *m = EncryptFinalRequest{} }
 func (m *EncryptFinalRequest) String() string { return proto.CompactTextString(m) }
 func (*EncryptFinalRequest) ProtoMessage()    {}
 func (*EncryptFinalRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{26}
+	return fileDescriptor_server_974d68ed10a22135, []int{26}
 }
 func (m *EncryptFinalRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1404,7 +1541,7 @@ func (m *EncryptFinalResponse) Reset()         { *m = EncryptFinalResponse{} }
 func (m *EncryptFinalResponse) String() string { return proto.CompactTextString(m) }
 func (*EncryptFinalResponse) ProtoMessage()    {}
 func (*EncryptFinalResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{27}
+	return fileDescriptor_server_974d68ed10a22135, []int{27}
 }
 func (m *EncryptFinalResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1451,7 +1588,7 @@ func (m *DecryptFinalRequest) Reset()         { *m = DecryptFinalRequest{} }
 func (m *DecryptFinalRequest) String() string { return proto.CompactTextString(m) }
 func (*DecryptFinalRequest) ProtoMessage()    {}
 func (*DecryptFinalRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{28}
+	return fileDescriptor_server_974d68ed10a22135, []int{28}
 }
 func (m *DecryptFinalRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1498,7 +1635,7 @@ func (m *DecryptFinalResponse) Reset()         { *m = DecryptFinalResponse{} }
 func (m *DecryptFinalResponse) String() string { return proto.CompactTextString(m) }
 func (*DecryptFinalResponse) ProtoMessage()    {}
 func (*DecryptFinalResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{29}
+	return fileDescriptor_server_974d68ed10a22135, []int{29}
 }
 func (m *DecryptFinalResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1547,7 +1684,7 @@ func (m *EncryptSingleRequest) Reset()         { *m = EncryptSingleRequest{} }
 func (m *EncryptSingleRequest) String() string { return proto.CompactTextString(m) }
 func (*EncryptSingleRequest) ProtoMessage()    {}
 func (*EncryptSingleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{30}
+	return fileDescriptor_server_974d68ed10a22135, []int{30}
 }
 func (m *EncryptSingleRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1608,7 +1745,7 @@ func (m *EncryptSingleResponse) Reset()         { *m = EncryptSingleResponse{} }
 func (m *EncryptSingleResponse) String() string { return proto.CompactTextString(m) }
 func (*EncryptSingleResponse) ProtoMessage()    {}
 func (*EncryptSingleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{31}
+	return fileDescriptor_server_974d68ed10a22135, []int{31}
 }
 func (m *EncryptSingleResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1657,7 +1794,7 @@ func (m *DecryptSingleRequest) Reset()         { *m = DecryptSingleRequest{} }
 func (m *DecryptSingleRequest) String() string { return proto.CompactTextString(m) }
 func (*DecryptSingleRequest) ProtoMessage()    {}
 func (*DecryptSingleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{32}
+	return fileDescriptor_server_974d68ed10a22135, []int{32}
 }
 func (m *DecryptSingleRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1718,7 +1855,7 @@ func (m *DecryptSingleResponse) Reset()         { *m = DecryptSingleResponse{} }
 func (m *DecryptSingleResponse) String() string { return proto.CompactTextString(m) }
 func (*DecryptSingleResponse) ProtoMessage()    {}
 func (*DecryptSingleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{33}
+	return fileDescriptor_server_974d68ed10a22135, []int{33}
 }
 func (m *DecryptSingleResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1766,7 +1903,7 @@ func (m *SignInitRequest) Reset()         { *m = SignInitRequest{} }
 func (m *SignInitRequest) String() string { return proto.CompactTextString(m) }
 func (*SignInitRequest) ProtoMessage()    {}
 func (*SignInitRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{34}
+	return fileDescriptor_server_974d68ed10a22135, []int{34}
 }
 func (m *SignInitRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1820,7 +1957,7 @@ func (m *SignInitResponse) Reset()         { *m = SignInitResponse{} }
 func (m *SignInitResponse) String() string { return proto.CompactTextString(m) }
 func (*SignInitResponse) ProtoMessage()    {}
 func (*SignInitResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{35}
+	return fileDescriptor_server_974d68ed10a22135, []int{35}
 }
 func (m *SignInitResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1868,7 +2005,7 @@ func (m *VerifyInitRequest) Reset()         { *m = VerifyInitRequest{} }
 func (m *VerifyInitRequest) String() string { return proto.CompactTextString(m) }
 func (*VerifyInitRequest) ProtoMessage()    {}
 func (*VerifyInitRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{36}
+	return fileDescriptor_server_974d68ed10a22135, []int{36}
 }
 func (m *VerifyInitRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1922,7 +2059,7 @@ func (m *VerifyInitResponse) Reset()         { *m = VerifyInitResponse{} }
 func (m *VerifyInitResponse) String() string { return proto.CompactTextString(m) }
 func (*VerifyInitResponse) ProtoMessage()    {}
 func (*VerifyInitResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{37}
+	return fileDescriptor_server_974d68ed10a22135, []int{37}
 }
 func (m *VerifyInitResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1970,7 +2107,7 @@ func (m *SignUpdateRequest) Reset()         { *m = SignUpdateRequest{} }
 func (m *SignUpdateRequest) String() string { return proto.CompactTextString(m) }
 func (*SignUpdateRequest) ProtoMessage()    {}
 func (*SignUpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{38}
+	return fileDescriptor_server_974d68ed10a22135, []int{38}
 }
 func (m *SignUpdateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2024,7 +2161,7 @@ func (m *SignUpdateResponse) Reset()         { *m = SignUpdateResponse{} }
 func (m *SignUpdateResponse) String() string { return proto.CompactTextString(m) }
 func (*SignUpdateResponse) ProtoMessage()    {}
 func (*SignUpdateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{39}
+	return fileDescriptor_server_974d68ed10a22135, []int{39}
 }
 func (m *SignUpdateResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2072,7 +2209,7 @@ func (m *VerifyUpdateRequest) Reset()         { *m = VerifyUpdateRequest{} }
 func (m *VerifyUpdateRequest) String() string { return proto.CompactTextString(m) }
 func (*VerifyUpdateRequest) ProtoMessage()    {}
 func (*VerifyUpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{40}
+	return fileDescriptor_server_974d68ed10a22135, []int{40}
 }
 func (m *VerifyUpdateRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2126,7 +2263,7 @@ func (m *VerifyUpdateResponse) Reset()         { *m = VerifyUpdateResponse{} }
 func (m *VerifyUpdateResponse) String() string { return proto.CompactTextString(m) }
 func (*VerifyUpdateResponse) ProtoMessage()    {}
 func (*VerifyUpdateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{41}
+	return fileDescriptor_server_974d68ed10a22135, []int{41}
 }
 func (m *VerifyUpdateResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2173,7 +2310,7 @@ func (m *SignFinalRequest) Reset()         { *m = SignFinalRequest{} }
 func (m *SignFinalRequest) String() string { return proto.CompactTextString(m) }
 func (*SignFinalRequest) ProtoMessage()    {}
 func (*SignFinalRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{42}
+	return fileDescriptor_server_974d68ed10a22135, []int{42}
 }
 func (m *SignFinalRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2220,7 +2357,7 @@ func (m *SignFinalResponse) Reset()         { *m = SignFinalResponse{} }
 func (m *SignFinalResponse) String() string { return proto.CompactTextString(m) }
 func (*SignFinalResponse) ProtoMessage()    {}
 func (*SignFinalResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{43}
+	return fileDescriptor_server_974d68ed10a22135, []int{43}
 }
 func (m *SignFinalResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2268,7 +2405,7 @@ func (m *VerifyFinalRequest) Reset()         { *m = VerifyFinalRequest{} }
 func (m *VerifyFinalRequest) String() string { return proto.CompactTextString(m) }
 func (*VerifyFinalRequest) ProtoMessage()    {}
 func (*VerifyFinalRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{44}
+	return fileDescriptor_server_974d68ed10a22135, []int{44}
 }
 func (m *VerifyFinalRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2321,7 +2458,7 @@ func (m *VerifyFinalResponse) Reset()         { *m = VerifyFinalResponse{} }
 func (m *VerifyFinalResponse) String() string { return proto.CompactTextString(m) }
 func (*VerifyFinalResponse) ProtoMessage()    {}
 func (*VerifyFinalResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{45}
+	return fileDescriptor_server_974d68ed10a22135, []int{45}
 }
 func (m *VerifyFinalResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2362,7 +2499,7 @@ func (m *SignRequest) Reset()         { *m = SignRequest{} }
 func (m *SignRequest) String() string { return proto.CompactTextString(m) }
 func (*SignRequest) ProtoMessage()    {}
 func (*SignRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{46}
+	return fileDescriptor_server_974d68ed10a22135, []int{46}
 }
 func (m *SignRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2416,7 +2553,7 @@ func (m *SignResponse) Reset()         { *m = SignResponse{} }
 func (m *SignResponse) String() string { return proto.CompactTextString(m) }
 func (*SignResponse) ProtoMessage()    {}
 func (*SignResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{47}
+	return fileDescriptor_server_974d68ed10a22135, []int{47}
 }
 func (m *SignResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2465,7 +2602,7 @@ func (m *VerifyRequest) Reset()         { *m = VerifyRequest{} }
 func (m *VerifyRequest) String() string { return proto.CompactTextString(m) }
 func (*VerifyRequest) ProtoMessage()    {}
 func (*VerifyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{48}
+	return fileDescriptor_server_974d68ed10a22135, []int{48}
 }
 func (m *VerifyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2525,7 +2662,7 @@ func (m *VerifyResponse) Reset()         { *m = VerifyResponse{} }
 func (m *VerifyResponse) String() string { return proto.CompactTextString(m) }
 func (*VerifyResponse) ProtoMessage()    {}
 func (*VerifyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{49}
+	return fileDescriptor_server_974d68ed10a22135, []int{49}
 }
 func (m *VerifyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2567,7 +2704,7 @@ func (m *SignSingleRequest) Reset()         { *m = SignSingleRequest{} }
 func (m *SignSingleRequest) String() string { return proto.CompactTextString(m) }
 func (*SignSingleRequest) ProtoMessage()    {}
 func (*SignSingleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{50}
+	return fileDescriptor_server_974d68ed10a22135, []int{50}
 }
 func (m *SignSingleRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2628,7 +2765,7 @@ func (m *SignSingleResponse) Reset()         { *m = SignSingleResponse{} }
 func (m *SignSingleResponse) String() string { return proto.CompactTextString(m) }
 func (*SignSingleResponse) ProtoMessage()    {}
 func (*SignSingleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{51}
+	return fileDescriptor_server_974d68ed10a22135, []int{51}
 }
 func (m *SignSingleResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2678,7 +2815,7 @@ func (m *VerifySingleRequest) Reset()         { *m = VerifySingleRequest{} }
 func (m *VerifySingleRequest) String() string { return proto.CompactTextString(m) }
 func (*VerifySingleRequest) ProtoMessage()    {}
 func (*VerifySingleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{52}
+	return fileDescriptor_server_974d68ed10a22135, []int{52}
 }
 func (m *VerifySingleRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2745,7 +2882,7 @@ func (m *VerifySingleResponse) Reset()         { *m = VerifySingleResponse{} }
 func (m *VerifySingleResponse) String() string { return proto.CompactTextString(m) }
 func (*VerifySingleResponse) ProtoMessage()    {}
 func (*VerifySingleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{53}
+	return fileDescriptor_server_974d68ed10a22135, []int{53}
 }
 func (m *VerifySingleResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2775,19 +2912,19 @@ func (m *VerifySingleResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_VerifySingleResponse proto.InternalMessageInfo
 
 type GenerateKeyRequest struct {
-	Mech                 *Mechanism                                                                             `protobuf:"bytes,1,opt,name=Mech" json:"Mech,omitempty"`
-	Template             map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,2,rep,name=Template,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Template,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	KeyId                string                                                                                 `protobuf:"bytes,4,opt,name=KeyId,proto3" json:"KeyId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                                                                               `json:"-"`
-	XXX_unrecognized     []byte                                                                                 `json:"-"`
-	XXX_sizecache        int32                                                                                  `json:"-"`
+	Mech                 *Mechanism                                                                                      `protobuf:"bytes,1,opt,name=Mech" json:"Mech,omitempty"`
+	KeyId                string                                                                                          `protobuf:"bytes,4,opt,name=KeyId,proto3" json:"KeyId,omitempty"`
+	Template             map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue `protobuf:"bytes,6,rep,name=Template,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Template,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}                                                                                        `json:"-"`
+	XXX_unrecognized     []byte                                                                                          `json:"-"`
+	XXX_sizecache        int32                                                                                           `json:"-"`
 }
 
 func (m *GenerateKeyRequest) Reset()         { *m = GenerateKeyRequest{} }
 func (m *GenerateKeyRequest) String() string { return proto.CompactTextString(m) }
 func (*GenerateKeyRequest) ProtoMessage()    {}
 func (*GenerateKeyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{54}
+	return fileDescriptor_server_974d68ed10a22135, []int{54}
 }
 func (m *GenerateKeyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2823,18 +2960,18 @@ func (m *GenerateKeyRequest) GetMech() *Mechanism {
 	return nil
 }
 
-func (m *GenerateKeyRequest) GetTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
-	if m != nil {
-		return m.Template
-	}
-	return nil
-}
-
 func (m *GenerateKeyRequest) GetKeyId() string {
 	if m != nil {
 		return m.KeyId
 	}
 	return ""
+}
+
+func (m *GenerateKeyRequest) GetTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue {
+	if m != nil {
+		return m.Template
+	}
+	return nil
 }
 
 type GenerateKeyResponse struct {
@@ -2849,7 +2986,7 @@ func (m *GenerateKeyResponse) Reset()         { *m = GenerateKeyResponse{} }
 func (m *GenerateKeyResponse) String() string { return proto.CompactTextString(m) }
 func (*GenerateKeyResponse) ProtoMessage()    {}
 func (*GenerateKeyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{55}
+	return fileDescriptor_server_974d68ed10a22135, []int{55}
 }
 func (m *GenerateKeyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2893,21 +3030,21 @@ func (m *GenerateKeyResponse) GetCheckSum() []byte {
 }
 
 type GenerateKeyPairRequest struct {
-	Mech                 *Mechanism                                                                             `protobuf:"bytes,1,opt,name=Mech" json:"Mech,omitempty"`
-	PubKeyTemplate       map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,2,rep,name=PubKeyTemplate,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"PubKeyTemplate,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	PrivKeyTemplate      map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,3,rep,name=PrivKeyTemplate,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"PrivKeyTemplate,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	PrivKeyId            string                                                                                 `protobuf:"bytes,5,opt,name=PrivKeyId,proto3" json:"PrivKeyId,omitempty"`
-	PubKeyId             string                                                                                 `protobuf:"bytes,6,opt,name=PubKeyId,proto3" json:"PubKeyId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                                                                               `json:"-"`
-	XXX_unrecognized     []byte                                                                                 `json:"-"`
-	XXX_sizecache        int32                                                                                  `json:"-"`
+	Mech                 *Mechanism                                                                                      `protobuf:"bytes,1,opt,name=Mech" json:"Mech,omitempty"`
+	PrivKeyId            string                                                                                          `protobuf:"bytes,5,opt,name=PrivKeyId,proto3" json:"PrivKeyId,omitempty"`
+	PubKeyId             string                                                                                          `protobuf:"bytes,6,opt,name=PubKeyId,proto3" json:"PubKeyId,omitempty"`
+	PrivKeyTemplate      map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue `protobuf:"bytes,7,rep,name=PrivKeyTemplate,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"PrivKeyTemplate,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	PubKeyTemplate       map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue `protobuf:"bytes,8,rep,name=PubKeyTemplate,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"PubKeyTemplate,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}                                                                                        `json:"-"`
+	XXX_unrecognized     []byte                                                                                          `json:"-"`
+	XXX_sizecache        int32                                                                                           `json:"-"`
 }
 
 func (m *GenerateKeyPairRequest) Reset()         { *m = GenerateKeyPairRequest{} }
 func (m *GenerateKeyPairRequest) String() string { return proto.CompactTextString(m) }
 func (*GenerateKeyPairRequest) ProtoMessage()    {}
 func (*GenerateKeyPairRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{56}
+	return fileDescriptor_server_974d68ed10a22135, []int{56}
 }
 func (m *GenerateKeyPairRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2943,20 +3080,6 @@ func (m *GenerateKeyPairRequest) GetMech() *Mechanism {
 	return nil
 }
 
-func (m *GenerateKeyPairRequest) GetPubKeyTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
-	if m != nil {
-		return m.PubKeyTemplate
-	}
-	return nil
-}
-
-func (m *GenerateKeyPairRequest) GetPrivKeyTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
-	if m != nil {
-		return m.PrivKeyTemplate
-	}
-	return nil
-}
-
 func (m *GenerateKeyPairRequest) GetPrivKeyId() string {
 	if m != nil {
 		return m.PrivKeyId
@@ -2971,6 +3094,20 @@ func (m *GenerateKeyPairRequest) GetPubKeyId() string {
 	return ""
 }
 
+func (m *GenerateKeyPairRequest) GetPrivKeyTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue {
+	if m != nil {
+		return m.PrivKeyTemplate
+	}
+	return nil
+}
+
+func (m *GenerateKeyPairRequest) GetPubKeyTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue {
+	if m != nil {
+		return m.PubKeyTemplate
+	}
+	return nil
+}
+
 type GenerateKeyPairResponse struct {
 	PrivKey              []byte   `protobuf:"bytes,5,opt,name=PrivKey,proto3" json:"PrivKey,omitempty"`
 	PubKey               []byte   `protobuf:"bytes,6,opt,name=PubKey,proto3" json:"PubKey,omitempty"`
@@ -2983,7 +3120,7 @@ func (m *GenerateKeyPairResponse) Reset()         { *m = GenerateKeyPairResponse
 func (m *GenerateKeyPairResponse) String() string { return proto.CompactTextString(m) }
 func (*GenerateKeyPairResponse) ProtoMessage()    {}
 func (*GenerateKeyPairResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{57}
+	return fileDescriptor_server_974d68ed10a22135, []int{57}
 }
 func (m *GenerateKeyPairResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3040,7 +3177,7 @@ func (m *WrapKeyRequest) Reset()         { *m = WrapKeyRequest{} }
 func (m *WrapKeyRequest) String() string { return proto.CompactTextString(m) }
 func (*WrapKeyRequest) ProtoMessage()    {}
 func (*WrapKeyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{58}
+	return fileDescriptor_server_974d68ed10a22135, []int{58}
 }
 func (m *WrapKeyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3108,7 +3245,7 @@ func (m *WrapKeyResponse) Reset()         { *m = WrapKeyResponse{} }
 func (m *WrapKeyResponse) String() string { return proto.CompactTextString(m) }
 func (*WrapKeyResponse) ProtoMessage()    {}
 func (*WrapKeyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{59}
+	return fileDescriptor_server_974d68ed10a22135, []int{59}
 }
 func (m *WrapKeyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3145,22 +3282,22 @@ func (m *WrapKeyResponse) GetWrapped() []byte {
 }
 
 type UnwrapKeyRequest struct {
-	Wrapped              []byte                                                                                 `protobuf:"bytes,1,opt,name=Wrapped,proto3" json:"Wrapped,omitempty"`
-	KeK                  []byte                                                                                 `protobuf:"bytes,2,opt,name=KeK,proto3" json:"KeK,omitempty"`
-	MacKey               []byte                                                                                 `protobuf:"bytes,3,opt,name=MacKey,proto3" json:"MacKey,omitempty"`
-	Mech                 *Mechanism                                                                             `protobuf:"bytes,5,opt,name=Mech" json:"Mech,omitempty"`
-	Template             map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,6,rep,name=Template,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Template,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	UnwrappedId          string                                                                                 `protobuf:"bytes,7,opt,name=UnwrappedId,proto3" json:"UnwrappedId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                                                                               `json:"-"`
-	XXX_unrecognized     []byte                                                                                 `json:"-"`
-	XXX_sizecache        int32                                                                                  `json:"-"`
+	Wrapped              []byte                                                                                          `protobuf:"bytes,1,opt,name=Wrapped,proto3" json:"Wrapped,omitempty"`
+	KeK                  []byte                                                                                          `protobuf:"bytes,2,opt,name=KeK,proto3" json:"KeK,omitempty"`
+	MacKey               []byte                                                                                          `protobuf:"bytes,3,opt,name=MacKey,proto3" json:"MacKey,omitempty"`
+	Mech                 *Mechanism                                                                                      `protobuf:"bytes,5,opt,name=Mech" json:"Mech,omitempty"`
+	UnwrappedId          string                                                                                          `protobuf:"bytes,7,opt,name=UnwrappedId,proto3" json:"UnwrappedId,omitempty"`
+	Template             map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue `protobuf:"bytes,9,rep,name=Template,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Template,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}                                                                                        `json:"-"`
+	XXX_unrecognized     []byte                                                                                          `json:"-"`
+	XXX_sizecache        int32                                                                                           `json:"-"`
 }
 
 func (m *UnwrapKeyRequest) Reset()         { *m = UnwrapKeyRequest{} }
 func (m *UnwrapKeyRequest) String() string { return proto.CompactTextString(m) }
 func (*UnwrapKeyRequest) ProtoMessage()    {}
 func (*UnwrapKeyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{60}
+	return fileDescriptor_server_974d68ed10a22135, []int{60}
 }
 func (m *UnwrapKeyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3217,18 +3354,18 @@ func (m *UnwrapKeyRequest) GetMech() *Mechanism {
 	return nil
 }
 
-func (m *UnwrapKeyRequest) GetTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
-	if m != nil {
-		return m.Template
-	}
-	return nil
-}
-
 func (m *UnwrapKeyRequest) GetUnwrappedId() string {
 	if m != nil {
 		return m.UnwrappedId
 	}
 	return ""
+}
+
+func (m *UnwrapKeyRequest) GetTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue {
+	if m != nil {
+		return m.Template
+	}
+	return nil
 }
 
 type UnwrapKeyResponse struct {
@@ -3243,7 +3380,7 @@ func (m *UnwrapKeyResponse) Reset()         { *m = UnwrapKeyResponse{} }
 func (m *UnwrapKeyResponse) String() string { return proto.CompactTextString(m) }
 func (*UnwrapKeyResponse) ProtoMessage()    {}
 func (*UnwrapKeyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{61}
+	return fileDescriptor_server_974d68ed10a22135, []int{61}
 }
 func (m *UnwrapKeyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3287,21 +3424,21 @@ func (m *UnwrapKeyResponse) GetCheckSum() []byte {
 }
 
 type DeriveKeyRequest struct {
-	Mech                 *Mechanism                                                                             `protobuf:"bytes,1,opt,name=Mech" json:"Mech,omitempty"`
-	Template             map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,2,rep,name=Template,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Template,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	BaseKey              []byte                                                                                 `protobuf:"bytes,3,opt,name=BaseKey,proto3" json:"BaseKey,omitempty"`
-	Data                 []byte                                                                                 `protobuf:"bytes,4,opt,name=Data,proto3" json:"Data,omitempty"`
-	NewKeyId             string                                                                                 `protobuf:"bytes,6,opt,name=NewKeyId,proto3" json:"NewKeyId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                                                                               `json:"-"`
-	XXX_unrecognized     []byte                                                                                 `json:"-"`
-	XXX_sizecache        int32                                                                                  `json:"-"`
+	Mech                 *Mechanism                                                                                      `protobuf:"bytes,1,opt,name=Mech" json:"Mech,omitempty"`
+	BaseKey              []byte                                                                                          `protobuf:"bytes,3,opt,name=BaseKey,proto3" json:"BaseKey,omitempty"`
+	Data                 []byte                                                                                          `protobuf:"bytes,4,opt,name=Data,proto3" json:"Data,omitempty"`
+	NewKeyId             string                                                                                          `protobuf:"bytes,6,opt,name=NewKeyId,proto3" json:"NewKeyId,omitempty"`
+	Template             map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue `protobuf:"bytes,8,rep,name=Template,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Template,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}                                                                                        `json:"-"`
+	XXX_unrecognized     []byte                                                                                          `json:"-"`
+	XXX_sizecache        int32                                                                                           `json:"-"`
 }
 
 func (m *DeriveKeyRequest) Reset()         { *m = DeriveKeyRequest{} }
 func (m *DeriveKeyRequest) String() string { return proto.CompactTextString(m) }
 func (*DeriveKeyRequest) ProtoMessage()    {}
 func (*DeriveKeyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{62}
+	return fileDescriptor_server_974d68ed10a22135, []int{62}
 }
 func (m *DeriveKeyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3337,13 +3474,6 @@ func (m *DeriveKeyRequest) GetMech() *Mechanism {
 	return nil
 }
 
-func (m *DeriveKeyRequest) GetTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
-	if m != nil {
-		return m.Template
-	}
-	return nil
-}
-
 func (m *DeriveKeyRequest) GetBaseKey() []byte {
 	if m != nil {
 		return m.BaseKey
@@ -3365,6 +3495,13 @@ func (m *DeriveKeyRequest) GetNewKeyId() string {
 	return ""
 }
 
+func (m *DeriveKeyRequest) GetTemplate() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue {
+	if m != nil {
+		return m.Template
+	}
+	return nil
+}
+
 type DeriveKeyResponse struct {
 	NewKey               []byte   `protobuf:"bytes,6,opt,name=NewKey,proto3" json:"NewKey,omitempty"`
 	CheckSum             []byte   `protobuf:"bytes,7,opt,name=CheckSum,proto3" json:"CheckSum,omitempty"`
@@ -3377,7 +3514,7 @@ func (m *DeriveKeyResponse) Reset()         { *m = DeriveKeyResponse{} }
 func (m *DeriveKeyResponse) String() string { return proto.CompactTextString(m) }
 func (*DeriveKeyResponse) ProtoMessage()    {}
 func (*DeriveKeyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{63}
+	return fileDescriptor_server_974d68ed10a22135, []int{63}
 }
 func (m *DeriveKeyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3430,7 +3567,7 @@ func (m *GetMechanismListRequest) Reset()         { *m = GetMechanismListRequest
 func (m *GetMechanismListRequest) String() string { return proto.CompactTextString(m) }
 func (*GetMechanismListRequest) ProtoMessage()    {}
 func (*GetMechanismListRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{64}
+	return fileDescriptor_server_974d68ed10a22135, []int{64}
 }
 func (m *GetMechanismListRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3470,7 +3607,7 @@ func (m *GetMechanismListResponse) Reset()         { *m = GetMechanismListRespon
 func (m *GetMechanismListResponse) String() string { return proto.CompactTextString(m) }
 func (*GetMechanismListResponse) ProtoMessage()    {}
 func (*GetMechanismListResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{65}
+	return fileDescriptor_server_974d68ed10a22135, []int{65}
 }
 func (m *GetMechanismListResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3517,7 +3654,7 @@ func (m *GetMechanismInfoRequest) Reset()         { *m = GetMechanismInfoRequest
 func (m *GetMechanismInfoRequest) String() string { return proto.CompactTextString(m) }
 func (*GetMechanismInfoRequest) ProtoMessage()    {}
 func (*GetMechanismInfoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{66}
+	return fileDescriptor_server_974d68ed10a22135, []int{66}
 }
 func (m *GetMechanismInfoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3564,7 +3701,7 @@ func (m *GetMechanismInfoResponse) Reset()         { *m = GetMechanismInfoRespon
 func (m *GetMechanismInfoResponse) String() string { return proto.CompactTextString(m) }
 func (*GetMechanismInfoResponse) ProtoMessage()    {}
 func (*GetMechanismInfoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{67}
+	return fileDescriptor_server_974d68ed10a22135, []int{67}
 }
 func (m *GetMechanismInfoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3601,18 +3738,19 @@ func (m *GetMechanismInfoResponse) GetMechInfo() *MechanismInfo {
 }
 
 type GetAttributeValueRequest struct {
-	Object               []byte                                                                                 `protobuf:"bytes,1,opt,name=Object,proto3" json:"Object,omitempty"`
-	Attributes           map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,2,rep,name=Attributes,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Attributes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}                                                                               `json:"-"`
-	XXX_unrecognized     []byte                                                                                 `json:"-"`
-	XXX_sizecache        int32                                                                                  `json:"-"`
+	Object               []byte                                                                                          `protobuf:"bytes,1,opt,name=Object,proto3" json:"Object,omitempty"`
+	AttributesBytes      map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte          `protobuf:"bytes,2,rep,name=AttributesBytes,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"AttributesBytes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Attributes           map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue `protobuf:"bytes,3,rep,name=Attributes,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Attributes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}                                                                                        `json:"-"`
+	XXX_unrecognized     []byte                                                                                          `json:"-"`
+	XXX_sizecache        int32                                                                                           `json:"-"`
 }
 
 func (m *GetAttributeValueRequest) Reset()         { *m = GetAttributeValueRequest{} }
 func (m *GetAttributeValueRequest) String() string { return proto.CompactTextString(m) }
 func (*GetAttributeValueRequest) ProtoMessage()    {}
 func (*GetAttributeValueRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{68}
+	return fileDescriptor_server_974d68ed10a22135, []int{68}
 }
 func (m *GetAttributeValueRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3648,7 +3786,14 @@ func (m *GetAttributeValueRequest) GetObject() []byte {
 	return nil
 }
 
-func (m *GetAttributeValueRequest) GetAttributes() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
+func (m *GetAttributeValueRequest) GetAttributesBytes() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
+	if m != nil {
+		return m.AttributesBytes
+	}
+	return nil
+}
+
+func (m *GetAttributeValueRequest) GetAttributes() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue {
 	if m != nil {
 		return m.Attributes
 	}
@@ -3656,7 +3801,7 @@ func (m *GetAttributeValueRequest) GetAttributes() map[github_com_ibm_developer_
 }
 
 type GetAttributeValueResponse struct {
-	Attributes           map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,2,rep,name=Attributes,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Attributes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	AttributesBytes      map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,2,rep,name=AttributesBytes,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"AttributesBytes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	XXX_NoUnkeyedLiteral struct{}                                                                               `json:"-"`
 	XXX_unrecognized     []byte                                                                                 `json:"-"`
 	XXX_sizecache        int32                                                                                  `json:"-"`
@@ -3666,7 +3811,7 @@ func (m *GetAttributeValueResponse) Reset()         { *m = GetAttributeValueResp
 func (m *GetAttributeValueResponse) String() string { return proto.CompactTextString(m) }
 func (*GetAttributeValueResponse) ProtoMessage()    {}
 func (*GetAttributeValueResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{69}
+	return fileDescriptor_server_974d68ed10a22135, []int{69}
 }
 func (m *GetAttributeValueResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3695,26 +3840,27 @@ func (m *GetAttributeValueResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetAttributeValueResponse proto.InternalMessageInfo
 
-func (m *GetAttributeValueResponse) GetAttributes() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
+func (m *GetAttributeValueResponse) GetAttributesBytes() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
 	if m != nil {
-		return m.Attributes
+		return m.AttributesBytes
 	}
 	return nil
 }
 
 type SetAttributeValueRequest struct {
-	Object               []byte                                                                                 `protobuf:"bytes,1,opt,name=Object,proto3" json:"Object,omitempty"`
-	Attributes           map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte `protobuf:"bytes,2,rep,name=Attributes,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Attributes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}                                                                               `json:"-"`
-	XXX_unrecognized     []byte                                                                                 `json:"-"`
-	XXX_sizecache        int32                                                                                  `json:"-"`
+	Object               []byte                                                                                          `protobuf:"bytes,1,opt,name=Object,proto3" json:"Object,omitempty"`
+	AttributesBytes      map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte          `protobuf:"bytes,2,rep,name=AttributesBytes,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"AttributesBytes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Attributes           map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue `protobuf:"bytes,3,rep,name=Attributes,castkey=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute" json:"Attributes,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	XXX_NoUnkeyedLiteral struct{}                                                                                        `json:"-"`
+	XXX_unrecognized     []byte                                                                                          `json:"-"`
+	XXX_sizecache        int32                                                                                           `json:"-"`
 }
 
 func (m *SetAttributeValueRequest) Reset()         { *m = SetAttributeValueRequest{} }
 func (m *SetAttributeValueRequest) String() string { return proto.CompactTextString(m) }
 func (*SetAttributeValueRequest) ProtoMessage()    {}
 func (*SetAttributeValueRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{70}
+	return fileDescriptor_server_974d68ed10a22135, []int{70}
 }
 func (m *SetAttributeValueRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3750,7 +3896,14 @@ func (m *SetAttributeValueRequest) GetObject() []byte {
 	return nil
 }
 
-func (m *SetAttributeValueRequest) GetAttributes() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
+func (m *SetAttributeValueRequest) GetAttributesBytes() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte {
+	if m != nil {
+		return m.AttributesBytes
+	}
+	return nil
+}
+
+func (m *SetAttributeValueRequest) GetAttributes() map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue {
 	if m != nil {
 		return m.Attributes
 	}
@@ -3768,7 +3921,7 @@ func (m *SetAttributeValueResponse) Reset()         { *m = SetAttributeValueResp
 func (m *SetAttributeValueResponse) String() string { return proto.CompactTextString(m) }
 func (*SetAttributeValueResponse) ProtoMessage()    {}
 func (*SetAttributeValueResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{71}
+	return fileDescriptor_server_974d68ed10a22135, []int{71}
 }
 func (m *SetAttributeValueResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3805,18 +3958,22 @@ func (m *SetAttributeValueResponse) GetObject() []byte {
 }
 
 type Mechanism struct {
-	Mechanism            github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism `protobuf:"varint,1,opt,name=Mechanism,proto3,casttype=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Mechanism" json:"Mechanism,omitempty"`
-	Parameter            []byte                                                                      `protobuf:"bytes,2,opt,name=Parameter,proto3" json:"Parameter,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                                                                    `json:"-"`
-	XXX_unrecognized     []byte                                                                      `json:"-"`
-	XXX_sizecache        int32                                                                       `json:"-"`
+	Mechanism github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism `protobuf:"varint,1,opt,name=Mechanism,proto3,casttype=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Mechanism" json:"Mechanism,omitempty"`
+	// Types that are valid to be assigned to Parameter:
+	//	*Mechanism_ParameterB
+	//	*Mechanism_RSAOAEPParameter
+	//	*Mechanism_RSAPSSParameter
+	Parameter            isMechanism_Parameter `protobuf_oneof:"Parameter"`
+	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
+	XXX_unrecognized     []byte                `json:"-"`
+	XXX_sizecache        int32                 `json:"-"`
 }
 
 func (m *Mechanism) Reset()         { *m = Mechanism{} }
 func (m *Mechanism) String() string { return proto.CompactTextString(m) }
 func (*Mechanism) ProtoMessage()    {}
 func (*Mechanism) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{72}
+	return fileDescriptor_server_974d68ed10a22135, []int{72}
 }
 func (m *Mechanism) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3845,6 +4002,33 @@ func (m *Mechanism) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Mechanism proto.InternalMessageInfo
 
+type isMechanism_Parameter interface {
+	isMechanism_Parameter()
+	MarshalTo([]byte) (int, error)
+	Size() int
+}
+
+type Mechanism_ParameterB struct {
+	ParameterB []byte `protobuf:"bytes,2,opt,name=ParameterB,proto3,oneof"`
+}
+type Mechanism_RSAOAEPParameter struct {
+	RSAOAEPParameter *RSAOAEPParm `protobuf:"bytes,3,opt,name=RSAOAEPParameter,oneof"`
+}
+type Mechanism_RSAPSSParameter struct {
+	RSAPSSParameter *RSAPSSParm `protobuf:"bytes,4,opt,name=RSAPSSParameter,oneof"`
+}
+
+func (*Mechanism_ParameterB) isMechanism_Parameter()       {}
+func (*Mechanism_RSAOAEPParameter) isMechanism_Parameter() {}
+func (*Mechanism_RSAPSSParameter) isMechanism_Parameter()  {}
+
+func (m *Mechanism) GetParameter() isMechanism_Parameter {
+	if m != nil {
+		return m.Parameter
+	}
+	return nil
+}
+
 func (m *Mechanism) GetMechanism() github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism {
 	if m != nil {
 		return m.Mechanism
@@ -3852,11 +4036,114 @@ func (m *Mechanism) GetMechanism() github_com_ibm_developer_ibm_cloud_hyperprote
 	return 0
 }
 
-func (m *Mechanism) GetParameter() []byte {
-	if m != nil {
-		return m.Parameter
+func (m *Mechanism) GetParameterB() []byte {
+	if x, ok := m.GetParameter().(*Mechanism_ParameterB); ok {
+		return x.ParameterB
 	}
 	return nil
+}
+
+func (m *Mechanism) GetRSAOAEPParameter() *RSAOAEPParm {
+	if x, ok := m.GetParameter().(*Mechanism_RSAOAEPParameter); ok {
+		return x.RSAOAEPParameter
+	}
+	return nil
+}
+
+func (m *Mechanism) GetRSAPSSParameter() *RSAPSSParm {
+	if x, ok := m.GetParameter().(*Mechanism_RSAPSSParameter); ok {
+		return x.RSAPSSParameter
+	}
+	return nil
+}
+
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*Mechanism) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
+	return _Mechanism_OneofMarshaler, _Mechanism_OneofUnmarshaler, _Mechanism_OneofSizer, []interface{}{
+		(*Mechanism_ParameterB)(nil),
+		(*Mechanism_RSAOAEPParameter)(nil),
+		(*Mechanism_RSAPSSParameter)(nil),
+	}
+}
+
+func _Mechanism_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*Mechanism)
+	// Parameter
+	switch x := m.Parameter.(type) {
+	case *Mechanism_ParameterB:
+		_ = b.EncodeVarint(2<<3 | proto.WireBytes)
+		_ = b.EncodeRawBytes(x.ParameterB)
+	case *Mechanism_RSAOAEPParameter:
+		_ = b.EncodeVarint(3<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.RSAOAEPParameter); err != nil {
+			return err
+		}
+	case *Mechanism_RSAPSSParameter:
+		_ = b.EncodeVarint(4<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.RSAPSSParameter); err != nil {
+			return err
+		}
+	case nil:
+	default:
+		return fmt.Errorf("Mechanism.Parameter has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _Mechanism_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*Mechanism)
+	switch tag {
+	case 2: // Parameter.ParameterB
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		x, err := b.DecodeRawBytes(true)
+		m.Parameter = &Mechanism_ParameterB{x}
+		return true, err
+	case 3: // Parameter.RSAOAEPParameter
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(RSAOAEPParm)
+		err := b.DecodeMessage(msg)
+		m.Parameter = &Mechanism_RSAOAEPParameter{msg}
+		return true, err
+	case 4: // Parameter.RSAPSSParameter
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(RSAPSSParm)
+		err := b.DecodeMessage(msg)
+		m.Parameter = &Mechanism_RSAPSSParameter{msg}
+		return true, err
+	default:
+		return false, nil
+	}
+}
+
+func _Mechanism_OneofSizer(msg proto.Message) (n int) {
+	m := msg.(*Mechanism)
+	// Parameter
+	switch x := m.Parameter.(type) {
+	case *Mechanism_ParameterB:
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(len(x.ParameterB)))
+		n += len(x.ParameterB)
+	case *Mechanism_RSAOAEPParameter:
+		s := proto.Size(x.RSAOAEPParameter)
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *Mechanism_RSAPSSParameter:
+		s := proto.Size(x.RSAPSSParameter)
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case nil:
+	default:
+		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
+	}
+	return n
 }
 
 type MechanismInfo struct {
@@ -3872,7 +4159,7 @@ func (m *MechanismInfo) Reset()         { *m = MechanismInfo{} }
 func (m *MechanismInfo) String() string { return proto.CompactTextString(m) }
 func (*MechanismInfo) ProtoMessage()    {}
 func (*MechanismInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{73}
+	return fileDescriptor_server_974d68ed10a22135, []int{73}
 }
 func (m *MechanismInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3935,7 +4222,7 @@ func (m *Grep11Error) Reset()         { *m = Grep11Error{} }
 func (m *Grep11Error) String() string { return proto.CompactTextString(m) }
 func (*Grep11Error) ProtoMessage()    {}
 func (*Grep11Error) Descriptor() ([]byte, []int) {
-	return fileDescriptor_server_2b449d55aaf66cf7, []int{74}
+	return fileDescriptor_server_974d68ed10a22135, []int{74}
 }
 func (m *Grep11Error) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3983,6 +4270,519 @@ func (m *Grep11Error) GetRetry() bool {
 		return m.Retry
 	}
 	return false
+}
+
+type RSAOAEPParm struct {
+	HashMech             github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism `protobuf:"varint,1,opt,name=HashMech,proto3,casttype=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Mechanism" json:"HashMech,omitempty"`
+	Mgf                  RSAOAEPParm_Mask                                                            `protobuf:"varint,2,opt,name=Mgf,proto3,enum=grep11.RSAOAEPParm_Mask" json:"Mgf,omitempty"`
+	EncodingParmType     RSAOAEPParm_ParmType                                                        `protobuf:"varint,3,opt,name=EncodingParmType,proto3,enum=grep11.RSAOAEPParm_ParmType" json:"EncodingParmType,omitempty"`
+	EncodingParm         []byte                                                                      `protobuf:"bytes,4,opt,name=EncodingParm,proto3" json:"EncodingParm,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                                                                    `json:"-"`
+	XXX_unrecognized     []byte                                                                      `json:"-"`
+	XXX_sizecache        int32                                                                       `json:"-"`
+}
+
+func (m *RSAOAEPParm) Reset()         { *m = RSAOAEPParm{} }
+func (m *RSAOAEPParm) String() string { return proto.CompactTextString(m) }
+func (*RSAOAEPParm) ProtoMessage()    {}
+func (*RSAOAEPParm) Descriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{75}
+}
+func (m *RSAOAEPParm) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *RSAOAEPParm) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_RSAOAEPParm.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (dst *RSAOAEPParm) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RSAOAEPParm.Merge(dst, src)
+}
+func (m *RSAOAEPParm) XXX_Size() int {
+	return m.Size()
+}
+func (m *RSAOAEPParm) XXX_DiscardUnknown() {
+	xxx_messageInfo_RSAOAEPParm.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RSAOAEPParm proto.InternalMessageInfo
+
+func (m *RSAOAEPParm) GetHashMech() github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism {
+	if m != nil {
+		return m.HashMech
+	}
+	return 0
+}
+
+func (m *RSAOAEPParm) GetMgf() RSAOAEPParm_Mask {
+	if m != nil {
+		return m.Mgf
+	}
+	return RSAOAEPParm_CkgMgf1None
+}
+
+func (m *RSAOAEPParm) GetEncodingParmType() RSAOAEPParm_ParmType {
+	if m != nil {
+		return m.EncodingParmType
+	}
+	return RSAOAEPParm_CkzNoDataSpecified
+}
+
+func (m *RSAOAEPParm) GetEncodingParm() []byte {
+	if m != nil {
+		return m.EncodingParm
+	}
+	return nil
+}
+
+type RSAPSSParm struct {
+	HashMech             github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism `protobuf:"varint,1,opt,name=HashMech,proto3,casttype=github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Mechanism" json:"HashMech,omitempty"`
+	Mgf                  RSAPSSParm_Mask                                                             `protobuf:"varint,2,opt,name=Mgf,proto3,enum=grep11.RSAPSSParm_Mask" json:"Mgf,omitempty"`
+	SaltByteCount        uint64                                                                      `protobuf:"varint,3,opt,name=SaltByteCount,proto3" json:"SaltByteCount,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                                                                    `json:"-"`
+	XXX_unrecognized     []byte                                                                      `json:"-"`
+	XXX_sizecache        int32                                                                       `json:"-"`
+}
+
+func (m *RSAPSSParm) Reset()         { *m = RSAPSSParm{} }
+func (m *RSAPSSParm) String() string { return proto.CompactTextString(m) }
+func (*RSAPSSParm) ProtoMessage()    {}
+func (*RSAPSSParm) Descriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{76}
+}
+func (m *RSAPSSParm) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *RSAPSSParm) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_RSAPSSParm.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (dst *RSAPSSParm) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RSAPSSParm.Merge(dst, src)
+}
+func (m *RSAPSSParm) XXX_Size() int {
+	return m.Size()
+}
+func (m *RSAPSSParm) XXX_DiscardUnknown() {
+	xxx_messageInfo_RSAPSSParm.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RSAPSSParm proto.InternalMessageInfo
+
+func (m *RSAPSSParm) GetHashMech() github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism {
+	if m != nil {
+		return m.HashMech
+	}
+	return 0
+}
+
+func (m *RSAPSSParm) GetMgf() RSAPSSParm_Mask {
+	if m != nil {
+		return m.Mgf
+	}
+	return RSAPSSParm_CkgMgf1None
+}
+
+func (m *RSAPSSParm) GetSaltByteCount() uint64 {
+	if m != nil {
+		return m.SaltByteCount
+	}
+	return 0
+}
+
+type ECDH1DeriveParm struct {
+	Kdf                  ECDH1DeriveParm_KeyDerivationFunction `protobuf:"varint,1,opt,name=Kdf,proto3,enum=grep11.ECDH1DeriveParm_KeyDerivationFunction" json:"Kdf,omitempty"`
+	SharedData           []byte                                `protobuf:"bytes,2,opt,name=SharedData,proto3" json:"SharedData,omitempty"`
+	PublicData           []byte                                `protobuf:"bytes,3,opt,name=PublicData,proto3" json:"PublicData,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                              `json:"-"`
+	XXX_unrecognized     []byte                                `json:"-"`
+	XXX_sizecache        int32                                 `json:"-"`
+}
+
+func (m *ECDH1DeriveParm) Reset()         { *m = ECDH1DeriveParm{} }
+func (m *ECDH1DeriveParm) String() string { return proto.CompactTextString(m) }
+func (*ECDH1DeriveParm) ProtoMessage()    {}
+func (*ECDH1DeriveParm) Descriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{77}
+}
+func (m *ECDH1DeriveParm) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ECDH1DeriveParm) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ECDH1DeriveParm.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (dst *ECDH1DeriveParm) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ECDH1DeriveParm.Merge(dst, src)
+}
+func (m *ECDH1DeriveParm) XXX_Size() int {
+	return m.Size()
+}
+func (m *ECDH1DeriveParm) XXX_DiscardUnknown() {
+	xxx_messageInfo_ECDH1DeriveParm.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ECDH1DeriveParm proto.InternalMessageInfo
+
+func (m *ECDH1DeriveParm) GetKdf() ECDH1DeriveParm_KeyDerivationFunction {
+	if m != nil {
+		return m.Kdf
+	}
+	return ECDH1DeriveParm_CkdNotUsed0
+}
+
+func (m *ECDH1DeriveParm) GetSharedData() []byte {
+	if m != nil {
+		return m.SharedData
+	}
+	return nil
+}
+
+func (m *ECDH1DeriveParm) GetPublicData() []byte {
+	if m != nil {
+		return m.PublicData
+	}
+	return nil
+}
+
+type HMACGeneralParm struct {
+	ReturnByteCount      uint32   `protobuf:"varint,1,opt,name=ReturnByteCount,proto3" json:"ReturnByteCount,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *HMACGeneralParm) Reset()         { *m = HMACGeneralParm{} }
+func (m *HMACGeneralParm) String() string { return proto.CompactTextString(m) }
+func (*HMACGeneralParm) ProtoMessage()    {}
+func (*HMACGeneralParm) Descriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{78}
+}
+func (m *HMACGeneralParm) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *HMACGeneralParm) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_HMACGeneralParm.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (dst *HMACGeneralParm) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HMACGeneralParm.Merge(dst, src)
+}
+func (m *HMACGeneralParm) XXX_Size() int {
+	return m.Size()
+}
+func (m *HMACGeneralParm) XXX_DiscardUnknown() {
+	xxx_messageInfo_HMACGeneralParm.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_HMACGeneralParm proto.InternalMessageInfo
+
+func (m *HMACGeneralParm) GetReturnByteCount() uint32 {
+	if m != nil {
+		return m.ReturnByteCount
+	}
+	return 0
+}
+
+type ReEncryptRequest struct {
+	WrappedKey           []byte   `protobuf:"bytes,1,opt,name=WrappedKey,proto3" json:"WrappedKey,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReEncryptRequest) Reset()         { *m = ReEncryptRequest{} }
+func (m *ReEncryptRequest) String() string { return proto.CompactTextString(m) }
+func (*ReEncryptRequest) ProtoMessage()    {}
+func (*ReEncryptRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{79}
+}
+func (m *ReEncryptRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ReEncryptRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ReEncryptRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (dst *ReEncryptRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReEncryptRequest.Merge(dst, src)
+}
+func (m *ReEncryptRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *ReEncryptRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReEncryptRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReEncryptRequest proto.InternalMessageInfo
+
+func (m *ReEncryptRequest) GetWrappedKey() []byte {
+	if m != nil {
+		return m.WrappedKey
+	}
+	return nil
+}
+
+type ReEncryptResponse struct {
+	WrappedKey           []byte   `protobuf:"bytes,1,opt,name=WrappedKey,proto3" json:"WrappedKey,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReEncryptResponse) Reset()         { *m = ReEncryptResponse{} }
+func (m *ReEncryptResponse) String() string { return proto.CompactTextString(m) }
+func (*ReEncryptResponse) ProtoMessage()    {}
+func (*ReEncryptResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{80}
+}
+func (m *ReEncryptResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ReEncryptResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ReEncryptResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (dst *ReEncryptResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReEncryptResponse.Merge(dst, src)
+}
+func (m *ReEncryptResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *ReEncryptResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReEncryptResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReEncryptResponse proto.InternalMessageInfo
+
+func (m *ReEncryptResponse) GetWrappedKey() []byte {
+	if m != nil {
+		return m.WrappedKey
+	}
+	return nil
+}
+
+type AttributeValue struct {
+	// Types that are valid to be assigned to OneAttr:
+	//	*AttributeValue_AttributeB
+	//	*AttributeValue_AttributeTF
+	//	*AttributeValue_AttributeI
+	OneAttr              isAttributeValue_OneAttr `protobuf_oneof:"one_attr"`
+	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
+	XXX_unrecognized     []byte                   `json:"-"`
+	XXX_sizecache        int32                    `json:"-"`
+}
+
+func (m *AttributeValue) Reset()         { *m = AttributeValue{} }
+func (m *AttributeValue) String() string { return proto.CompactTextString(m) }
+func (*AttributeValue) ProtoMessage()    {}
+func (*AttributeValue) Descriptor() ([]byte, []int) {
+	return fileDescriptor_server_974d68ed10a22135, []int{81}
+}
+func (m *AttributeValue) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *AttributeValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_AttributeValue.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (dst *AttributeValue) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AttributeValue.Merge(dst, src)
+}
+func (m *AttributeValue) XXX_Size() int {
+	return m.Size()
+}
+func (m *AttributeValue) XXX_DiscardUnknown() {
+	xxx_messageInfo_AttributeValue.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AttributeValue proto.InternalMessageInfo
+
+type isAttributeValue_OneAttr interface {
+	isAttributeValue_OneAttr()
+	MarshalTo([]byte) (int, error)
+	Size() int
+}
+
+type AttributeValue_AttributeB struct {
+	AttributeB []byte `protobuf:"bytes,1,opt,name=AttributeB,proto3,oneof"`
+}
+type AttributeValue_AttributeTF struct {
+	AttributeTF bool `protobuf:"varint,2,opt,name=AttributeTF,proto3,oneof"`
+}
+type AttributeValue_AttributeI struct {
+	AttributeI int64 `protobuf:"varint,3,opt,name=AttributeI,proto3,oneof"`
+}
+
+func (*AttributeValue_AttributeB) isAttributeValue_OneAttr()  {}
+func (*AttributeValue_AttributeTF) isAttributeValue_OneAttr() {}
+func (*AttributeValue_AttributeI) isAttributeValue_OneAttr()  {}
+
+func (m *AttributeValue) GetOneAttr() isAttributeValue_OneAttr {
+	if m != nil {
+		return m.OneAttr
+	}
+	return nil
+}
+
+func (m *AttributeValue) GetAttributeB() []byte {
+	if x, ok := m.GetOneAttr().(*AttributeValue_AttributeB); ok {
+		return x.AttributeB
+	}
+	return nil
+}
+
+func (m *AttributeValue) GetAttributeTF() bool {
+	if x, ok := m.GetOneAttr().(*AttributeValue_AttributeTF); ok {
+		return x.AttributeTF
+	}
+	return false
+}
+
+func (m *AttributeValue) GetAttributeI() int64 {
+	if x, ok := m.GetOneAttr().(*AttributeValue_AttributeI); ok {
+		return x.AttributeI
+	}
+	return 0
+}
+
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*AttributeValue) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
+	return _AttributeValue_OneofMarshaler, _AttributeValue_OneofUnmarshaler, _AttributeValue_OneofSizer, []interface{}{
+		(*AttributeValue_AttributeB)(nil),
+		(*AttributeValue_AttributeTF)(nil),
+		(*AttributeValue_AttributeI)(nil),
+	}
+}
+
+func _AttributeValue_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*AttributeValue)
+	// one_attr
+	switch x := m.OneAttr.(type) {
+	case *AttributeValue_AttributeB:
+		_ = b.EncodeVarint(1<<3 | proto.WireBytes)
+		_ = b.EncodeRawBytes(x.AttributeB)
+	case *AttributeValue_AttributeTF:
+		t := uint64(0)
+		if x.AttributeTF {
+			t = 1
+		}
+		_ = b.EncodeVarint(2<<3 | proto.WireVarint)
+		_ = b.EncodeVarint(t)
+	case *AttributeValue_AttributeI:
+		_ = b.EncodeVarint(3<<3 | proto.WireVarint)
+		_ = b.EncodeVarint(uint64(x.AttributeI))
+	case nil:
+	default:
+		return fmt.Errorf("AttributeValue.OneAttr has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _AttributeValue_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*AttributeValue)
+	switch tag {
+	case 1: // one_attr.AttributeB
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		x, err := b.DecodeRawBytes(true)
+		m.OneAttr = &AttributeValue_AttributeB{x}
+		return true, err
+	case 2: // one_attr.AttributeTF
+		if wire != proto.WireVarint {
+			return true, proto.ErrInternalBadWireType
+		}
+		x, err := b.DecodeVarint()
+		m.OneAttr = &AttributeValue_AttributeTF{x != 0}
+		return true, err
+	case 3: // one_attr.AttributeI
+		if wire != proto.WireVarint {
+			return true, proto.ErrInternalBadWireType
+		}
+		x, err := b.DecodeVarint()
+		m.OneAttr = &AttributeValue_AttributeI{int64(x)}
+		return true, err
+	default:
+		return false, nil
+	}
+}
+
+func _AttributeValue_OneofSizer(msg proto.Message) (n int) {
+	m := msg.(*AttributeValue)
+	// one_attr
+	switch x := m.OneAttr.(type) {
+	case *AttributeValue_AttributeB:
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(len(x.AttributeB)))
+		n += len(x.AttributeB)
+	case *AttributeValue_AttributeTF:
+		n += 1 // tag and wire
+		n += 1
+	case *AttributeValue_AttributeI:
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(x.AttributeI))
+	case nil:
+	default:
+		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
+	}
+	return n
 }
 
 func init() {
@@ -4041,34 +4841,47 @@ func init() {
 	proto.RegisterType((*VerifySingleRequest)(nil), "grep11.VerifySingleRequest")
 	proto.RegisterType((*VerifySingleResponse)(nil), "grep11.VerifySingleResponse")
 	proto.RegisterType((*GenerateKeyRequest)(nil), "grep11.GenerateKeyRequest")
-	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.GenerateKeyRequest.TemplateEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)(nil), "grep11.GenerateKeyRequest.TemplateEntry")
 	proto.RegisterType((*GenerateKeyResponse)(nil), "grep11.GenerateKeyResponse")
 	proto.RegisterType((*GenerateKeyPairRequest)(nil), "grep11.GenerateKeyPairRequest")
-	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.GenerateKeyPairRequest.PrivKeyTemplateEntry")
-	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.GenerateKeyPairRequest.PubKeyTemplateEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)(nil), "grep11.GenerateKeyPairRequest.PrivKeyTemplateEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)(nil), "grep11.GenerateKeyPairRequest.PubKeyTemplateEntry")
 	proto.RegisterType((*GenerateKeyPairResponse)(nil), "grep11.GenerateKeyPairResponse")
 	proto.RegisterType((*WrapKeyRequest)(nil), "grep11.WrapKeyRequest")
 	proto.RegisterType((*WrapKeyResponse)(nil), "grep11.WrapKeyResponse")
 	proto.RegisterType((*UnwrapKeyRequest)(nil), "grep11.UnwrapKeyRequest")
-	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.UnwrapKeyRequest.TemplateEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)(nil), "grep11.UnwrapKeyRequest.TemplateEntry")
 	proto.RegisterType((*UnwrapKeyResponse)(nil), "grep11.UnwrapKeyResponse")
 	proto.RegisterType((*DeriveKeyRequest)(nil), "grep11.DeriveKeyRequest")
-	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.DeriveKeyRequest.TemplateEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)(nil), "grep11.DeriveKeyRequest.TemplateEntry")
 	proto.RegisterType((*DeriveKeyResponse)(nil), "grep11.DeriveKeyResponse")
 	proto.RegisterType((*GetMechanismListRequest)(nil), "grep11.GetMechanismListRequest")
 	proto.RegisterType((*GetMechanismListResponse)(nil), "grep11.GetMechanismListResponse")
 	proto.RegisterType((*GetMechanismInfoRequest)(nil), "grep11.GetMechanismInfoRequest")
 	proto.RegisterType((*GetMechanismInfoResponse)(nil), "grep11.GetMechanismInfoResponse")
 	proto.RegisterType((*GetAttributeValueRequest)(nil), "grep11.GetAttributeValueRequest")
-	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.GetAttributeValueRequest.AttributesEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.GetAttributeValueRequest.AttributesBytesEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)(nil), "grep11.GetAttributeValueRequest.AttributesEntry")
 	proto.RegisterType((*GetAttributeValueResponse)(nil), "grep11.GetAttributeValueResponse")
-	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.GetAttributeValueResponse.AttributesEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.GetAttributeValueResponse.AttributesBytesEntry")
 	proto.RegisterType((*SetAttributeValueRequest)(nil), "grep11.SetAttributeValueRequest")
-	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.SetAttributeValueRequest.AttributesEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)(nil), "grep11.SetAttributeValueRequest.AttributesBytesEntry")
+	proto.RegisterMapType((map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)(nil), "grep11.SetAttributeValueRequest.AttributesEntry")
 	proto.RegisterType((*SetAttributeValueResponse)(nil), "grep11.SetAttributeValueResponse")
 	proto.RegisterType((*Mechanism)(nil), "grep11.Mechanism")
 	proto.RegisterType((*MechanismInfo)(nil), "grep11.MechanismInfo")
 	proto.RegisterType((*Grep11Error)(nil), "grep11.Grep11Error")
+	proto.RegisterType((*RSAOAEPParm)(nil), "grep11.RSAOAEPParm")
+	proto.RegisterType((*RSAPSSParm)(nil), "grep11.RSAPSSParm")
+	proto.RegisterType((*ECDH1DeriveParm)(nil), "grep11.ECDH1DeriveParm")
+	proto.RegisterType((*HMACGeneralParm)(nil), "grep11.HMACGeneralParm")
+	proto.RegisterType((*ReEncryptRequest)(nil), "grep11.ReEncryptRequest")
+	proto.RegisterType((*ReEncryptResponse)(nil), "grep11.ReEncryptResponse")
+	proto.RegisterType((*AttributeValue)(nil), "grep11.AttributeValue")
+	proto.RegisterEnum("grep11.RSAOAEPParm_Mask", RSAOAEPParm_Mask_name, RSAOAEPParm_Mask_value)
+	proto.RegisterEnum("grep11.RSAOAEPParm_ParmType", RSAOAEPParm_ParmType_name, RSAOAEPParm_ParmType_value)
+	proto.RegisterEnum("grep11.RSAPSSParm_Mask", RSAPSSParm_Mask_name, RSAPSSParm_Mask_value)
+	proto.RegisterEnum("grep11.ECDH1DeriveParm_KeyDerivationFunction", ECDH1DeriveParm_KeyDerivationFunction_name, ECDH1DeriveParm_KeyDerivationFunction_value)
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -4239,7 +5052,7 @@ type CryptoClient interface {
 	VerifySingle(ctx context.Context, in *VerifySingleRequest, opts ...grpc.CallOption) (*VerifySingleResponse, error)
 	// CK_RV m_GenerateKey (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     unsigned char *key, size_t *keylen,
 	//     unsigned char *checkSum, size_t *checkSumlen,
@@ -4247,8 +5060,8 @@ type CryptoClient interface {
 	GenerateKey(ctx context.Context, in *GenerateKeyRequest, opts ...grpc.CallOption) (*GenerateKeyResponse, error)
 	// CK_RV m_GenerateKeyPair (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR pubKeyTemplate, CK_ULONG pubKeyTemplatelen,
-	//     CK_ATTRIBUTE_PTR privKeyTemplate, CK_ULONG privKeyTemplatelen,
+	//     CK_ATTRIBUTE_PTR pubKeyTemplateBytes, CK_ULONG pubKeyTemplateByteslen,
+	//     CK_ATTRIBUTE_PTR privKeyTemplateBytes, CK_ULONG privKeyTemplateByteslen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     unsigned char *privKey, size_t *privKeylen,
 	//     unsigned char *pubKey, size_t *pubKeylen,
@@ -4268,14 +5081,14 @@ type CryptoClient interface {
 	//     const unsigned char *macKey, size_t macKeylen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     const CK_MECHANISM_PTR mech,
-	//     const CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     const CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     unsigned char *unwrapped, size_t *unwrappedlen,
 	//     CK_BYTE_PTR checkSum, CK_ULONG *checkSumlen,
 	//     target_t target) ;
 	UnwrapKey(ctx context.Context, in *UnwrapKeyRequest, opts ...grpc.CallOption) (*UnwrapKeyResponse, error)
 	// CK_RV m_DeriveKey (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     const unsigned char *baseKey, size_t baseKeylen,
 	//     const unsigned char *data, size_t datalen,
 	//     const unsigned char *pin, size_t pinlen,
@@ -4296,14 +5109,15 @@ type CryptoClient interface {
 	GetMechanismInfo(ctx context.Context, in *GetMechanismInfoRequest, opts ...grpc.CallOption) (*GetMechanismInfoResponse, error)
 	// CK_RV m_GetAttributeValue (
 	//     const unsigned char *object, size_t objectlen,
-	//     CK_ATTRIBUTE_PTR attributes, CK_ULONG attributeslen,
+	//     CK_ATTRIBUTE_PTR attributesBytes, CK_ULONG attributesByteslen,
 	//     target_t target) ;
 	GetAttributeValue(ctx context.Context, in *GetAttributeValueRequest, opts ...grpc.CallOption) (*GetAttributeValueResponse, error)
 	// CK_RV m_SetAttributeValue (
 	//     unsigned char *object, size_t objectlen,
-	//     CK_ATTRIBUTE_PTR attributes, CK_ULONG attributeslen,
+	//     CK_ATTRIBUTE_PTR attributesBytes, CK_ULONG attributesByteslen,
 	//     target_t target) ;
 	SetAttributeValue(ctx context.Context, in *SetAttributeValueRequest, opts ...grpc.CallOption) (*SetAttributeValueResponse, error)
+	ReEncrypt(ctx context.Context, in *ReEncryptRequest, opts ...grpc.CallOption) (*ReEncryptResponse, error)
 }
 
 type cryptoClient struct {
@@ -4638,6 +5452,15 @@ func (c *cryptoClient) SetAttributeValue(ctx context.Context, in *SetAttributeVa
 	return out, nil
 }
 
+func (c *cryptoClient) ReEncrypt(ctx context.Context, in *ReEncryptRequest, opts ...grpc.CallOption) (*ReEncryptResponse, error) {
+	out := new(ReEncryptResponse)
+	err := c.cc.Invoke(ctx, "/grep11.Crypto/ReEncrypt", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CryptoServer is the server API for Crypto service.
 type CryptoServer interface {
 	// CK_RV m_GenerateRandom (
@@ -4796,7 +5619,7 @@ type CryptoServer interface {
 	VerifySingle(context.Context, *VerifySingleRequest) (*VerifySingleResponse, error)
 	// CK_RV m_GenerateKey (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     unsigned char *key, size_t *keylen,
 	//     unsigned char *checkSum, size_t *checkSumlen,
@@ -4804,8 +5627,8 @@ type CryptoServer interface {
 	GenerateKey(context.Context, *GenerateKeyRequest) (*GenerateKeyResponse, error)
 	// CK_RV m_GenerateKeyPair (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR pubKeyTemplate, CK_ULONG pubKeyTemplatelen,
-	//     CK_ATTRIBUTE_PTR privKeyTemplate, CK_ULONG privKeyTemplatelen,
+	//     CK_ATTRIBUTE_PTR pubKeyTemplateBytes, CK_ULONG pubKeyTemplateByteslen,
+	//     CK_ATTRIBUTE_PTR privKeyTemplateBytes, CK_ULONG privKeyTemplateByteslen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     unsigned char *privKey, size_t *privKeylen,
 	//     unsigned char *pubKey, size_t *pubKeylen,
@@ -4825,14 +5648,14 @@ type CryptoServer interface {
 	//     const unsigned char *macKey, size_t macKeylen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     const CK_MECHANISM_PTR mech,
-	//     const CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     const CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     unsigned char *unwrapped, size_t *unwrappedlen,
 	//     CK_BYTE_PTR checkSum, CK_ULONG *checkSumlen,
 	//     target_t target) ;
 	UnwrapKey(context.Context, *UnwrapKeyRequest) (*UnwrapKeyResponse, error)
 	// CK_RV m_DeriveKey (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     const unsigned char *baseKey, size_t baseKeylen,
 	//     const unsigned char *data, size_t datalen,
 	//     const unsigned char *pin, size_t pinlen,
@@ -4853,14 +5676,15 @@ type CryptoServer interface {
 	GetMechanismInfo(context.Context, *GetMechanismInfoRequest) (*GetMechanismInfoResponse, error)
 	// CK_RV m_GetAttributeValue (
 	//     const unsigned char *object, size_t objectlen,
-	//     CK_ATTRIBUTE_PTR attributes, CK_ULONG attributeslen,
+	//     CK_ATTRIBUTE_PTR attributesBytes, CK_ULONG attributesByteslen,
 	//     target_t target) ;
 	GetAttributeValue(context.Context, *GetAttributeValueRequest) (*GetAttributeValueResponse, error)
 	// CK_RV m_SetAttributeValue (
 	//     unsigned char *object, size_t objectlen,
-	//     CK_ATTRIBUTE_PTR attributes, CK_ULONG attributeslen,
+	//     CK_ATTRIBUTE_PTR attributesBytes, CK_ULONG attributesByteslen,
 	//     target_t target) ;
 	SetAttributeValue(context.Context, *SetAttributeValueRequest) (*SetAttributeValueResponse, error)
+	ReEncrypt(context.Context, *ReEncryptRequest) (*ReEncryptResponse, error)
 }
 
 func RegisterCryptoServer(s *grpc.Server, srv CryptoServer) {
@@ -5515,6 +6339,24 @@ func _Crypto_SetAttributeValue_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Crypto_ReEncrypt_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReEncryptRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CryptoServer).ReEncrypt(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grep11.Crypto/ReEncrypt",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CryptoServer).ReEncrypt(ctx, req.(*ReEncryptRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Crypto_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "grep11.Crypto",
 	HandlerType: (*CryptoServer)(nil),
@@ -5662,6 +6504,10 @@ var _Crypto_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetAttributeValue",
 			Handler:    _Crypto_SetAttributeValue_Handler,
+		},
+		{
+			MethodName: "ReEncrypt",
+			Handler:    _Crypto_ReEncrypt_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -7346,33 +8192,38 @@ func (m *GenerateKeyRequest) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n11
 	}
-	if len(m.Template) > 0 {
-		for k, _ := range m.Template {
-			dAtA[i] = 0x12
-			i++
-			v := m.Template[k]
-			byteSize := 0
-			if len(v) > 0 {
-				byteSize = 1 + len(v) + sovServer(uint64(len(v)))
-			}
-			mapSize := 1 + sovServer(uint64(k)) + byteSize
-			i = encodeVarintServer(dAtA, i, uint64(mapSize))
-			dAtA[i] = 0x8
-			i++
-			i = encodeVarintServer(dAtA, i, uint64(k))
-			if len(v) > 0 {
-				dAtA[i] = 0x12
-				i++
-				i = encodeVarintServer(dAtA, i, uint64(len(v)))
-				i += copy(dAtA[i:], v)
-			}
-		}
-	}
 	if len(m.KeyId) > 0 {
 		dAtA[i] = 0x22
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(len(m.KeyId)))
 		i += copy(dAtA[i:], m.KeyId)
+	}
+	if len(m.Template) > 0 {
+		for k, _ := range m.Template {
+			dAtA[i] = 0x32
+			i++
+			v := m.Template[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovServer(uint64(msgSize))
+			}
+			mapSize := 1 + sovServer(uint64(k)) + msgSize
+			i = encodeVarintServer(dAtA, i, uint64(mapSize))
+			dAtA[i] = 0x8
+			i++
+			i = encodeVarintServer(dAtA, i, uint64(k))
+			if v != nil {
+				dAtA[i] = 0x12
+				i++
+				i = encodeVarintServer(dAtA, i, uint64(v.Size()))
+				n12, err := v.MarshalTo(dAtA[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n12
+			}
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -7432,55 +8283,11 @@ func (m *GenerateKeyPairRequest) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(m.Mech.Size()))
-		n12, err := m.Mech.MarshalTo(dAtA[i:])
+		n13, err := m.Mech.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n12
-	}
-	if len(m.PubKeyTemplate) > 0 {
-		for k, _ := range m.PubKeyTemplate {
-			dAtA[i] = 0x12
-			i++
-			v := m.PubKeyTemplate[k]
-			byteSize := 0
-			if len(v) > 0 {
-				byteSize = 1 + len(v) + sovServer(uint64(len(v)))
-			}
-			mapSize := 1 + sovServer(uint64(k)) + byteSize
-			i = encodeVarintServer(dAtA, i, uint64(mapSize))
-			dAtA[i] = 0x8
-			i++
-			i = encodeVarintServer(dAtA, i, uint64(k))
-			if len(v) > 0 {
-				dAtA[i] = 0x12
-				i++
-				i = encodeVarintServer(dAtA, i, uint64(len(v)))
-				i += copy(dAtA[i:], v)
-			}
-		}
-	}
-	if len(m.PrivKeyTemplate) > 0 {
-		for k, _ := range m.PrivKeyTemplate {
-			dAtA[i] = 0x1a
-			i++
-			v := m.PrivKeyTemplate[k]
-			byteSize := 0
-			if len(v) > 0 {
-				byteSize = 1 + len(v) + sovServer(uint64(len(v)))
-			}
-			mapSize := 1 + sovServer(uint64(k)) + byteSize
-			i = encodeVarintServer(dAtA, i, uint64(mapSize))
-			dAtA[i] = 0x8
-			i++
-			i = encodeVarintServer(dAtA, i, uint64(k))
-			if len(v) > 0 {
-				dAtA[i] = 0x12
-				i++
-				i = encodeVarintServer(dAtA, i, uint64(len(v)))
-				i += copy(dAtA[i:], v)
-			}
-		}
+		i += n13
 	}
 	if len(m.PrivKeyId) > 0 {
 		dAtA[i] = 0x2a
@@ -7493,6 +8300,60 @@ func (m *GenerateKeyPairRequest) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(len(m.PubKeyId)))
 		i += copy(dAtA[i:], m.PubKeyId)
+	}
+	if len(m.PrivKeyTemplate) > 0 {
+		for k, _ := range m.PrivKeyTemplate {
+			dAtA[i] = 0x3a
+			i++
+			v := m.PrivKeyTemplate[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovServer(uint64(msgSize))
+			}
+			mapSize := 1 + sovServer(uint64(k)) + msgSize
+			i = encodeVarintServer(dAtA, i, uint64(mapSize))
+			dAtA[i] = 0x8
+			i++
+			i = encodeVarintServer(dAtA, i, uint64(k))
+			if v != nil {
+				dAtA[i] = 0x12
+				i++
+				i = encodeVarintServer(dAtA, i, uint64(v.Size()))
+				n14, err := v.MarshalTo(dAtA[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n14
+			}
+		}
+	}
+	if len(m.PubKeyTemplate) > 0 {
+		for k, _ := range m.PubKeyTemplate {
+			dAtA[i] = 0x42
+			i++
+			v := m.PubKeyTemplate[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovServer(uint64(msgSize))
+			}
+			mapSize := 1 + sovServer(uint64(k)) + msgSize
+			i = encodeVarintServer(dAtA, i, uint64(mapSize))
+			dAtA[i] = 0x8
+			i++
+			i = encodeVarintServer(dAtA, i, uint64(k))
+			if v != nil {
+				dAtA[i] = 0x12
+				i++
+				i = encodeVarintServer(dAtA, i, uint64(v.Size()))
+				n15, err := v.MarshalTo(dAtA[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n15
+			}
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -7570,11 +8431,11 @@ func (m *WrapKeyRequest) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x22
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(m.Mech.Size()))
-		n13, err := m.Mech.MarshalTo(dAtA[i:])
+		n16, err := m.Mech.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n13
+		i += n16
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -7646,39 +8507,44 @@ func (m *UnwrapKeyRequest) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(m.Mech.Size()))
-		n14, err := m.Mech.MarshalTo(dAtA[i:])
+		n17, err := m.Mech.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n14
-	}
-	if len(m.Template) > 0 {
-		for k, _ := range m.Template {
-			dAtA[i] = 0x32
-			i++
-			v := m.Template[k]
-			byteSize := 0
-			if len(v) > 0 {
-				byteSize = 1 + len(v) + sovServer(uint64(len(v)))
-			}
-			mapSize := 1 + sovServer(uint64(k)) + byteSize
-			i = encodeVarintServer(dAtA, i, uint64(mapSize))
-			dAtA[i] = 0x8
-			i++
-			i = encodeVarintServer(dAtA, i, uint64(k))
-			if len(v) > 0 {
-				dAtA[i] = 0x12
-				i++
-				i = encodeVarintServer(dAtA, i, uint64(len(v)))
-				i += copy(dAtA[i:], v)
-			}
-		}
+		i += n17
 	}
 	if len(m.UnwrappedId) > 0 {
 		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(len(m.UnwrappedId)))
 		i += copy(dAtA[i:], m.UnwrappedId)
+	}
+	if len(m.Template) > 0 {
+		for k, _ := range m.Template {
+			dAtA[i] = 0x4a
+			i++
+			v := m.Template[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovServer(uint64(msgSize))
+			}
+			mapSize := 1 + sovServer(uint64(k)) + msgSize
+			i = encodeVarintServer(dAtA, i, uint64(mapSize))
+			dAtA[i] = 0x8
+			i++
+			i = encodeVarintServer(dAtA, i, uint64(k))
+			if v != nil {
+				dAtA[i] = 0x12
+				i++
+				i = encodeVarintServer(dAtA, i, uint64(v.Size()))
+				n18, err := v.MarshalTo(dAtA[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n18
+			}
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -7738,33 +8604,11 @@ func (m *DeriveKeyRequest) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(m.Mech.Size()))
-		n15, err := m.Mech.MarshalTo(dAtA[i:])
+		n19, err := m.Mech.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n15
-	}
-	if len(m.Template) > 0 {
-		for k, _ := range m.Template {
-			dAtA[i] = 0x12
-			i++
-			v := m.Template[k]
-			byteSize := 0
-			if len(v) > 0 {
-				byteSize = 1 + len(v) + sovServer(uint64(len(v)))
-			}
-			mapSize := 1 + sovServer(uint64(k)) + byteSize
-			i = encodeVarintServer(dAtA, i, uint64(mapSize))
-			dAtA[i] = 0x8
-			i++
-			i = encodeVarintServer(dAtA, i, uint64(k))
-			if len(v) > 0 {
-				dAtA[i] = 0x12
-				i++
-				i = encodeVarintServer(dAtA, i, uint64(len(v)))
-				i += copy(dAtA[i:], v)
-			}
-		}
+		i += n19
 	}
 	if len(m.BaseKey) > 0 {
 		dAtA[i] = 0x1a
@@ -7783,6 +8627,33 @@ func (m *DeriveKeyRequest) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(len(m.NewKeyId)))
 		i += copy(dAtA[i:], m.NewKeyId)
+	}
+	if len(m.Template) > 0 {
+		for k, _ := range m.Template {
+			dAtA[i] = 0x42
+			i++
+			v := m.Template[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovServer(uint64(msgSize))
+			}
+			mapSize := 1 + sovServer(uint64(k)) + msgSize
+			i = encodeVarintServer(dAtA, i, uint64(mapSize))
+			dAtA[i] = 0x8
+			i++
+			i = encodeVarintServer(dAtA, i, uint64(k))
+			if v != nil {
+				dAtA[i] = 0x12
+				i++
+				i = encodeVarintServer(dAtA, i, uint64(v.Size()))
+				n20, err := v.MarshalTo(dAtA[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n20
+			}
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -7860,21 +8731,21 @@ func (m *GetMechanismListResponse) MarshalTo(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if len(m.Mechs) > 0 {
-		dAtA17 := make([]byte, len(m.Mechs)*10)
-		var j16 int
+		dAtA22 := make([]byte, len(m.Mechs)*10)
+		var j21 int
 		for _, num := range m.Mechs {
 			for num >= 1<<7 {
-				dAtA17[j16] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA22[j21] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j16++
+				j21++
 			}
-			dAtA17[j16] = uint8(num)
-			j16++
+			dAtA22[j21] = uint8(num)
+			j21++
 		}
 		dAtA[i] = 0x12
 		i++
-		i = encodeVarintServer(dAtA, i, uint64(j16))
-		i += copy(dAtA[i:], dAtA17[:j16])
+		i = encodeVarintServer(dAtA, i, uint64(j21))
+		i += copy(dAtA[i:], dAtA22[:j21])
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -7927,11 +8798,11 @@ func (m *GetMechanismInfoResponse) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(m.MechInfo.Size()))
-		n18, err := m.MechInfo.MarshalTo(dAtA[i:])
+		n23, err := m.MechInfo.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n18
+		i += n23
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -7960,11 +8831,11 @@ func (m *GetAttributeValueRequest) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintServer(dAtA, i, uint64(len(m.Object)))
 		i += copy(dAtA[i:], m.Object)
 	}
-	if len(m.Attributes) > 0 {
-		for k, _ := range m.Attributes {
+	if len(m.AttributesBytes) > 0 {
+		for k, _ := range m.AttributesBytes {
 			dAtA[i] = 0x12
 			i++
-			v := m.Attributes[k]
+			v := m.AttributesBytes[k]
 			byteSize := 0
 			if len(v) > 0 {
 				byteSize = 1 + len(v) + sovServer(uint64(len(v)))
@@ -7979,6 +8850,33 @@ func (m *GetAttributeValueRequest) MarshalTo(dAtA []byte) (int, error) {
 				i++
 				i = encodeVarintServer(dAtA, i, uint64(len(v)))
 				i += copy(dAtA[i:], v)
+			}
+		}
+	}
+	if len(m.Attributes) > 0 {
+		for k, _ := range m.Attributes {
+			dAtA[i] = 0x1a
+			i++
+			v := m.Attributes[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovServer(uint64(msgSize))
+			}
+			mapSize := 1 + sovServer(uint64(k)) + msgSize
+			i = encodeVarintServer(dAtA, i, uint64(mapSize))
+			dAtA[i] = 0x8
+			i++
+			i = encodeVarintServer(dAtA, i, uint64(k))
+			if v != nil {
+				dAtA[i] = 0x12
+				i++
+				i = encodeVarintServer(dAtA, i, uint64(v.Size()))
+				n24, err := v.MarshalTo(dAtA[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n24
 			}
 		}
 	}
@@ -8003,11 +8901,11 @@ func (m *GetAttributeValueResponse) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Attributes) > 0 {
-		for k, _ := range m.Attributes {
+	if len(m.AttributesBytes) > 0 {
+		for k, _ := range m.AttributesBytes {
 			dAtA[i] = 0x12
 			i++
-			v := m.Attributes[k]
+			v := m.AttributesBytes[k]
 			byteSize := 0
 			if len(v) > 0 {
 				byteSize = 1 + len(v) + sovServer(uint64(len(v)))
@@ -8052,11 +8950,11 @@ func (m *SetAttributeValueRequest) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintServer(dAtA, i, uint64(len(m.Object)))
 		i += copy(dAtA[i:], m.Object)
 	}
-	if len(m.Attributes) > 0 {
-		for k, _ := range m.Attributes {
+	if len(m.AttributesBytes) > 0 {
+		for k, _ := range m.AttributesBytes {
 			dAtA[i] = 0x12
 			i++
-			v := m.Attributes[k]
+			v := m.AttributesBytes[k]
 			byteSize := 0
 			if len(v) > 0 {
 				byteSize = 1 + len(v) + sovServer(uint64(len(v)))
@@ -8071,6 +8969,33 @@ func (m *SetAttributeValueRequest) MarshalTo(dAtA []byte) (int, error) {
 				i++
 				i = encodeVarintServer(dAtA, i, uint64(len(v)))
 				i += copy(dAtA[i:], v)
+			}
+		}
+	}
+	if len(m.Attributes) > 0 {
+		for k, _ := range m.Attributes {
+			dAtA[i] = 0x1a
+			i++
+			v := m.Attributes[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovServer(uint64(msgSize))
+			}
+			mapSize := 1 + sovServer(uint64(k)) + msgSize
+			i = encodeVarintServer(dAtA, i, uint64(mapSize))
+			dAtA[i] = 0x8
+			i++
+			i = encodeVarintServer(dAtA, i, uint64(k))
+			if v != nil {
+				dAtA[i] = 0x12
+				i++
+				i = encodeVarintServer(dAtA, i, uint64(v.Size()))
+				n25, err := v.MarshalTo(dAtA[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n25
 			}
 		}
 	}
@@ -8127,11 +9052,12 @@ func (m *Mechanism) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintServer(dAtA, i, uint64(m.Mechanism))
 	}
-	if len(m.Parameter) > 0 {
-		dAtA[i] = 0x12
-		i++
-		i = encodeVarintServer(dAtA, i, uint64(len(m.Parameter)))
-		i += copy(dAtA[i:], m.Parameter)
+	if m.Parameter != nil {
+		nn26, err := m.Parameter.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += nn26
 	}
 	if m.XXX_unrecognized != nil {
 		i += copy(dAtA[i:], m.XXX_unrecognized)
@@ -8139,6 +9065,44 @@ func (m *Mechanism) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
+func (m *Mechanism_ParameterB) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.ParameterB != nil {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(len(m.ParameterB)))
+		i += copy(dAtA[i:], m.ParameterB)
+	}
+	return i, nil
+}
+func (m *Mechanism_RSAOAEPParameter) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.RSAOAEPParameter != nil {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.RSAOAEPParameter.Size()))
+		n27, err := m.RSAOAEPParameter.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n27
+	}
+	return i, nil
+}
+func (m *Mechanism_RSAPSSParameter) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.RSAPSSParameter != nil {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.RSAPSSParameter.Size()))
+		n28, err := m.RSAPSSParameter.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n28
+	}
+	return i, nil
+}
 func (m *MechanismInfo) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -8217,6 +9181,259 @@ func (m *Grep11Error) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
+func (m *RSAOAEPParm) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *RSAOAEPParm) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.HashMech != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.HashMech))
+	}
+	if m.Mgf != 0 {
+		dAtA[i] = 0x10
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.Mgf))
+	}
+	if m.EncodingParmType != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.EncodingParmType))
+	}
+	if len(m.EncodingParm) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(len(m.EncodingParm)))
+		i += copy(dAtA[i:], m.EncodingParm)
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *RSAPSSParm) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *RSAPSSParm) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.HashMech != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.HashMech))
+	}
+	if m.Mgf != 0 {
+		dAtA[i] = 0x10
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.Mgf))
+	}
+	if m.SaltByteCount != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.SaltByteCount))
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *ECDH1DeriveParm) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ECDH1DeriveParm) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Kdf != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.Kdf))
+	}
+	if len(m.SharedData) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(len(m.SharedData)))
+		i += copy(dAtA[i:], m.SharedData)
+	}
+	if len(m.PublicData) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(len(m.PublicData)))
+		i += copy(dAtA[i:], m.PublicData)
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *HMACGeneralParm) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *HMACGeneralParm) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.ReturnByteCount != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(m.ReturnByteCount))
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *ReEncryptRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ReEncryptRequest) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.WrappedKey) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(len(m.WrappedKey)))
+		i += copy(dAtA[i:], m.WrappedKey)
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *ReEncryptResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ReEncryptResponse) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.WrappedKey) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(len(m.WrappedKey)))
+		i += copy(dAtA[i:], m.WrappedKey)
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *AttributeValue) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *AttributeValue) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.OneAttr != nil {
+		nn29, err := m.OneAttr.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += nn29
+	}
+	if m.XXX_unrecognized != nil {
+		i += copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return i, nil
+}
+
+func (m *AttributeValue_AttributeB) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.AttributeB != nil {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintServer(dAtA, i, uint64(len(m.AttributeB)))
+		i += copy(dAtA[i:], m.AttributeB)
+	}
+	return i, nil
+}
+func (m *AttributeValue_AttributeTF) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	dAtA[i] = 0x10
+	i++
+	if m.AttributeTF {
+		dAtA[i] = 1
+	} else {
+		dAtA[i] = 0
+	}
+	i++
+	return i, nil
+}
+func (m *AttributeValue_AttributeI) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	dAtA[i] = 0x18
+	i++
+	i = encodeVarintServer(dAtA, i, uint64(m.AttributeI))
+	return i, nil
+}
 func encodeVarintServer(dAtA []byte, offset int, v uint64) int {
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
@@ -9203,21 +10420,22 @@ func (m *GenerateKeyRequest) Size() (n int) {
 		l = m.Mech.Size()
 		n += 1 + l + sovServer(uint64(l))
 	}
+	l = len(m.KeyId)
+	if l > 0 {
+		n += 1 + l + sovServer(uint64(l))
+	}
 	if len(m.Template) > 0 {
 		for k, v := range m.Template {
 			_ = k
 			_ = v
 			l = 0
-			if len(v) > 0 {
-				l = 1 + len(v) + sovServer(uint64(len(v)))
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovServer(uint64(l))
 			}
 			mapEntrySize := 1 + sovServer(uint64(k)) + l
 			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
 		}
-	}
-	l = len(m.KeyId)
-	if l > 0 {
-		n += 1 + l + sovServer(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -9255,30 +10473,6 @@ func (m *GenerateKeyPairRequest) Size() (n int) {
 		l = m.Mech.Size()
 		n += 1 + l + sovServer(uint64(l))
 	}
-	if len(m.PubKeyTemplate) > 0 {
-		for k, v := range m.PubKeyTemplate {
-			_ = k
-			_ = v
-			l = 0
-			if len(v) > 0 {
-				l = 1 + len(v) + sovServer(uint64(len(v)))
-			}
-			mapEntrySize := 1 + sovServer(uint64(k)) + l
-			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
-		}
-	}
-	if len(m.PrivKeyTemplate) > 0 {
-		for k, v := range m.PrivKeyTemplate {
-			_ = k
-			_ = v
-			l = 0
-			if len(v) > 0 {
-				l = 1 + len(v) + sovServer(uint64(len(v)))
-			}
-			mapEntrySize := 1 + sovServer(uint64(k)) + l
-			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
-		}
-	}
 	l = len(m.PrivKeyId)
 	if l > 0 {
 		n += 1 + l + sovServer(uint64(l))
@@ -9286,6 +10480,32 @@ func (m *GenerateKeyPairRequest) Size() (n int) {
 	l = len(m.PubKeyId)
 	if l > 0 {
 		n += 1 + l + sovServer(uint64(l))
+	}
+	if len(m.PrivKeyTemplate) > 0 {
+		for k, v := range m.PrivKeyTemplate {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovServer(uint64(l))
+			}
+			mapEntrySize := 1 + sovServer(uint64(k)) + l
+			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
+		}
+	}
+	if len(m.PubKeyTemplate) > 0 {
+		for k, v := range m.PubKeyTemplate {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovServer(uint64(l))
+			}
+			mapEntrySize := 1 + sovServer(uint64(k)) + l
+			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -9379,21 +10599,22 @@ func (m *UnwrapKeyRequest) Size() (n int) {
 		l = m.Mech.Size()
 		n += 1 + l + sovServer(uint64(l))
 	}
+	l = len(m.UnwrappedId)
+	if l > 0 {
+		n += 1 + l + sovServer(uint64(l))
+	}
 	if len(m.Template) > 0 {
 		for k, v := range m.Template {
 			_ = k
 			_ = v
 			l = 0
-			if len(v) > 0 {
-				l = 1 + len(v) + sovServer(uint64(len(v)))
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovServer(uint64(l))
 			}
 			mapEntrySize := 1 + sovServer(uint64(k)) + l
 			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
 		}
-	}
-	l = len(m.UnwrappedId)
-	if l > 0 {
-		n += 1 + l + sovServer(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -9431,18 +10652,6 @@ func (m *DeriveKeyRequest) Size() (n int) {
 		l = m.Mech.Size()
 		n += 1 + l + sovServer(uint64(l))
 	}
-	if len(m.Template) > 0 {
-		for k, v := range m.Template {
-			_ = k
-			_ = v
-			l = 0
-			if len(v) > 0 {
-				l = 1 + len(v) + sovServer(uint64(len(v)))
-			}
-			mapEntrySize := 1 + sovServer(uint64(k)) + l
-			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
-		}
-	}
 	l = len(m.BaseKey)
 	if l > 0 {
 		n += 1 + l + sovServer(uint64(l))
@@ -9454,6 +10663,19 @@ func (m *DeriveKeyRequest) Size() (n int) {
 	l = len(m.NewKeyId)
 	if l > 0 {
 		n += 1 + l + sovServer(uint64(l))
+	}
+	if len(m.Template) > 0 {
+		for k, v := range m.Template {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovServer(uint64(l))
+			}
+			mapEntrySize := 1 + sovServer(uint64(k)) + l
+			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -9553,13 +10775,26 @@ func (m *GetAttributeValueRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovServer(uint64(l))
 	}
-	if len(m.Attributes) > 0 {
-		for k, v := range m.Attributes {
+	if len(m.AttributesBytes) > 0 {
+		for k, v := range m.AttributesBytes {
 			_ = k
 			_ = v
 			l = 0
 			if len(v) > 0 {
 				l = 1 + len(v) + sovServer(uint64(len(v)))
+			}
+			mapEntrySize := 1 + sovServer(uint64(k)) + l
+			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
+		}
+	}
+	if len(m.Attributes) > 0 {
+		for k, v := range m.Attributes {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovServer(uint64(l))
 			}
 			mapEntrySize := 1 + sovServer(uint64(k)) + l
 			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
@@ -9577,8 +10812,8 @@ func (m *GetAttributeValueResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if len(m.Attributes) > 0 {
-		for k, v := range m.Attributes {
+	if len(m.AttributesBytes) > 0 {
+		for k, v := range m.AttributesBytes {
 			_ = k
 			_ = v
 			l = 0
@@ -9605,13 +10840,26 @@ func (m *SetAttributeValueRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovServer(uint64(l))
 	}
-	if len(m.Attributes) > 0 {
-		for k, v := range m.Attributes {
+	if len(m.AttributesBytes) > 0 {
+		for k, v := range m.AttributesBytes {
 			_ = k
 			_ = v
 			l = 0
 			if len(v) > 0 {
 				l = 1 + len(v) + sovServer(uint64(len(v)))
+			}
+			mapEntrySize := 1 + sovServer(uint64(k)) + l
+			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
+		}
+	}
+	if len(m.Attributes) > 0 {
+		for k, v := range m.Attributes {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovServer(uint64(l))
 			}
 			mapEntrySize := 1 + sovServer(uint64(k)) + l
 			n += mapEntrySize + 1 + sovServer(uint64(mapEntrySize))
@@ -9648,9 +10896,8 @@ func (m *Mechanism) Size() (n int) {
 	if m.Mechanism != 0 {
 		n += 1 + sovServer(uint64(m.Mechanism))
 	}
-	l = len(m.Parameter)
-	if l > 0 {
-		n += 1 + l + sovServer(uint64(l))
+	if m.Parameter != nil {
+		n += m.Parameter.Size()
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -9658,6 +10905,42 @@ func (m *Mechanism) Size() (n int) {
 	return n
 }
 
+func (m *Mechanism_ParameterB) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ParameterB != nil {
+		l = len(m.ParameterB)
+		n += 1 + l + sovServer(uint64(l))
+	}
+	return n
+}
+func (m *Mechanism_RSAOAEPParameter) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.RSAOAEPParameter != nil {
+		l = m.RSAOAEPParameter.Size()
+		n += 1 + l + sovServer(uint64(l))
+	}
+	return n
+}
+func (m *Mechanism_RSAPSSParameter) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.RSAPSSParameter != nil {
+		l = m.RSAPSSParameter.Size()
+		n += 1 + l + sovServer(uint64(l))
+	}
+	return n
+}
 func (m *MechanismInfo) Size() (n int) {
 	if m == nil {
 		return 0
@@ -9698,6 +10981,168 @@ func (m *Grep11Error) Size() (n int) {
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
+	return n
+}
+
+func (m *RSAOAEPParm) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.HashMech != 0 {
+		n += 1 + sovServer(uint64(m.HashMech))
+	}
+	if m.Mgf != 0 {
+		n += 1 + sovServer(uint64(m.Mgf))
+	}
+	if m.EncodingParmType != 0 {
+		n += 1 + sovServer(uint64(m.EncodingParmType))
+	}
+	l = len(m.EncodingParm)
+	if l > 0 {
+		n += 1 + l + sovServer(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *RSAPSSParm) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.HashMech != 0 {
+		n += 1 + sovServer(uint64(m.HashMech))
+	}
+	if m.Mgf != 0 {
+		n += 1 + sovServer(uint64(m.Mgf))
+	}
+	if m.SaltByteCount != 0 {
+		n += 1 + sovServer(uint64(m.SaltByteCount))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *ECDH1DeriveParm) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Kdf != 0 {
+		n += 1 + sovServer(uint64(m.Kdf))
+	}
+	l = len(m.SharedData)
+	if l > 0 {
+		n += 1 + l + sovServer(uint64(l))
+	}
+	l = len(m.PublicData)
+	if l > 0 {
+		n += 1 + l + sovServer(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *HMACGeneralParm) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ReturnByteCount != 0 {
+		n += 1 + sovServer(uint64(m.ReturnByteCount))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *ReEncryptRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.WrappedKey)
+	if l > 0 {
+		n += 1 + l + sovServer(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *ReEncryptResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.WrappedKey)
+	if l > 0 {
+		n += 1 + l + sovServer(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *AttributeValue) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.OneAttr != nil {
+		n += m.OneAttr.Size()
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *AttributeValue_AttributeB) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.AttributeB != nil {
+		l = len(m.AttributeB)
+		n += 1 + l + sovServer(uint64(l))
+	}
+	return n
+}
+func (m *AttributeValue_AttributeTF) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	n += 2
+	return n
+}
+func (m *AttributeValue_AttributeI) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	n += 1 + sovServer(uint64(m.AttributeI))
 	return n
 }
 
@@ -15018,7 +16463,36 @@ func (m *GenerateKeyRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 2:
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field KeyId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.KeyId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Template", wireType)
 			}
@@ -15045,10 +16519,10 @@ func (m *GenerateKeyRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Template == nil {
-				m.Template = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
+				m.Template = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)
 			}
 			var mapkey uint64
-			mapvalue := []byte{}
+			var mapvalue *AttributeValue
 			for iNdEx < postIndex {
 				entryPreIndex := iNdEx
 				var wire uint64
@@ -15083,7 +16557,7 @@ func (m *GenerateKeyRequest) Unmarshal(dAtA []byte) error {
 						}
 					}
 				} else if fieldNum == 2 {
-					var mapbyteLen uint64
+					var mapmsglen int
 					for shift := uint(0); ; shift += 7 {
 						if shift >= 64 {
 							return ErrIntOverflowServer
@@ -15093,22 +16567,26 @@ func (m *GenerateKeyRequest) Unmarshal(dAtA []byte) error {
 						}
 						b := dAtA[iNdEx]
 						iNdEx++
-						mapbyteLen |= (uint64(b) & 0x7F) << shift
+						mapmsglen |= (int(b) & 0x7F) << shift
 						if b < 0x80 {
 							break
 						}
 					}
-					intMapbyteLen := int(mapbyteLen)
-					if intMapbyteLen < 0 {
+					if mapmsglen < 0 {
 						return ErrInvalidLengthServer
 					}
-					postbytesIndex := iNdEx + intMapbyteLen
-					if postbytesIndex > l {
+					postmsgIndex := iNdEx + mapmsglen
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					if postmsgIndex > l {
 						return io.ErrUnexpectedEOF
 					}
-					mapvalue = make([]byte, mapbyteLen)
-					copy(mapvalue, dAtA[iNdEx:postbytesIndex])
-					iNdEx = postbytesIndex
+					mapvalue = &AttributeValue{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
 				} else {
 					iNdEx = entryPreIndex
 					skippy, err := skipServer(dAtA[iNdEx:])
@@ -15125,35 +16603,6 @@ func (m *GenerateKeyRequest) Unmarshal(dAtA []byte) error {
 				}
 			}
 			m.Template[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
-			iNdEx = postIndex
-		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field KeyId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowServer
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthServer
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.KeyId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -15352,222 +16801,6 @@ func (m *GenerateKeyPairRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PubKeyTemplate", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowServer
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthServer
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.PubKeyTemplate == nil {
-				m.PubKeyTemplate = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
-			}
-			var mapkey uint64
-			mapvalue := []byte{}
-			for iNdEx < postIndex {
-				entryPreIndex := iNdEx
-				var wire uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowServer
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					wire |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				fieldNum := int32(wire >> 3)
-				if fieldNum == 1 {
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowServer
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapkey |= (uint64(b) & 0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-				} else if fieldNum == 2 {
-					var mapbyteLen uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowServer
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapbyteLen |= (uint64(b) & 0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intMapbyteLen := int(mapbyteLen)
-					if intMapbyteLen < 0 {
-						return ErrInvalidLengthServer
-					}
-					postbytesIndex := iNdEx + intMapbyteLen
-					if postbytesIndex > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapvalue = make([]byte, mapbyteLen)
-					copy(mapvalue, dAtA[iNdEx:postbytesIndex])
-					iNdEx = postbytesIndex
-				} else {
-					iNdEx = entryPreIndex
-					skippy, err := skipServer(dAtA[iNdEx:])
-					if err != nil {
-						return err
-					}
-					if skippy < 0 {
-						return ErrInvalidLengthServer
-					}
-					if (iNdEx + skippy) > postIndex {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += skippy
-				}
-			}
-			m.PubKeyTemplate[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PrivKeyTemplate", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowServer
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthServer
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.PrivKeyTemplate == nil {
-				m.PrivKeyTemplate = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
-			}
-			var mapkey uint64
-			mapvalue := []byte{}
-			for iNdEx < postIndex {
-				entryPreIndex := iNdEx
-				var wire uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowServer
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					wire |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				fieldNum := int32(wire >> 3)
-				if fieldNum == 1 {
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowServer
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapkey |= (uint64(b) & 0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-				} else if fieldNum == 2 {
-					var mapbyteLen uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowServer
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapbyteLen |= (uint64(b) & 0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intMapbyteLen := int(mapbyteLen)
-					if intMapbyteLen < 0 {
-						return ErrInvalidLengthServer
-					}
-					postbytesIndex := iNdEx + intMapbyteLen
-					if postbytesIndex > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapvalue = make([]byte, mapbyteLen)
-					copy(mapvalue, dAtA[iNdEx:postbytesIndex])
-					iNdEx = postbytesIndex
-				} else {
-					iNdEx = entryPreIndex
-					skippy, err := skipServer(dAtA[iNdEx:])
-					if err != nil {
-						return err
-					}
-					if skippy < 0 {
-						return ErrInvalidLengthServer
-					}
-					if (iNdEx + skippy) > postIndex {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += skippy
-				}
-			}
-			m.PrivKeyTemplate[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
-			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field PrivKeyId", wireType)
@@ -15625,6 +16858,230 @@ func (m *GenerateKeyPairRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.PubKeyId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PrivKeyTemplate", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PrivKeyTemplate == nil {
+				m.PrivKeyTemplate = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)
+			}
+			var mapkey uint64
+			var mapvalue *AttributeValue
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowServer
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapkey |= (uint64(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= (int(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &AttributeValue{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipServer(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if skippy < 0 {
+						return ErrInvalidLengthServer
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.PrivKeyTemplate[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PubKeyTemplate", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PubKeyTemplate == nil {
+				m.PubKeyTemplate = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)
+			}
+			var mapkey uint64
+			var mapvalue *AttributeValue
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowServer
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapkey |= (uint64(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= (int(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &AttributeValue{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipServer(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if skippy < 0 {
+						return ErrInvalidLengthServer
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.PubKeyTemplate[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -16175,7 +17632,36 @@ func (m *UnwrapKeyRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 6:
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UnwrappedId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UnwrappedId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Template", wireType)
 			}
@@ -16202,10 +17688,10 @@ func (m *UnwrapKeyRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Template == nil {
-				m.Template = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
+				m.Template = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)
 			}
 			var mapkey uint64
-			mapvalue := []byte{}
+			var mapvalue *AttributeValue
 			for iNdEx < postIndex {
 				entryPreIndex := iNdEx
 				var wire uint64
@@ -16240,7 +17726,7 @@ func (m *UnwrapKeyRequest) Unmarshal(dAtA []byte) error {
 						}
 					}
 				} else if fieldNum == 2 {
-					var mapbyteLen uint64
+					var mapmsglen int
 					for shift := uint(0); ; shift += 7 {
 						if shift >= 64 {
 							return ErrIntOverflowServer
@@ -16250,22 +17736,26 @@ func (m *UnwrapKeyRequest) Unmarshal(dAtA []byte) error {
 						}
 						b := dAtA[iNdEx]
 						iNdEx++
-						mapbyteLen |= (uint64(b) & 0x7F) << shift
+						mapmsglen |= (int(b) & 0x7F) << shift
 						if b < 0x80 {
 							break
 						}
 					}
-					intMapbyteLen := int(mapbyteLen)
-					if intMapbyteLen < 0 {
+					if mapmsglen < 0 {
 						return ErrInvalidLengthServer
 					}
-					postbytesIndex := iNdEx + intMapbyteLen
-					if postbytesIndex > l {
+					postmsgIndex := iNdEx + mapmsglen
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					if postmsgIndex > l {
 						return io.ErrUnexpectedEOF
 					}
-					mapvalue = make([]byte, mapbyteLen)
-					copy(mapvalue, dAtA[iNdEx:postbytesIndex])
-					iNdEx = postbytesIndex
+					mapvalue = &AttributeValue{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
 				} else {
 					iNdEx = entryPreIndex
 					skippy, err := skipServer(dAtA[iNdEx:])
@@ -16282,35 +17772,6 @@ func (m *UnwrapKeyRequest) Unmarshal(dAtA []byte) error {
 				}
 			}
 			m.Template[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
-			iNdEx = postIndex
-		case 7:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field UnwrappedId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowServer
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthServer
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.UnwrappedId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -16509,114 +17970,6 @@ func (m *DeriveKeyRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Template", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowServer
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthServer
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Template == nil {
-				m.Template = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
-			}
-			var mapkey uint64
-			mapvalue := []byte{}
-			for iNdEx < postIndex {
-				entryPreIndex := iNdEx
-				var wire uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowServer
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					wire |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				fieldNum := int32(wire >> 3)
-				if fieldNum == 1 {
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowServer
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapkey |= (uint64(b) & 0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-				} else if fieldNum == 2 {
-					var mapbyteLen uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowServer
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapbyteLen |= (uint64(b) & 0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intMapbyteLen := int(mapbyteLen)
-					if intMapbyteLen < 0 {
-						return ErrInvalidLengthServer
-					}
-					postbytesIndex := iNdEx + intMapbyteLen
-					if postbytesIndex > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapvalue = make([]byte, mapbyteLen)
-					copy(mapvalue, dAtA[iNdEx:postbytesIndex])
-					iNdEx = postbytesIndex
-				} else {
-					iNdEx = entryPreIndex
-					skippy, err := skipServer(dAtA[iNdEx:])
-					if err != nil {
-						return err
-					}
-					if skippy < 0 {
-						return ErrInvalidLengthServer
-					}
-					if (iNdEx + skippy) > postIndex {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += skippy
-				}
-			}
-			m.Template[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
-			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BaseKey", wireType)
@@ -16707,6 +18060,118 @@ func (m *DeriveKeyRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.NewKeyId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Template", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Template == nil {
+				m.Template = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)
+			}
+			var mapkey uint64
+			var mapvalue *AttributeValue
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowServer
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapkey |= (uint64(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= (int(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &AttributeValue{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipServer(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if skippy < 0 {
+						return ErrInvalidLengthServer
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.Template[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -17234,7 +18699,7 @@ func (m *GetAttributeValueRequest) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Attributes", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field AttributesBytes", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -17258,8 +18723,8 @@ func (m *GetAttributeValueRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Attributes == nil {
-				m.Attributes = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
+			if m.AttributesBytes == nil {
+				m.AttributesBytes = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
 			}
 			var mapkey uint64
 			mapvalue := []byte{}
@@ -17323,6 +18788,118 @@ func (m *GetAttributeValueRequest) Unmarshal(dAtA []byte) error {
 					mapvalue = make([]byte, mapbyteLen)
 					copy(mapvalue, dAtA[iNdEx:postbytesIndex])
 					iNdEx = postbytesIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipServer(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if skippy < 0 {
+						return ErrInvalidLengthServer
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.AttributesBytes[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Attributes", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Attributes == nil {
+				m.Attributes = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)
+			}
+			var mapkey uint64
+			var mapvalue *AttributeValue
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowServer
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapkey |= (uint64(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= (int(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &AttributeValue{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
 				} else {
 					iNdEx = entryPreIndex
 					skippy, err := skipServer(dAtA[iNdEx:])
@@ -17393,7 +18970,7 @@ func (m *GetAttributeValueResponse) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Attributes", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field AttributesBytes", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -17417,8 +18994,8 @@ func (m *GetAttributeValueResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Attributes == nil {
-				m.Attributes = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
+			if m.AttributesBytes == nil {
+				m.AttributesBytes = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
 			}
 			var mapkey uint64
 			mapvalue := []byte{}
@@ -17497,7 +19074,7 @@ func (m *GetAttributeValueResponse) Unmarshal(dAtA []byte) error {
 					iNdEx += skippy
 				}
 			}
-			m.Attributes[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
+			m.AttributesBytes[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -17583,7 +19160,7 @@ func (m *SetAttributeValueRequest) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Attributes", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field AttributesBytes", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -17607,8 +19184,8 @@ func (m *SetAttributeValueRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Attributes == nil {
-				m.Attributes = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
+			if m.AttributesBytes == nil {
+				m.AttributesBytes = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute][]byte)
 			}
 			var mapkey uint64
 			mapvalue := []byte{}
@@ -17672,6 +19249,118 @@ func (m *SetAttributeValueRequest) Unmarshal(dAtA []byte) error {
 					mapvalue = make([]byte, mapbyteLen)
 					copy(mapvalue, dAtA[iNdEx:postbytesIndex])
 					iNdEx = postbytesIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipServer(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if skippy < 0 {
+						return ErrInvalidLengthServer
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.AttributesBytes[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute(mapkey)] = mapvalue
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Attributes", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Attributes == nil {
+				m.Attributes = make(map[github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Attribute]*AttributeValue)
+			}
+			var mapkey uint64
+			var mapvalue *AttributeValue
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowServer
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapkey |= (uint64(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowServer
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= (int(b) & 0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if mapmsglen < 0 {
+						return ErrInvalidLengthServer
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &AttributeValue{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
 				} else {
 					iNdEx = entryPreIndex
 					skippy, err := skipServer(dAtA[iNdEx:])
@@ -17843,7 +19532,7 @@ func (m *Mechanism) Unmarshal(dAtA []byte) error {
 			}
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Parameter", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ParameterB", wireType)
 			}
 			var byteLen int
 			for shift := uint(0); ; shift += 7 {
@@ -17867,10 +19556,73 @@ func (m *Mechanism) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Parameter = append(m.Parameter[:0], dAtA[iNdEx:postIndex]...)
-			if m.Parameter == nil {
-				m.Parameter = []byte{}
+			v := make([]byte, postIndex-iNdEx)
+			copy(v, dAtA[iNdEx:postIndex])
+			m.Parameter = &Mechanism_ParameterB{v}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RSAOAEPParameter", wireType)
 			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &RSAOAEPParm{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Parameter = &Mechanism_RSAOAEPParameter{v}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RSAPSSParameter", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &RSAPSSParm{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Parameter = &Mechanism_RSAPSSParameter{v}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -18121,6 +19873,741 @@ func (m *Grep11Error) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *RSAOAEPParm) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowServer
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: RSAOAEPParm: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: RSAOAEPParm: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HashMech", wireType)
+			}
+			m.HashMech = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.HashMech |= (github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mgf", wireType)
+			}
+			m.Mgf = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Mgf |= (RSAOAEPParm_Mask(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EncodingParmType", wireType)
+			}
+			m.EncodingParmType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EncodingParmType |= (RSAOAEPParm_ParmType(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EncodingParm", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.EncodingParm = append(m.EncodingParm[:0], dAtA[iNdEx:postIndex]...)
+			if m.EncodingParm == nil {
+				m.EncodingParm = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipServer(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthServer
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *RSAPSSParm) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowServer
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: RSAPSSParm: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: RSAPSSParm: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HashMech", wireType)
+			}
+			m.HashMech = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.HashMech |= (github_com_ibm_developer_ibm_cloud_hyperprotectcrypto_golang_ep11.Mechanism(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mgf", wireType)
+			}
+			m.Mgf = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Mgf |= (RSAPSSParm_Mask(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SaltByteCount", wireType)
+			}
+			m.SaltByteCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SaltByteCount |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipServer(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthServer
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ECDH1DeriveParm) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowServer
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ECDH1DeriveParm: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ECDH1DeriveParm: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Kdf", wireType)
+			}
+			m.Kdf = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Kdf |= (ECDH1DeriveParm_KeyDerivationFunction(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SharedData", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SharedData = append(m.SharedData[:0], dAtA[iNdEx:postIndex]...)
+			if m.SharedData == nil {
+				m.SharedData = []byte{}
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PublicData", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PublicData = append(m.PublicData[:0], dAtA[iNdEx:postIndex]...)
+			if m.PublicData == nil {
+				m.PublicData = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipServer(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthServer
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *HMACGeneralParm) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowServer
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: HMACGeneralParm: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: HMACGeneralParm: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReturnByteCount", wireType)
+			}
+			m.ReturnByteCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ReturnByteCount |= (uint32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipServer(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthServer
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ReEncryptRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowServer
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ReEncryptRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ReEncryptRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field WrappedKey", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.WrappedKey = append(m.WrappedKey[:0], dAtA[iNdEx:postIndex]...)
+			if m.WrappedKey == nil {
+				m.WrappedKey = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipServer(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthServer
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ReEncryptResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowServer
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ReEncryptResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ReEncryptResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field WrappedKey", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.WrappedKey = append(m.WrappedKey[:0], dAtA[iNdEx:postIndex]...)
+			if m.WrappedKey == nil {
+				m.WrappedKey = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipServer(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthServer
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *AttributeValue) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowServer
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: AttributeValue: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: AttributeValue: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AttributeB", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthServer
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := make([]byte, postIndex-iNdEx)
+			copy(v, dAtA[iNdEx:postIndex])
+			m.OneAttr = &AttributeValue_AttributeB{v}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AttributeTF", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			b := bool(v != 0)
+			m.OneAttr = &AttributeValue_AttributeTF{b}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AttributeI", wireType)
+			}
+			var v int64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowServer
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.OneAttr = &AttributeValue_AttributeI{v}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipServer(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthServer
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func skipServer(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0
@@ -18226,138 +20713,178 @@ var (
 	ErrIntOverflowServer   = fmt.Errorf("proto: integer overflow")
 )
 
-func init() { proto.RegisterFile("server.proto", fileDescriptor_server_2b449d55aaf66cf7) }
+func init() { proto.RegisterFile("server.proto", fileDescriptor_server_974d68ed10a22135) }
 
-var fileDescriptor_server_2b449d55aaf66cf7 = []byte{
-	// 2080 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xdc, 0x5a, 0xcd, 0x73, 0x23, 0x47,
-	0x15, 0xf7, 0x48, 0xf2, 0xd7, 0xf3, 0x97, 0xdc, 0x96, 0x1d, 0x79, 0xe2, 0xf5, 0x9a, 0xa9, 0x02,
-	0x9c, 0x4d, 0xac, 0xc5, 0xf6, 0x01, 0xb2, 0x24, 0xb5, 0x15, 0x79, 0x37, 0xbb, 0x2e, 0xad, 0xb3,
-	0x66, 0x94, 0x64, 0xab, 0x38, 0x31, 0x96, 0x3a, 0xf2, 0xb0, 0xd2, 0x48, 0x8c, 0x46, 0x0e, 0xe2,
-	0x40, 0x15, 0x1c, 0xf8, 0x07, 0x52, 0xa9, 0xe2, 0xc2, 0x01, 0x0e, 0x5c, 0xa8, 0xe2, 0xef, 0xe0,
-	0xc8, 0x89, 0x63, 0x42, 0xed, 0x9d, 0x0b, 0xc7, 0x5c, 0xa0, 0x66, 0xfa, 0xbb, 0xa7, 0x35, 0x92,
-	0x65, 0x6f, 0xaa, 0xe0, 0xa6, 0xfe, 0xfa, 0xbd, 0xcf, 0x7e, 0x6f, 0xfa, 0x3d, 0xc1, 0x72, 0x1f,
-	0x87, 0x57, 0x38, 0xac, 0xf4, 0xc2, 0x6e, 0xd4, 0x45, 0x73, 0xad, 0x10, 0xf7, 0x0e, 0x0f, 0x6d,
-	0x68, 0x75, 0x5b, 0x5d, 0x32, 0xe7, 0xbc, 0x05, 0x9b, 0x4f, 0x70, 0x80, 0x43, 0x2f, 0xc2, 0xae,
-	0x17, 0x34, 0xbb, 0x1d, 0x17, 0xff, 0x62, 0x80, 0xfb, 0x11, 0x2a, 0x42, 0xfe, 0x19, 0x0e, 0xca,
-	0xd6, 0x9e, 0xb5, 0x5f, 0x70, 0xe3, 0x9f, 0xce, 0x3d, 0xd8, 0xd2, 0xb7, 0xf6, 0x7b, 0xdd, 0xa0,
-	0x8f, 0xe3, 0xbd, 0x6e, 0xd0, 0x4c, 0xf6, 0x2e, 0xbb, 0xf1, 0x4f, 0xe7, 0x01, 0xac, 0x3f, 0xf2,
-	0x5b, 0xb8, 0x1f, 0x9d, 0x06, 0x7e, 0xc4, 0x20, 0xbf, 0x0b, 0x85, 0x33, 0xdc, 0xb8, 0x2c, 0xe7,
-	0xf6, 0xac, 0xfd, 0xa5, 0xa3, 0xf5, 0x0a, 0x61, 0xa7, 0x12, 0xcf, 0x79, 0x81, 0xdf, 0xef, 0xb8,
-	0xc9, 0xb2, 0x73, 0x0f, 0x90, 0x7c, 0x96, 0xd2, 0x28, 0xc1, 0x6c, 0x3d, 0xf2, 0x22, 0x4c, 0xa9,
-	0x90, 0x81, 0xf3, 0x2e, 0xac, 0x90, 0xbd, 0x8c, 0x86, 0x71, 0x1b, 0x42, 0x50, 0x78, 0xe4, 0x45,
-	0x5e, 0x42, 0x79, 0xd9, 0x4d, 0x7e, 0x3b, 0xfb, 0xb0, 0xca, 0x8e, 0x52, 0x12, 0x5b, 0x30, 0x47,
-	0x66, 0xca, 0xf9, 0x64, 0x1f, 0x1d, 0x39, 0x0f, 0x61, 0x83, 0xfc, 0xfa, 0xa4, 0xd7, 0x8c, 0x85,
-	0xbf, 0x36, 0xa9, 0x77, 0xa0, 0xa4, 0x02, 0x64, 0xca, 0xf4, 0x00, 0x8a, 0x64, 0x77, 0x0d, 0x0f,
-	0xb3, 0x69, 0x15, 0x21, 0x5f, 0xc3, 0x43, 0x4a, 0x2a, 0xfe, 0xe9, 0xbc, 0xc5, 0xf4, 0x9e, 0x9c,
-	0xcd, 0x24, 0xc3, 0xd5, 0xfc, 0xa1, 0x1f, 0x78, 0xed, 0x4c, 0x42, 0xce, 0x01, 0xd3, 0x00, 0xdd,
-	0x9b, 0x52, 0x58, 0x4e, 0x51, 0xd8, 0x39, 0xdb, 0x5e, 0xf7, 0x83, 0x56, 0x1b, 0xeb, 0xf6, 0xb7,
-	0x32, 0xed, 0x6f, 0xd4, 0x60, 0x85, 0x69, 0x90, 0x21, 0x8e, 0x31, 0xd9, 0x19, 0xa0, 0xc7, 0x41,
-	0x23, 0x1c, 0xf6, 0xa6, 0x70, 0x40, 0xa6, 0xd6, 0xbc, 0x50, 0xeb, 0xdb, 0xb0, 0xa1, 0xc0, 0x65,
-	0x2a, 0xf6, 0x0c, 0xd0, 0x23, 0x7c, 0xab, 0xb4, 0x15, 0xb8, 0x4c, 0xda, 0x55, 0x28, 0x51, 0x46,
-	0x27, 0xf1, 0xd5, 0x12, 0xcc, 0x9e, 0xb7, 0x3d, 0x3f, 0xa0, 0xaa, 0x26, 0x03, 0xe7, 0x14, 0x36,
-	0x35, 0x8c, 0x2c, 0x92, 0xc8, 0x86, 0x85, 0x13, 0xbf, 0x77, 0x89, 0x43, 0xdc, 0xa4, 0x6c, 0xf3,
-	0xb1, 0xf3, 0x14, 0x4a, 0x94, 0xf7, 0x49, 0xd8, 0x91, 0x91, 0x72, 0x1a, 0xd2, 0x09, 0x6c, 0x6a,
-	0x48, 0x99, 0x4c, 0x71, 0xc9, 0xf2, 0xb2, 0x64, 0xef, 0xc1, 0x2a, 0x95, 0x6c, 0x1a, 0xbd, 0x1c,
-	0xc0, 0x1a, 0x3f, 0x4d, 0x89, 0x67, 0xc9, 0x5e, 0x85, 0x55, 0xca, 0xf1, 0xf4, 0x52, 0x7f, 0x1f,
-	0xd6, 0x38, 0x86, 0x90, 0xd7, 0x20, 0x99, 0x70, 0xd0, 0x09, 0x6e, 0xf3, 0x11, 0x77, 0x12, 0xf5,
-	0x3a, 0x67, 0x71, 0x22, 0xbc, 0x70, 0x02, 0x02, 0xef, 0x70, 0xb3, 0xab, 0x04, 0xcc, 0x7a, 0xc5,
-	0x9c, 0x1d, 0x35, 0x5c, 0xd0, 0xab, 0x60, 0xf1, 0xab, 0x30, 0xe9, 0x1d, 0x32, 0xab, 0xe8, 0x98,
-	0xbb, 0xb5, 0x16, 0x43, 0x64, 0xb1, 0x0b, 0x9a, 0xd8, 0x2f, 0xb9, 0x24, 0xb7, 0xc4, 0x5b, 0x96,
-	0xc7, 0x1c, 0x70, 0x1f, 0xd7, 0x38, 0xe4, 0x02, 0x15, 0x64, 0x81, 0x5c, 0x58, 0xab, 0xfb, 0xad,
-	0x60, 0x8a, 0x20, 0x53, 0x86, 0xf9, 0xf3, 0xd0, 0xbf, 0x12, 0x81, 0x86, 0x0d, 0x9d, 0x7d, 0x28,
-	0x0a, 0xcc, 0xcc, 0x48, 0xe3, 0xc2, 0xfa, 0xa7, 0x38, 0xf4, 0x3f, 0x1b, 0x4e, 0x41, 0x7f, 0x0b,
-	0xe6, 0xce, 0x07, 0x17, 0x82, 0x3c, 0x1d, 0xc5, 0x29, 0x49, 0xc6, 0xcc, 0xa4, 0xff, 0x3e, 0xac,
-	0xc7, 0x9c, 0x4e, 0x9b, 0x92, 0xef, 0x01, 0x92, 0x8f, 0x67, 0x92, 0x7a, 0x08, 0x1b, 0x84, 0xad,
-	0x1b, 0xe4, 0x7f, 0x15, 0x20, 0x93, 0x1c, 0xb5, 0xc1, 0x04, 0xf7, 0xec, 0x90, 0xe8, 0x40, 0xbd,
-	0x64, 0x3b, 0xb0, 0x18, 0x4f, 0x7a, 0xd1, 0x20, 0xc4, 0x94, 0x0b, 0x31, 0xe1, 0x3c, 0x65, 0x2a,
-	0x1e, 0x0f, 0x3f, 0x06, 0x69, 0x93, 0x69, 0x45, 0x21, 0xef, 0xfc, 0x10, 0x96, 0xe2, 0x3d, 0xd3,
-	0x28, 0x69, 0x99, 0x1c, 0x34, 0xc9, 0x91, 0xd7, 0xa9, 0xbf, 0x80, 0x15, 0x42, 0xfd, 0xda, 0x84,
-	0xc6, 0x00, 0x17, 0x61, 0x95, 0x01, 0x53, 0x89, 0x2e, 0x89, 0x96, 0xd5, 0x00, 0x20, 0x5d, 0x21,
-	0x4b, 0xb9, 0x42, 0x93, 0xde, 0x01, 0xc6, 0x59, 0x5e, 0x52, 0xc1, 0x11, 0x71, 0x4a, 0xed, 0xf6,
-	0x2b, 0xfc, 0x16, 0x74, 0x7e, 0x7f, 0x67, 0x31, 0x3b, 0xa8, 0x0c, 0x8a, 0x3b, 0x66, 0xc9, 0x77,
-	0xec, 0x06, 0xec, 0x8d, 0x61, 0x64, 0x8b, 0x39, 0xb9, 0xca, 0xbe, 0xf3, 0xe7, 0x1c, 0x20, 0xf6,
-	0x6e, 0x90, 0xbe, 0x68, 0x27, 0xfc, 0x18, 0xfc, 0xd2, 0x82, 0x85, 0x8f, 0x71, 0xa7, 0xd7, 0x8e,
-	0x4d, 0x9b, 0xdb, 0xcb, 0xef, 0x2f, 0x1d, 0xed, 0xb3, 0xbd, 0x69, 0xd4, 0x0a, 0xdb, 0xfa, 0x38,
-	0x88, 0xc2, 0x61, 0xf5, 0xf9, 0x6f, 0xbf, 0xbe, 0x5b, 0x6b, 0xf9, 0xd1, 0xe5, 0xe0, 0xa2, 0xd2,
-	0xe8, 0x76, 0xee, 0xfb, 0x17, 0x9d, 0x83, 0x26, 0xbe, 0xc2, 0xed, 0x6e, 0x0f, 0x87, 0xc9, 0xa8,
-	0xd1, 0xee, 0x0e, 0x9a, 0x07, 0x97, 0xc3, 0x1e, 0x0e, 0xe3, 0xf7, 0x10, 0x6e, 0x44, 0x49, 0xfc,
-	0xed, 0xde, 0x6f, 0x75, 0xdb, 0x5e, 0xd0, 0xba, 0x9f, 0xd0, 0xf9, 0x20, 0x8a, 0x42, 0xff, 0x62,
-	0x10, 0x61, 0x97, 0xb3, 0x12, 0xbb, 0x5b, 0x0d, 0x0f, 0x4f, 0x49, 0xc6, 0x58, 0x74, 0xc9, 0xc0,
-	0xfe, 0x31, 0xac, 0x28, 0x1c, 0xc4, 0x79, 0xe2, 0x25, 0x35, 0x41, 0xc1, 0x8d, 0x7f, 0xc6, 0x07,
-	0xaf, 0xbc, 0xf6, 0x80, 0x5d, 0x28, 0x32, 0x78, 0x90, 0xfb, 0x91, 0xe5, 0x9c, 0xc0, 0x86, 0x22,
-	0x91, 0x78, 0x5c, 0xc5, 0x56, 0x2c, 0x88, 0x54, 0x13, 0xe7, 0x90, 0x4b, 0xdc, 0x78, 0x59, 0x1f,
-	0x74, 0xca, 0xb3, 0x34, 0x87, 0xd0, 0xb1, 0xf3, 0x75, 0x41, 0xbc, 0xd2, 0x6a, 0x78, 0x78, 0xee,
-	0xf9, 0xe1, 0x35, 0x35, 0xfe, 0x17, 0x0b, 0x56, 0x89, 0xaf, 0x68, 0x7a, 0x3f, 0x32, 0xe8, 0x5d,
-	0xc2, 0xaf, 0xa8, 0x87, 0x5e, 0x93, 0x05, 0x34, 0xd6, 0xd0, 0x5f, 0x2d, 0x58, 0xa3, 0x37, 0x8f,
-	0xb3, 0x9b, 0x4f, 0xd8, 0x3d, 0x1e, 0xc7, 0xae, 0x7a, 0xea, 0x35, 0xf1, 0xab, 0x33, 0x17, 0x5f,
-	0x22, 0x3a, 0x75, 0xda, 0x4c, 0xac, 0xb7, 0xe8, 0x8a, 0x89, 0xd8, 0xb4, 0x44, 0xc0, 0xd3, 0x66,
-	0x79, 0x2e, 0x59, 0xe4, 0x63, 0xfb, 0x03, 0xd8, 0x30, 0xa8, 0xf8, 0x3a, 0x2e, 0x66, 0x57, 0xa1,
-	0x64, 0x12, 0xfb, 0x5a, 0x6e, 0x5a, 0x83, 0x37, 0x52, 0x1a, 0xa5, 0xae, 0x2a, 0x05, 0xc5, 0x59,
-	0x35, 0x28, 0x8a, 0x68, 0x34, 0xa7, 0x64, 0xfc, 0x3e, 0xac, 0xbe, 0x08, 0xbd, 0x9e, 0x14, 0x17,
-	0xd2, 0x5f, 0x56, 0xc9, 0x4c, 0x4d, 0xbc, 0x72, 0x6b, 0x31, 0xda, 0x99, 0xd7, 0x90, 0xbe, 0x1f,
-	0xc8, 0x88, 0x7b, 0x78, 0x21, 0xbb, 0xc0, 0xf0, 0x36, 0xac, 0x71, 0xa2, 0x82, 0xf3, 0x78, 0xaa,
-	0x87, 0x9b, 0x8c, 0x73, 0x3a, 0x74, 0xfe, 0x9d, 0x83, 0xe2, 0x27, 0xc1, 0xe7, 0x2a, 0x93, 0xd2,
-	0x76, 0x4b, 0xd9, 0x3e, 0x05, 0xb3, 0xb3, 0xd9, 0xd7, 0xf1, 0x0b, 0x39, 0x00, 0xce, 0x25, 0x9e,
-	0xfd, 0x3d, 0xb6, 0x57, 0xe7, 0xeb, 0xdb, 0x0b, 0x7f, 0x7b, 0xb0, 0x44, 0x88, 0xf7, 0x70, 0xf3,
-	0xb4, 0x59, 0x9e, 0x4f, 0x5c, 0x55, 0x9e, 0xba, 0x59, 0x28, 0x3c, 0x83, 0x75, 0x49, 0x36, 0x91,
-	0x07, 0x39, 0x81, 0x84, 0xe2, 0xb2, 0x2b, 0x26, 0x94, 0xa0, 0xb8, 0xa0, 0x05, 0xc5, 0x7f, 0xe4,
-	0xa0, 0xf8, 0x08, 0x87, 0xfe, 0xd5, 0x14, 0x09, 0xe8, 0x8b, 0x74, 0x02, 0xe2, 0xfa, 0xd7, 0x31,
-	0xbf, 0x3d, 0xfd, 0x97, 0x61, 0xbe, 0xea, 0xf5, 0xb1, 0xf4, 0x05, 0x4f, 0x87, 0x3c, 0x71, 0x17,
-	0xa4, 0xc4, 0x6d, 0xc3, 0xc2, 0x47, 0xf8, 0x73, 0x25, 0xaa, 0xb0, 0xf1, 0xcd, 0xec, 0xf4, 0x04,
-	0xd6, 0x25, 0x1d, 0x88, 0x9a, 0x0c, 0x41, 0x67, 0x77, 0x9d, 0x8c, 0x14, 0x0b, 0xcd, 0x6b, 0x16,
-	0xda, 0x8e, 0x83, 0x4a, 0xc4, 0x75, 0xff, 0xcc, 0xe7, 0x15, 0x3d, 0xe7, 0x37, 0x16, 0x94, 0xd3,
-	0x6b, 0x94, 0x16, 0x86, 0xd9, 0x78, 0xa1, 0x9f, 0x58, 0xa6, 0x50, 0x7d, 0xfe, 0xcd, 0x57, 0xb7,
-	0xa1, 0x71, 0xe1, 0x03, 0x04, 0xdd, 0xf9, 0xb5, 0xca, 0xde, 0x69, 0xf0, 0x59, 0x97, 0xb9, 0x51,
-	0x43, 0xfa, 0x9e, 0x7a, 0x0d, 0x0c, 0x90, 0x88, 0x75, 0xa6, 0xaa, 0x80, 0xd0, 0xa7, 0x2a, 0x38,
-	0x84, 0x85, 0x78, 0x21, 0x9e, 0x4b, 0x7c, 0x61, 0xe9, 0x68, 0x33, 0xe5, 0xcb, 0xc9, 0x01, 0xbe,
-	0xcd, 0xf9, 0x32, 0x97, 0xe0, 0x71, 0xc7, 0xfa, 0x34, 0x36, 0xa8, 0xf4, 0xe1, 0xf8, 0xfc, 0xe2,
-	0xe7, 0xb8, 0x11, 0xb1, 0x0f, 0x47, 0x32, 0x42, 0x7f, 0xb4, 0x00, 0xf8, 0x89, 0x3e, 0xbd, 0x0a,
-	0x3f, 0x10, 0x49, 0xd6, 0x0c, 0x27, 0xbc, 0xb7, 0xff, 0x9a, 0x2e, 0x85, 0xc4, 0x94, 0xfd, 0x3e,
-	0xac, 0x69, 0xf4, 0xae, 0xe5, 0xce, 0xff, 0xb1, 0x60, 0xdb, 0x20, 0x08, 0x55, 0xf4, 0x9f, 0x4c,
-	0x0a, 0x38, 0xcc, 0x50, 0x00, 0x39, 0xf7, 0x3f, 0xa5, 0x81, 0xd8, 0x33, 0xea, 0xb7, 0xeb, 0x19,
-	0xf5, 0xff, 0x07, 0xcf, 0x38, 0x86, 0xed, 0xfa, 0x48, 0xc7, 0x18, 0xa1, 0x17, 0xe7, 0xf7, 0x16,
-	0x2c, 0xf2, 0x2b, 0x88, 0x3a, 0xd2, 0x80, 0x10, 0xbd, 0xfd, 0x68, 0x21, 0x91, 0x8b, 0xbf, 0x33,
-	0xbd, 0xd0, 0xeb, 0xe0, 0x08, 0x87, 0xec, 0xf1, 0xce, 0x27, 0x1c, 0x0c, 0x2b, 0x4a, 0x70, 0x40,
-	0xbb, 0x00, 0x67, 0x7e, 0x50, 0xc3, 0xc3, 0xba, 0xff, 0x2b, 0x4c, 0x75, 0x22, 0xcd, 0x24, 0xeb,
-	0xde, 0x2f, 0xd9, 0x7a, 0x8e, 0xae, 0xf3, 0x99, 0x58, 0x75, 0x1f, 0xb6, 0xbd, 0x56, 0x3f, 0x09,
-	0x41, 0x05, 0x97, 0x0c, 0x9c, 0x3f, 0x58, 0xb0, 0xf4, 0x24, 0x71, 0x83, 0xc7, 0x61, 0xd8, 0x0d,
-	0xd1, 0xcf, 0xa0, 0x70, 0xd2, 0x6d, 0x52, 0xfc, 0xea, 0xb3, 0x6f, 0xbe, 0xba, 0xfb, 0xf4, 0xe6,
-	0xe2, 0xbb, 0x38, 0x1a, 0x84, 0x81, 0x9b, 0x20, 0x27, 0x0d, 0x01, 0x1c, 0x79, 0x7e, 0x3b, 0xe1,
-	0x71, 0xd1, 0xa5, 0xa3, 0x98, 0x3f, 0x17, 0x47, 0x21, 0x49, 0x97, 0x0b, 0x2e, 0x19, 0x1c, 0xfd,
-	0xab, 0x04, 0x73, 0x27, 0x09, 0x22, 0xfa, 0x09, 0xac, 0xaa, 0xdd, 0x2d, 0x74, 0x47, 0x7f, 0x40,
-	0x28, 0x0d, 0x32, 0x7b, 0x77, 0xd4, 0x32, 0x7d, 0xf7, 0xce, 0xa0, 0xc7, 0x00, 0xa2, 0x91, 0x85,
-	0xb6, 0xf9, 0x57, 0x83, 0xde, 0x18, 0xb3, 0x6d, 0xd3, 0x12, 0x87, 0x79, 0x97, 0xf5, 0x38, 0xd0,
-	0xa6, 0xba, 0x8f, 0x1d, 0xdf, 0xd2, 0xa7, 0xf9, 0xd1, 0x1a, 0x2c, 0xcb, 0x8d, 0x27, 0xf4, 0xa6,
-	0xba, 0x53, 0xa9, 0x67, 0xd9, 0x3b, 0xe6, 0x45, 0x0e, 0x56, 0x85, 0x45, 0xde, 0x5b, 0x42, 0x65,
-	0x75, 0xb3, 0xf8, 0x06, 0xb2, 0xb7, 0x0d, 0x2b, 0x1c, 0xe3, 0x29, 0x2c, 0x49, 0x8d, 0x24, 0xa4,
-	0x09, 0x2e, 0xd7, 0xa4, 0xec, 0x37, 0x8d, 0x6b, 0x69, 0xd1, 0x48, 0xb9, 0x41, 0x17, 0x4d, 0x29,
-	0x86, 0xe8, 0xa2, 0x69, 0x15, 0x8a, 0x84, 0x2d, 0xa9, 0xbf, 0x23, 0xd8, 0x4a, 0xf7, 0x90, 0x04,
-	0x5b, 0x86, 0x86, 0x10, 0x15, 0x10, 0x1b, 0x90, 0xd2, 0x1d, 0x21, 0x49, 0x40, 0x6c, 0x42, 0xfa,
-	0x08, 0x56, 0x94, 0x36, 0x0c, 0xda, 0xd1, 0x28, 0xab, 0xd6, 0xbb, 0x33, 0x62, 0x55, 0xc6, 0x53,
-	0x3a, 0x28, 0x02, 0xcf, 0xd4, 0xa2, 0x11, 0x78, 0xc6, 0xb6, 0x8b, 0x33, 0x83, 0xde, 0x83, 0x79,
-	0x4a, 0x0a, 0x6d, 0x69, 0xb4, 0x19, 0xc6, 0x1b, 0xa9, 0x79, 0xf9, 0x34, 0x05, 0x16, 0xa7, 0xd5,
-	0x76, 0x89, 0x38, 0xad, 0xb5, 0x40, 0x88, 0xf1, 0xe5, 0x0e, 0x06, 0xd2, 0x8d, 0xa2, 0x38, 0xd2,
-	0x8e, 0x79, 0x51, 0xf1, 0x24, 0x6c, 0x02, 0x33, 0x34, 0x3c, 0xec, 0x1d, 0xf3, 0xa2, 0xc1, 0x6a,
-	0xd4, 0x2f, 0x75, 0xea, 0xaa, 0x63, 0xde, 0x19, 0xb1, 0x6a, 0xb0, 0x9a, 0x8e, 0x67, 0xea, 0x4b,
-	0xa4, 0xac, 0x96, 0xc2, 0x7b, 0x08, 0x0b, 0xac, 0xc0, 0x8f, 0xb8, 0x82, 0xb5, 0x36, 0x82, 0x5d,
-	0x4e, 0x2f, 0xc8, 0x41, 0x4d, 0xd4, 0xe8, 0x45, 0x50, 0x4b, 0xf5, 0x02, 0x44, 0x50, 0x4b, 0x97,
-	0xf4, 0x09, 0x8c, 0xa8, 0xbf, 0x0b, 0x98, 0x54, 0x49, 0x5f, 0xc0, 0xa4, 0xcb, 0xf5, 0xc4, 0x76,
-	0x72, 0x65, 0x5d, 0xd8, 0xce, 0x50, 0xb0, 0x17, 0xb6, 0x33, 0x15, 0xe3, 0x49, 0x80, 0xe3, 0xe5,
-	0x74, 0xa4, 0xe8, 0x40, 0x71, 0x81, 0x6d, 0xc3, 0x8a, 0x7c, 0xff, 0xa5, 0xaa, 0x38, 0xd2, 0x94,
-	0x60, 0x0e, 0x70, 0xa6, 0x32, 0xfa, 0x0c, 0x3a, 0x86, 0x42, 0x4c, 0x00, 0x6d, 0xc8, 0xe4, 0xd8,
-	0xd9, 0x92, 0x3a, 0x29, 0xe7, 0x0a, 0x82, 0x26, 0x72, 0x85, 0x52, 0x26, 0x17, 0xb9, 0x42, 0x2b,
-	0x72, 0x73, 0x8b, 0x50, 0x37, 0x53, 0x84, 0x54, 0x7d, 0xcc, 0x36, 0x2d, 0xa5, 0x2d, 0xa2, 0xc7,
-	0x65, 0x43, 0x91, 0x5a, 0xb7, 0x88, 0x29, 0x2e, 0x4b, 0xb5, 0x26, 0xa1, 0xcd, 0x74, 0xe5, 0x57,
-	0x68, 0xd3, 0x50, 0x43, 0x75, 0x66, 0xd0, 0xc7, 0xb0, 0xa6, 0x55, 0xad, 0xd0, 0x6e, 0x76, 0x81,
-	0xd0, 0xbe, 0x3b, 0x72, 0x5d, 0x8e, 0x62, 0xb4, 0x92, 0x24, 0xa2, 0x98, 0x5a, 0xcf, 0x12, 0x51,
-	0x4c, 0x2b, 0x39, 0x11, 0x7f, 0xe3, 0x55, 0x0e, 0xe1, 0x6f, 0x7a, 0x51, 0x47, 0xf8, 0x5b, 0xaa,
-	0x24, 0x42, 0x93, 0x32, 0x7b, 0x81, 0x4b, 0x49, 0x59, 0x2b, 0x4c, 0x48, 0x49, 0x59, 0x7f, 0xae,
-	0x3b, 0x33, 0xe8, 0x05, 0x14, 0xf5, 0x07, 0x36, 0x92, 0x84, 0x37, 0x3e, 0xcb, 0xed, 0xbd, 0xd1,
-	0x1b, 0x46, 0x01, 0x27, 0x1f, 0x9a, 0x46, 0x60, 0xe9, 0x41, 0x6d, 0x06, 0x96, 0x5f, 0xbc, 0xce,
-	0x0c, 0xfa, 0x29, 0xac, 0xa7, 0xde, 0x5b, 0x68, 0x6f, 0xdc, 0x5b, 0xd4, 0xfe, 0xce, 0xd8, 0xc7,
-	0x1a, 0xc1, 0xae, 0x8f, 0xc6, 0xae, 0x8f, 0xc5, 0xae, 0x8f, 0xc6, 0xae, 0xde, 0xfb, 0xdb, 0xab,
-	0x5d, 0xeb, 0xef, 0xaf, 0x76, 0xad, 0x7f, 0xbe, 0xda, 0xb5, 0xc0, 0x6e, 0x74, 0x3b, 0x15, 0xff,
-	0xa2, 0x53, 0x21, 0x1f, 0xb5, 0x0c, 0xa0, 0x15, 0xf6, 0x1a, 0xe7, 0xd6, 0xc5, 0x5c, 0xf2, 0x07,
-	0xad, 0xe3, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff, 0xfd, 0xed, 0xed, 0xcc, 0xc4, 0x25, 0x00, 0x00,
+var fileDescriptor_server_974d68ed10a22135 = []byte{
+	// 2713 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x1a, 0x4b, 0x73, 0x1b, 0x49,
+	0x59, 0x23, 0x8d, 0x6c, 0xf9, 0x93, 0x2d, 0x8d, 0xdb, 0x8f, 0xc8, 0x5a, 0xc7, 0x31, 0x53, 0x3c,
+	0x9c, 0x6c, 0xac, 0xac, 0xe5, 0x24, 0x24, 0x61, 0x21, 0x65, 0x29, 0x4e, 0x6c, 0x2b, 0x4e, 0xcc,
+	0x28, 0xd9, 0x14, 0x7b, 0x81, 0xb1, 0xd4, 0x96, 0x07, 0x4b, 0x23, 0x31, 0x1a, 0x65, 0x51, 0x0e,
+	0x14, 0x50, 0x14, 0x7f, 0x60, 0x8b, 0x1b, 0x1c, 0xb6, 0x8a, 0x1b, 0x14, 0xb0, 0xff, 0x80, 0x03,
+	0x54, 0x51, 0x9c, 0xf8, 0x05, 0x0b, 0x95, 0x9f, 0xb1, 0x27, 0x6a, 0xa6, 0x7b, 0xa6, 0x1f, 0x33,
+	0x96, 0x1d, 0xc7, 0x66, 0x6b, 0xa9, 0x3d, 0x49, 0xfd, 0x75, 0x7f, 0xef, 0x47, 0xf7, 0x74, 0x7f,
+	0x30, 0xd9, 0xc7, 0xce, 0x4b, 0xec, 0x94, 0x7a, 0x4e, 0xd7, 0xed, 0xa2, 0xb1, 0x96, 0x83, 0x7b,
+	0x6b, 0x6b, 0x45, 0x68, 0x75, 0x5b, 0x5d, 0x02, 0xd3, 0xaf, 0xc2, 0xdc, 0x23, 0x6c, 0x63, 0xc7,
+	0x74, 0xb1, 0x61, 0xda, 0xcd, 0x6e, 0xc7, 0xc0, 0x3f, 0x19, 0xe0, 0xbe, 0x8b, 0x34, 0x48, 0x3d,
+	0xc6, 0x76, 0x41, 0x59, 0x56, 0x56, 0x54, 0xc3, 0xfb, 0xab, 0x5f, 0x83, 0x79, 0x79, 0x69, 0xbf,
+	0xd7, 0xb5, 0xfb, 0xd8, 0x5b, 0x6b, 0xd8, 0x4d, 0x7f, 0xed, 0xa4, 0xe1, 0xfd, 0xd5, 0xef, 0xc1,
+	0xf4, 0x03, 0xab, 0x85, 0xfb, 0xee, 0xb6, 0x6d, 0xb9, 0x01, 0xc9, 0x6f, 0x80, 0xba, 0x8b, 0x1b,
+	0x87, 0x85, 0xe4, 0xb2, 0xb2, 0x92, 0x2d, 0x4f, 0x97, 0x88, 0x38, 0x25, 0x0f, 0x66, 0xda, 0x56,
+	0xbf, 0x63, 0xf8, 0xd3, 0xfa, 0x35, 0x40, 0x3c, 0x2e, 0xe5, 0x31, 0x0b, 0xe9, 0xba, 0x6b, 0xba,
+	0x98, 0x72, 0x21, 0x03, 0xfd, 0x2e, 0x4c, 0x91, 0xb5, 0x01, 0x8f, 0xd8, 0x65, 0x08, 0x81, 0xfa,
+	0xc0, 0x74, 0x4d, 0x9f, 0xf3, 0xa4, 0xe1, 0xff, 0xd7, 0x57, 0x20, 0x17, 0xa0, 0x52, 0x16, 0xf3,
+	0x30, 0x46, 0x20, 0x85, 0x94, 0xbf, 0x8e, 0x8e, 0xf4, 0xfb, 0x30, 0x43, 0xfe, 0x3d, 0xef, 0x35,
+	0x3d, 0xe5, 0xdf, 0x98, 0xd5, 0x75, 0x98, 0x15, 0x09, 0x8c, 0xd4, 0xe9, 0x1e, 0x68, 0x64, 0x75,
+	0x0d, 0x0f, 0x47, 0xf3, 0xd2, 0x20, 0x55, 0xc3, 0x43, 0xca, 0xca, 0xfb, 0xab, 0x5f, 0x0d, 0xec,
+	0xee, 0xe3, 0x8e, 0x64, 0x13, 0x9a, 0xf9, 0xa1, 0x65, 0x9b, 0xed, 0x91, 0x8c, 0xf4, 0xd5, 0xc0,
+	0x02, 0x74, 0x6d, 0xc4, 0x60, 0x49, 0xc1, 0x60, 0x7b, 0xc1, 0xf2, 0xba, 0x65, 0xb7, 0xda, 0x58,
+	0xf6, 0xbf, 0x32, 0xd2, 0xff, 0xb1, 0x16, 0x2c, 0x05, 0x16, 0x0c, 0x28, 0x9e, 0xe0, 0xb2, 0x5d,
+	0x40, 0x9b, 0x76, 0xc3, 0x19, 0xf6, 0xce, 0x10, 0x80, 0x81, 0x59, 0x53, 0xcc, 0xac, 0xef, 0xc2,
+	0x8c, 0x40, 0x6e, 0xa4, 0x61, 0x77, 0x01, 0x3d, 0xc0, 0xe7, 0xca, 0x5b, 0x20, 0x37, 0x92, 0x77,
+	0x05, 0x66, 0xa9, 0xa0, 0xa7, 0x89, 0xd5, 0x59, 0x48, 0xef, 0xb5, 0x4d, 0xcb, 0xa6, 0xa6, 0x26,
+	0x03, 0x7d, 0x1b, 0xe6, 0x24, 0x1a, 0xa3, 0x58, 0xa2, 0x22, 0x64, 0xaa, 0x56, 0xef, 0x10, 0x3b,
+	0xb8, 0x49, 0xc5, 0x0e, 0xc7, 0xfa, 0x16, 0xcc, 0x52, 0xd9, 0x4f, 0x23, 0x0e, 0x4f, 0x29, 0x29,
+	0x51, 0xaa, 0xc2, 0x9c, 0x44, 0x69, 0xa4, 0x50, 0xa1, 0x66, 0x29, 0x5e, 0xb3, 0xf7, 0x21, 0x47,
+	0x35, 0x3b, 0x8b, 0x5d, 0x56, 0x21, 0x1f, 0x62, 0x53, 0xe6, 0xa3, 0x74, 0xaf, 0x40, 0x8e, 0x4a,
+	0x7c, 0x76, 0xad, 0xbf, 0x05, 0xf9, 0x90, 0x06, 0xd3, 0x37, 0x46, 0x33, 0x16, 0xa0, 0xa7, 0xc8,
+	0xe6, 0x72, 0x18, 0x24, 0x62, 0x3a, 0x8f, 0x92, 0x84, 0x45, 0xe1, 0x29, 0x18, 0x5c, 0x0f, 0xdd,
+	0x2e, 0x32, 0x88, 0xb7, 0x2b, 0x0e, 0xc5, 0x11, 0xcb, 0x05, 0x4d, 0x05, 0x25, 0x4c, 0x85, 0xd3,
+	0xe6, 0x50, 0xbc, 0x89, 0xd6, 0xc3, 0xb0, 0x96, 0x6a, 0x08, 0xaf, 0xb6, 0x2a, 0xa9, 0x7d, 0x14,
+	0x6a, 0x72, 0x4e, 0xb2, 0x8d, 0x8a, 0x98, 0xd5, 0x30, 0xc6, 0x25, 0x09, 0x43, 0x85, 0x54, 0x5e,
+	0x21, 0x03, 0xf2, 0x75, 0xab, 0x65, 0x9f, 0xa1, 0xc8, 0x14, 0x60, 0x7c, 0xcf, 0xb1, 0x5e, 0xb2,
+	0x42, 0x13, 0x0c, 0xf5, 0x15, 0xd0, 0x18, 0xcd, 0x91, 0x95, 0xc6, 0x80, 0xe9, 0x0f, 0xb0, 0x63,
+	0x1d, 0x0c, 0xcf, 0xc0, 0x7f, 0x1e, 0xc6, 0xf6, 0x06, 0xfb, 0x8c, 0x3d, 0x1d, 0x79, 0x5b, 0x12,
+	0x4f, 0x73, 0x24, 0xff, 0xef, 0xc2, 0xb4, 0x27, 0xe9, 0x59, 0xb7, 0xe4, 0x6b, 0x80, 0x78, 0xf4,
+	0x91, 0xac, 0xee, 0xc3, 0x0c, 0x11, 0xeb, 0x2d, 0xf6, 0x7f, 0x91, 0xc0, 0x48, 0x76, 0xd4, 0x07,
+	0xa7, 0xc8, 0xb3, 0x35, 0x62, 0x03, 0x31, 0xc9, 0x16, 0x61, 0xc2, 0x03, 0x9a, 0xee, 0xc0, 0xc1,
+	0x54, 0x0a, 0x06, 0xd0, 0xb7, 0x02, 0x13, 0x9f, 0x4c, 0xfe, 0x04, 0x4a, 0x73, 0x81, 0x55, 0x04,
+	0xf6, 0xfa, 0xb7, 0x21, 0xeb, 0xad, 0x39, 0x8b, 0x91, 0x26, 0x09, 0x62, 0x9c, 0x1e, 0x29, 0x99,
+	0xfb, 0x0b, 0x98, 0x22, 0xdc, 0xdf, 0x98, 0xd1, 0x09, 0x84, 0x35, 0xc8, 0x05, 0x84, 0xa9, 0x46,
+	0x87, 0xc4, 0xca, 0x62, 0x01, 0xe0, 0x52, 0x48, 0x11, 0x52, 0xe8, 0xb4, 0x39, 0x10, 0x48, 0x96,
+	0xe2, 0x4c, 0x50, 0x26, 0x41, 0x29, 0x65, 0xbf, 0x20, 0xaf, 0x2a, 0xcb, 0xfb, 0x6b, 0x25, 0xf0,
+	0x83, 0x28, 0x20, 0xcb, 0x31, 0x85, 0xcf, 0xb1, 0xb7, 0x10, 0xef, 0x04, 0x41, 0xe6, 0x83, 0x20,
+	0x17, 0xc5, 0xd7, 0xff, 0x99, 0x04, 0x14, 0x7c, 0x37, 0x70, 0x27, 0xda, 0x53, 0x1e, 0x06, 0x67,
+	0x21, 0x5d, 0xc3, 0xc3, 0x6d, 0x52, 0x99, 0x27, 0x0c, 0x32, 0x40, 0xbf, 0x51, 0x20, 0xf3, 0x0c,
+	0x77, 0x7a, 0x6d, 0xcf, 0xe1, 0x63, 0xcb, 0xa9, 0x95, 0x6c, 0x79, 0x25, 0xa0, 0x10, 0xe5, 0x55,
+	0x0a, 0x96, 0x6e, 0xda, 0xae, 0x33, 0xac, 0x3c, 0xfd, 0xe5, 0xbf, 0xaf, 0xd4, 0x5a, 0x96, 0x7b,
+	0x38, 0xd8, 0x2f, 0x35, 0xba, 0x9d, 0x1b, 0xd6, 0x7e, 0x67, 0xb5, 0x89, 0x5f, 0xe2, 0x76, 0xb7,
+	0x87, 0x1d, 0x7f, 0xd4, 0x68, 0x77, 0x07, 0xcd, 0xd5, 0xc3, 0x61, 0x0f, 0x3b, 0xde, 0x57, 0x12,
+	0x6e, 0xb8, 0x7e, 0x55, 0xee, 0xde, 0x68, 0x75, 0xdb, 0xa6, 0xdd, 0xba, 0xe1, 0xf3, 0xd9, 0x70,
+	0x5d, 0xc7, 0xda, 0x1f, 0xb8, 0xd8, 0x08, 0x45, 0x29, 0xd6, 0x61, 0x4a, 0xe0, 0xe5, 0xed, 0x13,
+	0x47, 0xd4, 0x05, 0xaa, 0xe1, 0xfd, 0x45, 0xd7, 0x21, 0xfd, 0xd2, 0x6c, 0x0f, 0x30, 0x75, 0xc0,
+	0x7c, 0x20, 0x76, 0x48, 0xee, 0x03, 0x6f, 0xd6, 0x20, 0x8b, 0xee, 0x25, 0xef, 0x28, 0x3b, 0x6a,
+	0x26, 0xa9, 0xa5, 0x76, 0xd4, 0x4c, 0x4a, 0x53, 0xf5, 0x2a, 0xcc, 0x08, 0xfa, 0xb1, 0x0f, 0x30,
+	0xcf, 0xd3, 0x2a, 0xdb, 0x8e, 0xbc, 0x7d, 0xe6, 0x10, 0x37, 0x8e, 0xea, 0x83, 0x4e, 0x21, 0x4d,
+	0xf7, 0x19, 0x3a, 0xd6, 0x3f, 0x49, 0xb3, 0x2f, 0xb9, 0x1a, 0x1e, 0xee, 0x99, 0x96, 0xf3, 0x86,
+	0x5e, 0x59, 0x84, 0x09, 0x1a, 0xee, 0xdb, 0x4d, 0x9f, 0xfc, 0x84, 0xc1, 0x00, 0x1e, 0x6f, 0x12,
+	0x6c, 0xdb, 0xcd, 0xc2, 0x98, 0x3f, 0x19, 0x8e, 0xd1, 0x9f, 0x14, 0xc8, 0xd3, 0x95, 0xa1, 0x03,
+	0xc7, 0x7d, 0x07, 0xae, 0xc7, 0x38, 0x90, 0x13, 0xad, 0x24, 0x61, 0x5d, 0x90, 0x2f, 0x65, 0xe1,
+	0xd0, 0x1f, 0x14, 0xc8, 0x11, 0xe9, 0x43, 0x79, 0x33, 0xbe, 0xbc, 0xe5, 0x93, 0xe4, 0x15, 0x90,
+	0x2e, 0x48, 0x5c, 0x49, 0xb4, 0xe2, 0x87, 0x30, 0x1b, 0x67, 0xa7, 0xf3, 0x88, 0xc3, 0xe2, 0x0f,
+	0x60, 0x26, 0x46, 0xa7, 0xf3, 0x0e, 0xf1, 0x1d, 0x35, 0xa3, 0x6a, 0x69, 0xbd, 0x06, 0x97, 0x22,
+	0x76, 0xa5, 0xc1, 0xce, 0x95, 0xde, 0xb4, 0x58, 0x7a, 0x59, 0xcd, 0x1b, 0x13, 0xce, 0x15, 0x7d,
+	0xc8, 0xbd, 0x70, 0xcc, 0x1e, 0x57, 0x7d, 0xa2, 0xe7, 0x37, 0x1f, 0x52, 0x63, 0xdf, 0xd2, 0x35,
+	0x8f, 0xda, 0xae, 0xd9, 0xe0, 0x4e, 0x29, 0x64, 0x14, 0xe6, 0x88, 0x3a, 0xfa, 0x1a, 0xe3, 0x5d,
+	0xc8, 0x87, 0x4c, 0x99, 0xe4, 0x1e, 0xa8, 0x87, 0x9b, 0x81, 0xe4, 0x74, 0xa8, 0xff, 0x36, 0x05,
+	0xda, 0x73, 0xfb, 0x23, 0x51, 0x48, 0x6e, 0xb9, 0x22, 0x2c, 0x3f, 0x83, 0xb0, 0xe9, 0xd1, 0x09,
+	0xbd, 0x0c, 0x59, 0xc2, 0xbe, 0x87, 0x9b, 0xdb, 0xcd, 0xc2, 0xb8, 0x9f, 0xb5, 0x3c, 0x08, 0x7d,
+	0xcc, 0x97, 0xdc, 0x09, 0x3f, 0x03, 0xbe, 0x19, 0x50, 0x93, 0x25, 0xff, 0xd2, 0x17, 0x5c, 0x55,
+	0x4b, 0xef, 0xa8, 0x99, 0x31, 0x6d, 0x7c, 0x47, 0xcd, 0x64, 0xb4, 0x09, 0x7d, 0x17, 0xa6, 0x39,
+	0x1d, 0xd9, 0xbe, 0x1c, 0x1a, 0xc8, 0xb7, 0xd8, 0xa4, 0xc1, 0x00, 0x42, 0x01, 0xce, 0x48, 0x05,
+	0xf8, 0xe7, 0x29, 0xd0, 0x1e, 0x60, 0xc7, 0x7a, 0x79, 0x86, 0x0d, 0xb1, 0x00, 0xe3, 0x15, 0xb3,
+	0x8f, 0xb9, 0xb3, 0x3b, 0x1d, 0x86, 0x5b, 0xb6, 0xca, 0x6d, 0xd9, 0x45, 0xc8, 0x3c, 0xc1, 0x1f,
+	0x09, 0xa5, 0x38, 0x18, 0x8b, 0x1e, 0xcd, 0x88, 0x1e, 0x95, 0xa5, 0xfb, 0x3f, 0xd9, 0x42, 0xd3,
+	0xda, 0xd8, 0x8e, 0x9a, 0x19, 0xd7, 0x32, 0xfa, 0x23, 0x98, 0xe6, 0x74, 0x64, 0xb7, 0x49, 0xc4,
+	0x3a, 0x41, 0xfd, 0x20, 0x23, 0xc1, 0x97, 0xe3, 0x92, 0x2f, 0x17, 0xbc, 0x42, 0xe5, 0x86, 0x5e,
+	0x7a, 0x6c, 0x85, 0x77, 0x91, 0xfa, 0x2f, 0x14, 0x28, 0x44, 0xe7, 0x28, 0x2f, 0x0c, 0x69, 0x6f,
+	0xa2, 0x5f, 0x48, 0x2e, 0xa7, 0x56, 0xd4, 0xca, 0xd3, 0xcf, 0x3f, 0x3b, 0x0f, 0x8b, 0xb2, 0x68,
+	0x21, 0xd4, 0xf5, 0x9f, 0x89, 0xe2, 0x6d, 0xdb, 0x07, 0xdd, 0x20, 0xe0, 0x1a, 0xdc, 0x49, 0xf0,
+	0x02, 0x04, 0x20, 0x55, 0x70, 0x57, 0x34, 0x01, 0xe1, 0x4f, 0x4d, 0xb0, 0x06, 0x19, 0x6f, 0xc2,
+	0x83, 0xf9, 0xb1, 0x9c, 0x2d, 0xcf, 0x45, 0xa2, 0xde, 0x47, 0x08, 0x97, 0xe9, 0xbf, 0x57, 0x7d,
+	0x7a, 0x92, 0xa7, 0xd9, 0x91, 0xf7, 0xe9, 0xfe, 0x8f, 0x71, 0xc3, 0x0d, 0x8e, 0xbc, 0x64, 0x84,
+	0xfe, 0xa2, 0x40, 0x3e, 0xc4, 0xe8, 0x57, 0x86, 0x2e, 0x26, 0x56, 0xcf, 0x96, 0x6f, 0xb1, 0x3d,
+	0x3c, 0x9e, 0x66, 0x49, 0xc2, 0xbb, 0xa8, 0x53, 0x87, 0xc4, 0x06, 0x7d, 0xa2, 0x00, 0x30, 0x58,
+	0x21, 0xe5, 0x4b, 0xfb, 0xde, 0x1b, 0x48, 0x7b, 0x41, 0x82, 0x72, 0x42, 0x15, 0x2b, 0x30, 0x1b,
+	0x67, 0x9d, 0x98, 0x84, 0x9d, 0xe5, 0x13, 0x76, 0x92, 0x3f, 0x53, 0x3c, 0xe7, 0x3d, 0x73, 0x6e,
+	0xf9, 0xae, 0x7f, 0x9c, 0x84, 0x85, 0x18, 0x23, 0xd1, 0xb8, 0xfb, 0xf4, 0xd8, 0x78, 0xb8, 0x3d,
+	0xc2, 0xc2, 0x04, 0xf9, 0x0b, 0x0a, 0x88, 0xf3, 0x30, 0xb6, 0x9f, 0x3c, 0xf5, 0x0b, 0x48, 0x9e,
+	0xfa, 0x97, 0x2a, 0x79, 0xea, 0x5f, 0x25, 0xcf, 0xe8, 0xe4, 0x59, 0x87, 0x85, 0xfa, 0xb1, 0xb9,
+	0x73, 0x4c, 0x98, 0xe8, 0x7f, 0x4c, 0xc2, 0x44, 0x58, 0xb4, 0x51, 0x87, 0x1b, 0x10, 0x61, 0xce,
+	0x7f, 0x7f, 0xe1, 0xd8, 0x2d, 0x03, 0xec, 0x99, 0x8e, 0xd9, 0xc1, 0x2e, 0x76, 0x2a, 0xc4, 0x4e,
+	0x5b, 0x09, 0x83, 0x83, 0xa1, 0x0d, 0xd0, 0x8c, 0xfa, 0xc6, 0xd3, 0x8d, 0xcd, 0xbd, 0x10, 0x48,
+	0xb7, 0x9c, 0x99, 0xc0, 0x20, 0x6c, 0xbe, 0xb3, 0x95, 0x30, 0x22, 0xcb, 0xd1, 0xf7, 0x20, 0x6f,
+	0xd4, 0x37, 0xf6, 0xea, 0x75, 0x46, 0x81, 0x7c, 0x01, 0x20, 0x8e, 0x02, 0x99, 0xf6, 0x08, 0xc8,
+	0x8b, 0x2b, 0x59, 0x98, 0x08, 0x07, 0x3a, 0x86, 0x29, 0x61, 0x8b, 0x43, 0x4b, 0x00, 0xbb, 0x96,
+	0x5d, 0xc3, 0xc3, 0xba, 0xf5, 0x0a, 0x53, 0xff, 0x71, 0x10, 0x7f, 0xde, 0xfc, 0x69, 0x30, 0x9f,
+	0xa4, 0xf3, 0x21, 0xc4, 0x8b, 0x92, 0x87, 0x6d, 0xb3, 0xd5, 0xf7, 0xb5, 0x52, 0x0d, 0x32, 0xd0,
+	0x7f, 0xa7, 0x40, 0xf6, 0x91, 0x2f, 0xdc, 0xa6, 0xe3, 0x74, 0x1d, 0xf4, 0x23, 0x50, 0xab, 0xdd,
+	0x26, 0xa5, 0x5f, 0x79, 0xfc, 0xf9, 0x67, 0x57, 0xb6, 0xde, 0xde, 0x25, 0x06, 0x76, 0x07, 0x8e,
+	0x6d, 0xf8, 0x94, 0xfd, 0x07, 0x39, 0xec, 0x9a, 0x56, 0xdb, 0x97, 0x71, 0xc2, 0xa0, 0x23, 0x4f,
+	0x3e, 0x03, 0xbb, 0x0e, 0x39, 0xb4, 0x66, 0x0c, 0x32, 0xd0, 0xff, 0x9e, 0x82, 0x2c, 0x67, 0x77,
+	0x74, 0x04, 0x99, 0x2d, 0xb3, 0x7f, 0x18, 0x9e, 0x83, 0x2f, 0x20, 0x6c, 0x42, 0x06, 0xe8, 0x1a,
+	0xa4, 0x76, 0x5b, 0x07, 0xbe, 0x9c, 0xb9, 0x72, 0x21, 0x26, 0x0c, 0x4a, 0xbb, 0x66, 0xff, 0xc8,
+	0xf0, 0x16, 0xa1, 0x2d, 0xd0, 0x36, 0xed, 0x46, 0xb7, 0x69, 0xd9, 0x2d, 0x6f, 0xe6, 0xd9, 0xb0,
+	0x47, 0xae, 0x0e, 0x73, 0xe5, 0xc5, 0x38, 0xc4, 0x60, 0x8d, 0x11, 0xc1, 0x42, 0x3a, 0x4c, 0xf2,
+	0x30, 0x7a, 0x5a, 0x17, 0x60, 0xba, 0x0b, 0xaa, 0xc7, 0x1a, 0xe5, 0x21, 0x5b, 0x3d, 0x6a, 0xed,
+	0xb6, 0x0e, 0xd6, 0x9e, 0x74, 0x6d, 0xac, 0x25, 0x38, 0x40, 0xfd, 0xd0, 0x5c, 0xd3, 0x14, 0x34,
+	0x0d, 0x53, 0x0c, 0x50, 0xbe, 0x75, 0x5b, 0x4b, 0x8a, 0xa0, 0xf5, 0x3b, 0x37, 0xb5, 0x94, 0x08,
+	0xba, 0xb5, 0x56, 0xd6, 0x54, 0x09, 0xb1, 0x7c, 0x53, 0x4b, 0xeb, 0x77, 0x21, 0x13, 0x4a, 0x39,
+	0x0f, 0xa8, 0x7a, 0xf4, 0xea, 0x49, 0xd7, 0xfb, 0x88, 0xa8, 0xf7, 0x70, 0xc3, 0x3a, 0xb0, 0x70,
+	0x53, 0x4b, 0xa0, 0x39, 0x98, 0xae, 0x1e, 0xbd, 0xe2, 0xa0, 0x1e, 0x58, 0xd1, 0xff, 0x9a, 0x04,
+	0x60, 0xd1, 0xff, 0xbf, 0x75, 0xe3, 0x55, 0xde, 0x8d, 0x97, 0xa2, 0xb9, 0xc8, 0x79, 0xf1, 0xeb,
+	0x30, 0x55, 0x37, 0xdb, 0xae, 0x57, 0x6e, 0xab, 0xdd, 0x81, 0xed, 0xd2, 0x64, 0x11, 0x81, 0x5f,
+	0x90, 0xf5, 0xff, 0x96, 0x84, 0xfc, 0x66, 0xf5, 0xc1, 0xd6, 0x1a, 0xf9, 0x2c, 0xf1, 0xed, 0x78,
+	0x1f, 0x52, 0xb5, 0xe6, 0x81, 0x6f, 0xc2, 0x5c, 0x79, 0x35, 0x50, 0x4d, 0x5a, 0x55, 0xaa, 0xe1,
+	0xa1, 0x3f, 0x32, 0x5d, 0xab, 0x6b, 0x3f, 0x1c, 0xd8, 0x0d, 0xef, 0xd7, 0xf0, 0x30, 0xbd, 0xaa,
+	0x51, 0x3f, 0x34, 0x1d, 0xdc, 0xe4, 0x2e, 0xc1, 0x39, 0x88, 0x37, 0xbf, 0x37, 0xd8, 0x6f, 0x5b,
+	0x0d, 0xee, 0xae, 0x97, 0x83, 0xe8, 0x7f, 0x56, 0x60, 0x2e, 0x96, 0x3c, 0xb1, 0x45, 0xf3, 0x49,
+	0xd7, 0x7d, 0xde, 0xc7, 0xcd, 0xf7, 0xb4, 0x04, 0xca, 0xc2, 0xb8, 0x07, 0x18, 0xb4, 0xdb, 0x9a,
+	0x82, 0x72, 0x00, 0xd5, 0xa3, 0xa6, 0x67, 0xa5, 0x5a, 0xf3, 0x40, 0x4b, 0x8a, 0xab, 0xd7, 0xb5,
+	0x94, 0x08, 0xb8, 0xa9, 0xa9, 0x48, 0x83, 0x49, 0x82, 0x51, 0x2e, 0xdf, 0xf4, 0x70, 0xd2, 0x1c,
+	0xe4, 0xd6, 0x6d, 0x0f, 0x32, 0xc6, 0x20, 0xeb, 0x77, 0xfc, 0x35, 0xe3, 0x0c, 0x72, 0x6b, 0xad,
+	0xec, 0x41, 0x32, 0xfa, 0x77, 0x20, 0xbf, 0xb5, 0xbb, 0x51, 0x25, 0x77, 0x47, 0x6d, 0xdf, 0x8a,
+	0x2b, 0x90, 0x27, 0x25, 0x8a, 0xf9, 0xdd, 0xb3, 0xe8, 0x94, 0x21, 0x83, 0xf5, 0x32, 0x68, 0x06,
+	0x96, 0x5e, 0x88, 0x97, 0x00, 0xe8, 0xad, 0x0b, 0xbb, 0x30, 0xe2, 0x20, 0xfa, 0x3a, 0x4c, 0x73,
+	0x38, 0x74, 0x97, 0x3c, 0x09, 0xe9, 0x57, 0x0a, 0xe4, 0xc4, 0x0d, 0xd6, 0xdb, 0xc3, 0x42, 0x48,
+	0x85, 0xa0, 0x78, 0x7b, 0x18, 0x83, 0x21, 0x1d, 0xb2, 0xe1, 0xe8, 0xd9, 0x43, 0xdf, 0x9b, 0x99,
+	0xad, 0x84, 0xc1, 0x03, 0x05, 0x2a, 0xdb, 0xbe, 0x43, 0x53, 0x02, 0x95, 0xed, 0x0a, 0x40, 0xa6,
+	0x6b, 0xe3, 0x1f, 0x9a, 0xae, 0xeb, 0x94, 0x3f, 0x9d, 0x83, 0xb1, 0xaa, 0x9f, 0x65, 0xe8, 0xfb,
+	0x90, 0x13, 0x9b, 0x7b, 0xd0, 0x65, 0xf9, 0x7e, 0x53, 0xe8, 0x0f, 0x2a, 0x2e, 0x1d, 0x37, 0x4d,
+	0xaf, 0xfd, 0x13, 0x68, 0x13, 0x80, 0xf5, 0xf1, 0xa0, 0x85, 0xf0, 0x6a, 0x41, 0xee, 0x0b, 0x2a,
+	0x16, 0xe3, 0xa6, 0x42, 0x32, 0x77, 0x83, 0x16, 0x0f, 0x34, 0x27, 0xae, 0x0b, 0xd0, 0xe7, 0x65,
+	0x70, 0x88, 0x5a, 0x83, 0x49, 0xbe, 0xef, 0x06, 0xbd, 0x23, 0xae, 0x14, 0x9e, 0xf3, 0x8a, 0x8b,
+	0xf1, 0x93, 0x21, 0xb1, 0x0a, 0x4c, 0x84, 0xad, 0x35, 0xa8, 0x20, 0x2e, 0x66, 0x17, 0x25, 0xc5,
+	0x85, 0x98, 0x99, 0x90, 0xc6, 0x16, 0x64, 0xb9, 0x3e, 0x1a, 0x24, 0x29, 0xce, 0x3f, 0xc9, 0x15,
+	0xdf, 0x89, 0x9d, 0x8b, 0xaa, 0x46, 0x5e, 0x5b, 0x64, 0xd5, 0x84, 0xb7, 0x20, 0x59, 0x35, 0xe9,
+	0x81, 0xc6, 0x17, 0x8b, 0x6b, 0x6f, 0x61, 0x62, 0x45, 0x5b, 0x68, 0x98, 0x58, 0x31, 0xfd, 0x30,
+	0x54, 0x41, 0x1c, 0x43, 0x29, 0xda, 0x10, 0xc3, 0x29, 0x88, 0xe3, 0x28, 0x3d, 0x81, 0x29, 0xa1,
+	0x0b, 0x05, 0x2d, 0x4a, 0x9c, 0x45, 0xef, 0x5d, 0x3e, 0x66, 0x96, 0xa7, 0x27, 0x34, 0x90, 0x30,
+	0x7a, 0x71, 0x1d, 0x2a, 0x8c, 0x5e, 0x6c, 0xd7, 0x89, 0x9e, 0x40, 0xef, 0xc3, 0x38, 0x65, 0x85,
+	0xe6, 0x25, 0xde, 0x01, 0x8d, 0x4b, 0x11, 0x38, 0x8f, 0x4d, 0x09, 0x33, 0x6c, 0xb1, 0x5b, 0x84,
+	0x61, 0x4b, 0x1d, 0x20, 0xc4, 0xf9, 0x7c, 0x03, 0x07, 0x92, 0x9d, 0x22, 0x04, 0xd2, 0x62, 0xfc,
+	0xa4, 0x10, 0x49, 0x38, 0x8e, 0x58, 0x4c, 0xbf, 0x47, 0x71, 0x31, 0x7e, 0x32, 0xc6, 0x6b, 0x34,
+	0x2e, 0x65, 0xee, 0x62, 0x60, 0x5e, 0x3e, 0x66, 0x36, 0xc6, 0x6b, 0x32, 0xbd, 0xb8, 0xb6, 0x8c,
+	0x88, 0xd7, 0x22, 0xf4, 0xee, 0x43, 0x26, 0xe8, 0x6f, 0x40, 0xa1, 0x81, 0xa5, 0x2e, 0x8a, 0x62,
+	0x21, 0x3a, 0xc1, 0x17, 0x35, 0xd6, 0xa2, 0xc0, 0x8a, 0x5a, 0xa4, 0x15, 0x82, 0x15, 0xb5, 0x68,
+	0x47, 0x03, 0x21, 0xc3, 0xda, 0x0f, 0x18, 0x99, 0x48, 0x47, 0x03, 0x23, 0x13, 0xed, 0x56, 0x20,
+	0xbe, 0xe3, 0x1b, 0x0b, 0x98, 0xef, 0x62, 0xfa, 0x15, 0x98, 0xef, 0xe2, 0x7a, 0x11, 0x48, 0x81,
+	0x0b, 0xbb, 0x09, 0x90, 0x60, 0x03, 0x21, 0x04, 0x16, 0x62, 0x66, 0xf8, 0xfc, 0xe7, 0x9a, 0x02,
+	0x90, 0x64, 0x84, 0xf8, 0x02, 0x17, 0xd7, 0x45, 0x90, 0x40, 0xeb, 0xa0, 0x7a, 0x0c, 0xd0, 0x0c,
+	0xcf, 0x2e, 0xc0, 0x9d, 0x15, 0x81, 0xfc, 0x5e, 0x41, 0xa8, 0xb1, 0xbd, 0x42, 0xe8, 0x12, 0x60,
+	0x7b, 0x85, 0xf4, 0xc6, 0x1f, 0x7a, 0x84, 0x86, 0x99, 0xa0, 0xa4, 0x18, 0x63, 0xc5, 0xb8, 0xa9,
+	0xa8, 0x47, 0xe4, 0xba, 0x1c, 0xf3, 0x46, 0x2f, 0x7b, 0x24, 0xae, 0x2e, 0x73, 0x8f, 0x60, 0xcc,
+	0x9a, 0xd1, 0x27, 0x6e, 0x66, 0xcd, 0x98, 0xe7, 0x61, 0x3d, 0x81, 0x9e, 0x41, 0x5e, 0x7a, 0x4e,
+	0x43, 0x4b, 0xa3, 0xdf, 0x2f, 0x8b, 0x57, 0x8e, 0x9d, 0xe7, 0xab, 0x18, 0x7d, 0xe2, 0x62, 0x55,
+	0x4c, 0x7c, 0x68, 0x63, 0x55, 0x4c, 0x7a, 0x0b, 0x23, 0xf1, 0x16, 0x3e, 0xaa, 0xb0, 0x78, 0x93,
+	0xdf, 0x92, 0x58, 0xbc, 0x45, 0x5e, 0x60, 0xe8, 0xa6, 0x1c, 0x5c, 0xe3, 0x73, 0x9b, 0xb2, 0xf4,
+	0x7a, 0xc1, 0x6d, 0xca, 0xf2, 0x9d, 0xbf, 0x9e, 0x40, 0x2f, 0x40, 0x93, 0x6f, 0xe9, 0x11, 0xa7,
+	0x7c, 0xec, 0xdd, 0x7e, 0x71, 0xf9, 0xf8, 0x05, 0xc7, 0x11, 0xf6, 0xbf, 0xf3, 0x63, 0x09, 0x73,
+	0xb7, 0xf2, 0xf1, 0x84, 0xf9, 0x6b, 0x73, 0x3d, 0x81, 0x3e, 0x84, 0xe9, 0xc8, 0x05, 0x25, 0x5a,
+	0x3e, 0xe9, 0x76, 0xb8, 0xf8, 0xb5, 0x13, 0x6f, 0x37, 0x09, 0xed, 0xfa, 0xf1, 0xb4, 0xeb, 0x27,
+	0xd2, 0xae, 0x8f, 0xa0, 0x5d, 0x81, 0x89, 0xf0, 0xac, 0xcc, 0xbc, 0x25, 0x1f, 0xb9, 0x99, 0xb7,
+	0x22, 0x07, 0x6b, 0x3d, 0x51, 0xb9, 0xf6, 0x8f, 0xd7, 0x4b, 0xca, 0xbf, 0x5e, 0x2f, 0x29, 0xff,
+	0x79, 0xbd, 0xa4, 0x40, 0xb1, 0xd1, 0xed, 0x94, 0xac, 0xfd, 0x4e, 0x89, 0x7c, 0x2c, 0x06, 0x88,
+	0x2d, 0xa7, 0xd7, 0xd8, 0x53, 0xf6, 0xc7, 0xfc, 0x1e, 0xf7, 0xf5, 0xff, 0x06, 0x00, 0x00, 0xff,
+	0xff, 0x5b, 0xf8, 0x35, 0x1d, 0x07, 0x2f, 0x00, 0x00,
 }

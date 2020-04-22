@@ -17,8 +17,7 @@ option java_multiple_files = true;
 option java_package = "com.ibm.crypto.grep11.grpc";
 
 service Crypto {
-// See https://www-03.ibm.com/security/cryptocards/pciecc/pdf/ep11-structure.pdf for
-// further documentation
+// See https://www.ibm.com/downloads/cas/WXRDPRAN for further documentation
 
 	// CK_RV m_GenerateRandom (
 	//     CK_BYTE_PTR rnd, CK_ULONG rndlen,
@@ -203,7 +202,7 @@ service Crypto {
 
 	// CK_RV m_GenerateKey (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     unsigned char *key, size_t *keylen,
 	//     unsigned char *checkSum, size_t *checkSumlen,
@@ -212,8 +211,8 @@ service Crypto {
 
 	// CK_RV m_GenerateKeyPair (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR pubKeyTemplate, CK_ULONG pubKeyTemplatelen,
-	//     CK_ATTRIBUTE_PTR privKeyTemplate, CK_ULONG privKeyTemplatelen,
+	//     CK_ATTRIBUTE_PTR pubKeyTemplateBytes, CK_ULONG pubKeyTemplateByteslen,
+	//     CK_ATTRIBUTE_PTR privKeyTemplateBytes, CK_ULONG privKeyTemplateByteslen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     unsigned char *privKey, size_t *privKeylen,
 	//     unsigned char *pubKey, size_t *pubKeylen,
@@ -235,7 +234,7 @@ service Crypto {
 	//     const unsigned char *macKey, size_t macKeylen,
 	//     const unsigned char *pin, size_t pinlen,
 	//     const CK_MECHANISM_PTR mech,
-	//     const CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     const CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     unsigned char *unwrapped, size_t *unwrappedlen,
 	//     CK_BYTE_PTR checkSum, CK_ULONG *checkSumlen,
 	//     target_t target) ;
@@ -243,7 +242,7 @@ service Crypto {
 
 	// CK_RV m_DeriveKey (
 	//     CK_MECHANISM_PTR mech,
-	//     CK_ATTRIBUTE_PTR template, CK_ULONG templatelen,
+	//     CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     const unsigned char *baseKey, size_t baseKeylen,
 	//     const unsigned char *data, size_t datalen,
 	//     const unsigned char *pin, size_t pinlen,
@@ -267,16 +266,17 @@ service Crypto {
 
 	// CK_RV m_GetAttributeValue (
 	//     const unsigned char *object, size_t objectlen,
-	//     CK_ATTRIBUTE_PTR attributes, CK_ULONG attributeslen,
+	//     CK_ATTRIBUTE_PTR attributesBytes, CK_ULONG attributesByteslen,
 	//     target_t target) ;
 	rpc GetAttributeValue(GetAttributeValueRequest) returns (GetAttributeValueResponse) {}
 
 	// CK_RV m_SetAttributeValue (
 	//     unsigned char *object, size_t objectlen,
-	//     CK_ATTRIBUTE_PTR attributes, CK_ULONG attributeslen,
+	//     CK_ATTRIBUTE_PTR attributesBytes, CK_ULONG attributesByteslen,
 	//     target_t target) ;
 	rpc SetAttributeValue(SetAttributeValueRequest) returns (SetAttributeValueResponse) {}
 
+    rpc ReEncrypt (ReEncryptRequest) returns (ReEncryptResponse) {}
 }
 
 message GenerateRandomRequest {
@@ -523,8 +523,9 @@ message VerifySingleResponse {
 
 message GenerateKeyRequest {
 	Mechanism Mech = 1;
-	map<uint64,bytes> Template = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	reserved 2, 3;
 	string KeyId = 4;
+	map<uint64,AttributeValue> Template = 6 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
 message GenerateKeyResponse {
@@ -534,10 +535,11 @@ message GenerateKeyResponse {
 
 message GenerateKeyPairRequest {
 	Mechanism Mech = 1;
-	map<uint64,bytes> PubKeyTemplate = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
-	map<uint64,bytes> PrivKeyTemplate = 3 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	reserved 2, 3, 4;
 	string PrivKeyId = 5;
 	string PubKeyId = 6;
+	map<uint64,AttributeValue> PrivKeyTemplate = 7 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	map<uint64,AttributeValue> PubKeyTemplate = 8 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
 message GenerateKeyPairResponse {
@@ -561,8 +563,9 @@ message UnwrapKeyRequest {
 	bytes KeK = 2;
 	bytes MacKey = 3;
 	Mechanism Mech = 5;
-	map<uint64,bytes> Template = 6 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	reserved 4, 6, 8;
 	string UnwrappedId = 7;
+	map<uint64,AttributeValue> Template = 9 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
 message UnwrapKeyResponse {
@@ -572,10 +575,11 @@ message UnwrapKeyResponse {
 
 message DeriveKeyRequest {
 	Mechanism Mech = 1;
-	map<uint64,bytes> Template = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	reserved 2, 5, 7;
 	bytes BaseKey = 3;
 	bytes Data = 4;
 	string NewKeyId = 6;
+	map<uint64,AttributeValue> Template = 8 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
 message DeriveKeyResponse {
@@ -600,16 +604,18 @@ message GetMechanismInfoResponse {
 
 message GetAttributeValueRequest {
 	bytes Object = 1;
-	map<uint64,bytes> Attributes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	map<uint64,bytes> AttributesBytes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	map<uint64,AttributeValue> Attributes = 3 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
 message GetAttributeValueResponse {
-	map<uint64,bytes> Attributes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	map<uint64,bytes> AttributesBytes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
 message SetAttributeValueRequest {
 	bytes Object = 1;
-	map<uint64,bytes> Attributes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	map<uint64,bytes> AttributesBytes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	map<uint64,AttributeValue> Attributes = 3 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
 message SetAttributeValueResponse {
@@ -618,7 +624,11 @@ message SetAttributeValueResponse {
 
 message Mechanism {
 	uint64 Mechanism = 1 [(gogoproto.casttype) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Mechanism"];
-	bytes Parameter = 2; //optional
+	oneof Parameter {
+		bytes ParameterB = 2;
+		RSAOAEPParm RSAOAEPParameter = 3;
+		RSAPSSParm RSAPSSParameter = 4;
+	}
 }
 
 message MechanismInfo {
@@ -631,4 +641,74 @@ message Grep11Error {
 	uint64 Code = 1 [(gogoproto.casttype) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Return"];
 	string Detail = 2;
 	bool Retry = 3;
+}
+
+message RSAOAEPParm {
+	uint64 HashMech = 1 [(gogoproto.casttype) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Mechanism"];
+	enum Mask {
+		CkgMgf1None   = 0;
+		CkgMgf1Sha1   = 1;
+		CkgMgf1Sha256 = 2;
+		CkgMgf1Sha384 = 3;
+		CkgMgf1Sha512 = 4;
+		CkgMgf1Sha224 = 5;
+	}
+	Mask Mgf = 2;
+	enum ParmType {
+		CkzNoDataSpecified = 0;
+		CkzDataSpecifiied  = 1;
+	}
+	ParmType EncodingParmType = 3;
+	bytes  EncodingParm = 4;
+}
+
+message RSAPSSParm {
+	uint64 HashMech = 1 [(gogoproto.casttype) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Mechanism"];
+	enum Mask {
+		CkgMgf1None   = 0;
+		CkgMgf1Sha1   = 1;
+		CkgMgf1Sha256 = 2;
+		CkgMgf1Sha384 = 3;
+		CkgMgf1Sha512 = 4;
+		CkgMgf1Sha224 = 5;
+	}
+	Mask Mgf = 2;
+	uint64 SaltByteCount = 3;	
+}
+
+message ECDH1DeriveParm {
+	enum KeyDerivationFunction {
+		CkdNotUsed0  = 0;
+		CkdNull      = 1;
+		CkdSha1Kdf   = 2;
+		CkdNotUsed3  = 3;     
+		CkdNotUsed4  = 4;
+		CkdSha224Kdf = 5;          
+		CkdSha256Kdf = 6;         
+		CkdSha384Kdf = 7;         
+		CkdSha512Kdf = 8;     
+	}
+	KeyDerivationFunction Kdf = 1;
+	bytes SharedData = 2;
+	bytes PublicData = 3;
+}
+
+message HMACGeneralParm {
+	uint32 ReturnByteCount = 1;
+}
+
+message ReEncryptRequest {
+	bytes WrappedKey = 1;
+}
+
+message ReEncryptResponse {
+	bytes WrappedKey = 1;
+}
+
+message AttributeValue {
+	oneof one_attr {
+		bytes AttributeB = 1;
+		bool AttributeTF = 2;
+		int64 AttributeI = 3;
+	}
 }

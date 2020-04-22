@@ -32,19 +32,19 @@ func generateECDSAKeyPair(cryptoClient pb.CryptoClient) ([]byte, []byte, error) 
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to encode parameter OID: %s", err)
 	}
-	publicKeyECTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_EC_PARAMS, ecParameters),
-		util.NewAttribute(ep11.CKA_VERIFY, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
-	privateKeyECTemplate := util.NewAttributeMap(
-		util.NewAttribute(ep11.CKA_SIGN, true),
-		util.NewAttribute(ep11.CKA_EXTRACTABLE, false),
-	)
+	publicKeyECTemplate := ep11.EP11Attributes{
+		ep11.CKA_EC_PARAMS:   ecParameters,
+		ep11.CKA_VERIFY:      true,
+		ep11.CKA_EXTRACTABLE: false,
+	}
+	privateKeyECTemplate := ep11.EP11Attributes{
+		ep11.CKA_SIGN:        true,
+		ep11.CKA_EXTRACTABLE: false,
+	}
 	generateECKeypairRequest := &pb.GenerateKeyPairRequest{
 		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_EC_KEY_PAIR_GEN},
-		PubKeyTemplate:  publicKeyECTemplate,
-		PrivKeyTemplate: privateKeyECTemplate,
+		PubKeyTemplate:  util.AttributeMap(publicKeyECTemplate),
+		PrivKeyTemplate: util.AttributeMap(privateKeyECTemplate),
 	}
 	var ecKeypairResponse *pb.GenerateKeyPairResponse
 	ecKeypairResponse, err = cryptoClient.GenerateKeyPair(context.Background(), generateECKeypairRequest)

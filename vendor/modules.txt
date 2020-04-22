@@ -1,4 +1,4 @@
-# github.com/gogo/protobuf v1.2.1
+# github.com/gogo/protobuf v1.3.1
 github.com/gogo/protobuf/gogoproto
 github.com/gogo/protobuf/jsonpb
 github.com/gogo/protobuf/proto
@@ -7,7 +7,7 @@ github.com/gogo/protobuf/sortkeys
 github.com/gogo/protobuf/types
 # github.com/golang/mock v1.3.1-0.20190508161146-9fa652df1129
 github.com/golang/mock/gomock
-# github.com/golang/protobuf v1.3.1
+# github.com/golang/protobuf v1.3.2
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/ptypes
 github.com/golang/protobuf/ptypes/any
@@ -16,7 +16,6 @@ github.com/golang/protobuf/ptypes/timestamp
 # github.com/satori/go.uuid v1.2.0
 github.com/satori/go.uuid
 # golang.org/x/net v0.0.0-20190611141213-3f473d35a33a
-golang.org/x/net/context
 golang.org/x/net/http/httpguts
 golang.org/x/net/http2
 golang.org/x/net/http2/hpack
