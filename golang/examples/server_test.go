@@ -24,14 +24,25 @@ import (
 )
 
 // The following IBM Cloud items need to be changed prior to running the sample program
-const address = "<grep11_server_address>:<port>"
+// const address = "<grep11_server_address>:<port>"
+
+// var callOpts = []grpc.DialOption{
+// 	grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})),
+// 	grpc.WithPerRPCCredentials(&util.IAMPerRPCCredentials{
+// 		APIKey:   "<ibm_cloud_apikey>",
+// 		Endpoint: "<https://<iam_ibm_cloud_endpoint>",
+// 		Instance: "<hpcs_instance_id>",
+// 	}),
+// }
+
+const address = "ep11.us-south.hs-crypto.test.cloud.ibm.com:9333"
 
 var callOpts = []grpc.DialOption{
 	grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})),
 	grpc.WithPerRPCCredentials(&util.IAMPerRPCCredentials{
-		APIKey:   "<ibm_cloud_apikey>",
-		Endpoint: "<https://<iam_ibm_cloud_endpoint>",
-		Instance: "<hpcs_instance_id>",
+		APIKey:   "nGzeigmosHUohp8K7O1hb3M9BtgfBPRZAgNFWhVQHeZe",
+		Endpoint: "https://iam.test.cloud.ibm.com",
+		Instance: "367db53c-24cc-4410-962b-3a308fdeaf02",
 	}),
 }
 
