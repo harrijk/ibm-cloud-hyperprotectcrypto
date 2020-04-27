@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"reflect"
 	"sync"
 	"time"
@@ -308,4 +309,19 @@ func (cr *IAMPerRPCCredentials) getToken(ctx context.Context) (err error) {
 	cr.expiration = time.Now().Add((time.Duration(iamToken.ExpiresIn - 60)) * time.Second)
 
 	return nil
+}
+
+// Pause is a helper function that pauses test execution until the user types CTRL-c
+func Pause(m chan string, sigs chan os.Signal, message string) {
+	os.Stderr.WriteString("\n" + message + "\n")
+loop:
+	for {
+		select {
+		case <-sigs:
+			fmt.Println("")
+			break loop
+		case <-m:
+		}
+	}
+	return
 }
