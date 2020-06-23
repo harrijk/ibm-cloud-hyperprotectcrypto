@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"github.com/gogo/protobuf/jsonpb"
 	"strconv"
+	"strings"
 )
 
 type AdminCommand uint32
@@ -206,6 +207,7 @@ const (
 	CKA_IBM_WIRETEST                  Attribute = CKA_VENDOR_DEFINED + 0x20001
 	CKA_VENDOR_DEFINED_GREP11         Attribute = CKA_VENDOR_DEFINED + 0x40000
 	CKA_GREP11_RAW_KEYBLOB            Attribute = CKA_VENDOR_DEFINED_GREP11 + 0x1
+	CKA_GREP11_VOTE_VERSION           Attribute = CKA_VENDOR_DEFINED_GREP11 + 0x2
 
 	XCP_ADMP_WK_IMPORT         CardAttributeFlags = 0x00000001
 	XCP_ADMP_WK_EXPORT         CardAttributeFlags = 0x00000002
@@ -1172,6 +1174,7 @@ var (
 		"CKA_IBM_WIRETEST":                  CKA_IBM_WIRETEST,
 		"CKA_VENDOR_DEFINED_GREP11":         CKA_VENDOR_DEFINED_GREP11,
 		"CKA_GREP11_RAW_KEYBLOB":            CKA_GREP11_RAW_KEYBLOB,
+		"CKA_GREP11_VOTE_VERSION":           CKA_GREP11_VOTE_VERSION,
 	}
 	AttributeValueToName = map[Attribute]string{
 		CKA_CLASS:                         "CKA_CLASS",
@@ -1294,6 +1297,7 @@ var (
 		CKA_IBM_WIRETEST:                  "CKA_IBM_WIRETEST",
 		CKA_VENDOR_DEFINED_GREP11:         "CKA_VENDOR_DEFINED_GREP11",
 		CKA_GREP11_RAW_KEYBLOB:            "CKA_GREP11_RAW_KEYBLOB",
+		CKA_GREP11_VOTE_VERSION:           "CKA_GREP11_VOTE_VERSION",
 	}
 	CardAttributeFlagsNameToValue = map[string]CardAttributeFlags{
 		"XCP_ADMP_WK_IMPORT":         XCP_ADMP_WK_IMPORT,
@@ -2681,7 +2685,7 @@ var (
 func (c AdminCommand) MarshalJSON() ([]byte, error) {
 	s, ok := AdminCommandValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid AdminCommand: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -2692,12 +2696,8 @@ func (c *AdminCommand) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("AdminCommand should be a string, got %s", data)
 	}
-	v, ok := AdminCommandNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid AdminCommand %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -2706,12 +2706,7 @@ func (c AdminCommand) MarshalText() (text []byte, err error) {
 }
 
 func (c *AdminCommand) UnmarshalText(text []byte) error {
-	v, ok := AdminCommandNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid AdminCommand %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -2732,12 +2727,7 @@ func (c *AdminCommand) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error {
 		return nil
 	}
 
-	v, ok := AdminCommandNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c AdminCommand) String() string {
@@ -2747,11 +2737,29 @@ func (c AdminCommand) String() string {
 	return "AdminCommand(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *AdminCommand) FromString(s string) error {
+	v, ok := AdminCommandNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "AdminCommand(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid AdminCommand %q", s)
+	}
+
+	*c = AdminCommand(vv)
+	return nil
+}
+
 // MarshalJSON is generated so Attribute satisfies json.Marshaler.
 func (c Attribute) MarshalJSON() ([]byte, error) {
 	s, ok := AttributeValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid Attribute: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -2762,12 +2770,8 @@ func (c *Attribute) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("Attribute should be a string, got %s", data)
 	}
-	v, ok := AttributeNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid Attribute %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -2776,12 +2780,7 @@ func (c Attribute) MarshalText() (text []byte, err error) {
 }
 
 func (c *Attribute) UnmarshalText(text []byte) error {
-	v, ok := AttributeNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid Attribute %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -2802,12 +2801,7 @@ func (c *Attribute) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error {
 		return nil
 	}
 
-	v, ok := AttributeNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c Attribute) String() string {
@@ -2817,11 +2811,29 @@ func (c Attribute) String() string {
 	return "Attribute(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *Attribute) FromString(s string) error {
+	v, ok := AttributeNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "Attribute(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid Attribute %q", s)
+	}
+
+	*c = Attribute(vv)
+	return nil
+}
+
 // MarshalJSON is generated so CardAttributeFlags satisfies json.Marshaler.
 func (c CardAttributeFlags) MarshalJSON() ([]byte, error) {
 	s, ok := CardAttributeFlagsValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid CardAttributeFlags: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -2832,12 +2844,8 @@ func (c *CardAttributeFlags) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("CardAttributeFlags should be a string, got %s", data)
 	}
-	v, ok := CardAttributeFlagsNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid CardAttributeFlags %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -2846,12 +2854,7 @@ func (c CardAttributeFlags) MarshalText() (text []byte, err error) {
 }
 
 func (c *CardAttributeFlags) UnmarshalText(text []byte) error {
-	v, ok := CardAttributeFlagsNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid CardAttributeFlags %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -2872,12 +2875,7 @@ func (c *CardAttributeFlags) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) er
 		return nil
 	}
 
-	v, ok := CardAttributeFlagsNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c CardAttributeFlags) String() string {
@@ -2887,11 +2885,29 @@ func (c CardAttributeFlags) String() string {
 	return "CardAttributeFlags(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *CardAttributeFlags) FromString(s string) error {
+	v, ok := CardAttributeFlagsNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "CardAttributeFlags(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid CardAttributeFlags %q", s)
+	}
+
+	*c = CardAttributeFlags(vv)
+	return nil
+}
+
 // MarshalJSON is generated so CardAttributeKey satisfies json.Marshaler.
 func (c CardAttributeKey) MarshalJSON() ([]byte, error) {
 	s, ok := CardAttributeKeyValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid CardAttributeKey: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -2902,12 +2918,8 @@ func (c *CardAttributeKey) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("CardAttributeKey should be a string, got %s", data)
 	}
-	v, ok := CardAttributeKeyNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid CardAttributeKey %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -2916,12 +2928,7 @@ func (c CardAttributeKey) MarshalText() (text []byte, err error) {
 }
 
 func (c *CardAttributeKey) UnmarshalText(text []byte) error {
-	v, ok := CardAttributeKeyNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid CardAttributeKey %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -2942,12 +2949,7 @@ func (c *CardAttributeKey) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) erro
 		return nil
 	}
 
-	v, ok := CardAttributeKeyNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c CardAttributeKey) String() string {
@@ -2957,11 +2959,29 @@ func (c CardAttributeKey) String() string {
 	return "CardAttributeKey(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *CardAttributeKey) FromString(s string) error {
+	v, ok := CardAttributeKeyNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "CardAttributeKey(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid CardAttributeKey %q", s)
+	}
+
+	*c = CardAttributeKey(vv)
+	return nil
+}
+
 // MarshalJSON is generated so ControlPoint satisfies json.Marshaler.
 func (c ControlPoint) MarshalJSON() ([]byte, error) {
 	s, ok := ControlPointValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid ControlPoint: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -2972,12 +2992,8 @@ func (c *ControlPoint) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("ControlPoint should be a string, got %s", data)
 	}
-	v, ok := ControlPointNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid ControlPoint %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -2986,12 +3002,7 @@ func (c ControlPoint) MarshalText() (text []byte, err error) {
 }
 
 func (c *ControlPoint) UnmarshalText(text []byte) error {
-	v, ok := ControlPointNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid ControlPoint %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -3012,12 +3023,7 @@ func (c *ControlPoint) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error {
 		return nil
 	}
 
-	v, ok := ControlPointNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c ControlPoint) String() string {
@@ -3027,11 +3033,29 @@ func (c ControlPoint) String() string {
 	return "ControlPoint(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *ControlPoint) FromString(s string) error {
+	v, ok := ControlPointNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "ControlPoint(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid ControlPoint %q", s)
+	}
+
+	*c = ControlPoint(vv)
+	return nil
+}
+
 // MarshalJSON is generated so FunctionID satisfies json.Marshaler.
 func (c FunctionID) MarshalJSON() ([]byte, error) {
 	s, ok := FunctionIDValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid FunctionID: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -3042,12 +3066,8 @@ func (c *FunctionID) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("FunctionID should be a string, got %s", data)
 	}
-	v, ok := FunctionIDNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid FunctionID %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -3056,12 +3076,7 @@ func (c FunctionID) MarshalText() (text []byte, err error) {
 }
 
 func (c *FunctionID) UnmarshalText(text []byte) error {
-	v, ok := FunctionIDNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid FunctionID %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -3082,12 +3097,7 @@ func (c *FunctionID) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error {
 		return nil
 	}
 
-	v, ok := FunctionIDNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c FunctionID) String() string {
@@ -3097,11 +3107,29 @@ func (c FunctionID) String() string {
 	return "FunctionID(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *FunctionID) FromString(s string) error {
+	v, ok := FunctionIDNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "FunctionID(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid FunctionID %q", s)
+	}
+
+	*c = FunctionID(vv)
+	return nil
+}
+
 // MarshalJSON is generated so ImporterKeyType satisfies json.Marshaler.
 func (c ImporterKeyType) MarshalJSON() ([]byte, error) {
 	s, ok := ImporterKeyTypeValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid ImporterKeyType: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -3112,12 +3140,8 @@ func (c *ImporterKeyType) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("ImporterKeyType should be a string, got %s", data)
 	}
-	v, ok := ImporterKeyTypeNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid ImporterKeyType %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -3126,12 +3150,7 @@ func (c ImporterKeyType) MarshalText() (text []byte, err error) {
 }
 
 func (c *ImporterKeyType) UnmarshalText(text []byte) error {
-	v, ok := ImporterKeyTypeNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid ImporterKeyType %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -3152,12 +3171,7 @@ func (c *ImporterKeyType) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error
 		return nil
 	}
 
-	v, ok := ImporterKeyTypeNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c ImporterKeyType) String() string {
@@ -3167,11 +3181,29 @@ func (c ImporterKeyType) String() string {
 	return "ImporterKeyType(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *ImporterKeyType) FromString(s string) error {
+	v, ok := ImporterKeyTypeNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "ImporterKeyType(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid ImporterKeyType %q", s)
+	}
+
+	*c = ImporterKeyType(vv)
+	return nil
+}
+
 // MarshalJSON is generated so KeyType satisfies json.Marshaler.
 func (c KeyType) MarshalJSON() ([]byte, error) {
 	s, ok := KeyTypeValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid KeyType: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -3182,12 +3214,8 @@ func (c *KeyType) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("KeyType should be a string, got %s", data)
 	}
-	v, ok := KeyTypeNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid KeyType %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -3196,12 +3224,7 @@ func (c KeyType) MarshalText() (text []byte, err error) {
 }
 
 func (c *KeyType) UnmarshalText(text []byte) error {
-	v, ok := KeyTypeNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid KeyType %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -3222,12 +3245,7 @@ func (c *KeyType) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error {
 		return nil
 	}
 
-	v, ok := KeyTypeNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c KeyType) String() string {
@@ -3237,11 +3255,29 @@ func (c KeyType) String() string {
 	return "KeyType(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *KeyType) FromString(s string) error {
+	v, ok := KeyTypeNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "KeyType(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid KeyType %q", s)
+	}
+
+	*c = KeyType(vv)
+	return nil
+}
+
 // MarshalJSON is generated so Mechanism satisfies json.Marshaler.
 func (c Mechanism) MarshalJSON() ([]byte, error) {
 	s, ok := MechanismValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid Mechanism: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -3252,12 +3288,8 @@ func (c *Mechanism) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("Mechanism should be a string, got %s", data)
 	}
-	v, ok := MechanismNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid Mechanism %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -3266,12 +3298,7 @@ func (c Mechanism) MarshalText() (text []byte, err error) {
 }
 
 func (c *Mechanism) UnmarshalText(text []byte) error {
-	v, ok := MechanismNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid Mechanism %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -3292,12 +3319,7 @@ func (c *Mechanism) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error {
 		return nil
 	}
 
-	v, ok := MechanismNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c Mechanism) String() string {
@@ -3307,11 +3329,29 @@ func (c Mechanism) String() string {
 	return "Mechanism(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *Mechanism) FromString(s string) error {
+	v, ok := MechanismNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "Mechanism(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid Mechanism %q", s)
+	}
+
+	*c = Mechanism(vv)
+	return nil
+}
+
 // MarshalJSON is generated so MechanismInfoFlag satisfies json.Marshaler.
 func (c MechanismInfoFlag) MarshalJSON() ([]byte, error) {
 	s, ok := MechanismInfoFlagValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid MechanismInfoFlag: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -3322,12 +3362,8 @@ func (c *MechanismInfoFlag) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("MechanismInfoFlag should be a string, got %s", data)
 	}
-	v, ok := MechanismInfoFlagNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid MechanismInfoFlag %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -3336,12 +3372,7 @@ func (c MechanismInfoFlag) MarshalText() (text []byte, err error) {
 }
 
 func (c *MechanismInfoFlag) UnmarshalText(text []byte) error {
-	v, ok := MechanismInfoFlagNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid MechanismInfoFlag %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -3362,12 +3393,7 @@ func (c *MechanismInfoFlag) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) err
 		return nil
 	}
 
-	v, ok := MechanismInfoFlagNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c MechanismInfoFlag) String() string {
@@ -3377,11 +3403,29 @@ func (c MechanismInfoFlag) String() string {
 	return "MechanismInfoFlag(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *MechanismInfoFlag) FromString(s string) error {
+	v, ok := MechanismInfoFlagNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "MechanismInfoFlag(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid MechanismInfoFlag %q", s)
+	}
+
+	*c = MechanismInfoFlag(vv)
+	return nil
+}
+
 // MarshalJSON is generated so ObjectClass satisfies json.Marshaler.
 func (c ObjectClass) MarshalJSON() ([]byte, error) {
 	s, ok := ObjectClassValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid ObjectClass: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -3392,12 +3436,8 @@ func (c *ObjectClass) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("ObjectClass should be a string, got %s", data)
 	}
-	v, ok := ObjectClassNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid ObjectClass %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -3406,12 +3446,7 @@ func (c ObjectClass) MarshalText() (text []byte, err error) {
 }
 
 func (c *ObjectClass) UnmarshalText(text []byte) error {
-	v, ok := ObjectClassNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid ObjectClass %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -3432,12 +3467,7 @@ func (c *ObjectClass) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error {
 		return nil
 	}
 
-	v, ok := ObjectClassNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c ObjectClass) String() string {
@@ -3447,11 +3477,29 @@ func (c ObjectClass) String() string {
 	return "ObjectClass(0x" + strconv.FormatUint(uint64(c), 16) + ")"
 }
 
+func (c *ObjectClass) FromString(s string) error {
+	v, ok := ObjectClassNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "ObjectClass(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid ObjectClass %q", s)
+	}
+
+	*c = ObjectClass(vv)
+	return nil
+}
+
 // MarshalJSON is generated so Return satisfies json.Marshaler.
 func (c Return) MarshalJSON() ([]byte, error) {
 	s, ok := ReturnValueToName[c]
 	if !ok {
-		return nil, fmt.Errorf("invalid Return: %d", c)
+		s = c.String()
 	}
 	return json.Marshal(s)
 }
@@ -3462,12 +3510,8 @@ func (c *Return) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &s); err != nil {
 		return fmt.Errorf("Return should be a string, got %s", data)
 	}
-	v, ok := ReturnNameToValue[s]
-	if !ok {
-		return fmt.Errorf("invalid Return %q", s)
-	}
-	*c = v
-	return nil
+
+	return c.FromString(s)
 }
 
 // Workaround for a strange Map behaviour
@@ -3476,12 +3520,7 @@ func (c Return) MarshalText() (text []byte, err error) {
 }
 
 func (c *Return) UnmarshalText(text []byte) error {
-	v, ok := ReturnNameToValue[string(text)]
-	if !ok {
-		return fmt.Errorf("invalid Return %q", string(text))
-	}
-	*c = v
-	return nil
+	return c.FromString(string(text))
 }
 
 // JSONPBMarshaler is implemented by protobuf messages that customize the
@@ -3502,12 +3541,7 @@ func (c *Return) UnmarshalJSONPB(m *jsonpb.Unmarshaler, d []byte) error {
 		return nil
 	}
 
-	v, ok := ReturnNameToValue[string(d)]
-	if !ok {
-		return err
-	}
-	*c = v
-	return nil
+	return c.FromString(string(d))
 }
 
 func (c Return) String() string {
@@ -3515,6 +3549,24 @@ func (c Return) String() string {
 		return str
 	}
 	return "Return(0x" + strconv.FormatUint(uint64(c), 16) + ")"
+}
+
+func (c *Return) FromString(s string) error {
+	v, ok := ReturnNameToValue[s]
+	if ok {
+		*c = v
+		return nil
+	}
+
+	ss := strings.TrimPrefix(s, "Return(0x")
+	ss = strings.TrimSuffix(ss, ")")
+	vv, err := strconv.ParseUint(ss, 16, 64)
+	if err != nil {
+		return fmt.Errorf("invalid Return %q", s)
+	}
+
+	*c = Return(vv)
+	return nil
 }
 
 func (c Return) Error() string {

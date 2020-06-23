@@ -523,8 +523,7 @@ message VerifySingleResponse {
 
 message GenerateKeyRequest {
 	Mechanism Mech = 1;
-	reserved 2, 3;
-	string KeyId = 4;
+	map<uint64,bytes> TemplateBytes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 	map<uint64,AttributeValue> Template = 6 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
@@ -535,9 +534,8 @@ message GenerateKeyResponse {
 
 message GenerateKeyPairRequest {
 	Mechanism Mech = 1;
-	reserved 2, 3, 4;
-	string PrivKeyId = 5;
-	string PubKeyId = 6;
+	map<uint64,bytes> PubKeyTemplateBytes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	map<uint64,bytes> PrivKeyTemplateBytes = 3 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 	map<uint64,AttributeValue> PrivKeyTemplate = 7 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 	map<uint64,AttributeValue> PubKeyTemplate = 8 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
@@ -563,8 +561,7 @@ message UnwrapKeyRequest {
 	bytes KeK = 2;
 	bytes MacKey = 3;
 	Mechanism Mech = 5;
-	reserved 4, 6, 8;
-	string UnwrappedId = 7;
+	map<uint64,bytes> TemplateBytes = 6 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 	map<uint64,AttributeValue> Template = 9 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
@@ -575,10 +572,9 @@ message UnwrapKeyResponse {
 
 message DeriveKeyRequest {
 	Mechanism Mech = 1;
-	reserved 2, 5, 7;
+	map<uint64,bytes> TemplateBytes = 2 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 	bytes BaseKey = 3;
 	bytes Data = 4;
-	string NewKeyId = 6;
 	map<uint64,AttributeValue> Template = 8 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
 }
 
@@ -702,7 +698,7 @@ message ReEncryptRequest {
 }
 
 message ReEncryptResponse {
-	bytes WrappedKey = 1;
+	bytes RewrappedKey = 1;
 }
 
 message AttributeValue {

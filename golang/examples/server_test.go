@@ -13,12 +13,14 @@ import (
 	"crypto/tls"
 	"encoding/asn1"
 	"fmt"
+	"os"
+	"os/signal"
 	"reflect"
+	"syscall"
 
 	"github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11"
 	pb "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/grpc"
 	"github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/util"
-	uuid "github.com/satori/go.uuid"
 	grpc "google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -90,7 +92,6 @@ func Example_encryptAndDecrypt() {
 	keygenmsg := &pb.GenerateKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
 		Template: util.AttributeMap(keyTemplate),
-		KeyId:    uuid.NewV4().String(), // optional
 	}
 
 	generateKeyStatus, err := cryptoClient.GenerateKey(context.Background(), keygenmsg)
@@ -300,8 +301,6 @@ func Example_signAndVerifyUsingRSAKeyPair() {
 		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS_KEY_PAIR_GEN},
 		PubKeyTemplate:  util.AttributeMap(publicKeyTemplate),
 		PrivKeyTemplate: util.AttributeMap(privateKeyTemplate),
-		PrivKeyId:       uuid.NewV4().String(),
-		PubKeyId:        uuid.NewV4().String(),
 	}
 	generateKeyPairStatus, err := cryptoClient.GenerateKeyPair(context.Background(), generateKeypairRequest)
 	if err != nil {
@@ -556,7 +555,6 @@ func Example_wrapAndUnwrapKey() {
 	generateKeyRequest := &pb.GenerateKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
 		Template: util.AttributeMap(desKeyTemplate),
-		KeyId:    uuid.NewV4().String(), // optional
 	}
 	generateNewKeyStatus, err := cryptoClient.GenerateKey(context.Background(), generateKeyRequest)
 	if err != nil {
@@ -585,8 +583,6 @@ func Example_wrapAndUnwrapKey() {
 		Mech:            &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS_KEY_PAIR_GEN},
 		PubKeyTemplate:  util.AttributeMap(publicKeyTemplate),
 		PrivKeyTemplate: util.AttributeMap(privateKeyTemplate),
-		PrivKeyId:       uuid.NewV4().String(),
-		PubKeyId:        uuid.NewV4().String(),
 	}
 	generateKeyPairStatus, err := cryptoClient.GenerateKeyPair(context.Background(), generateKeypairRequest)
 	if err != nil {
@@ -767,156 +763,155 @@ func Example_deriveKey() {
 // has been completed.  There needs to be coordination with your HPCS cloud service contact in order to place your HSM into the
 // required states.
 
-// func Example_reEncryptKey() {
-// 	conn, err := grpc.Dial(address, callOpts...)
-// 	if err != nil {
-// 		panic(fmt.Errorf("Could not connect to server: %s", err))
-// 	}
-// 	defer conn.Close()
+func Example_reEncryptKey() {
+	conn, err := grpc.Dial(address, callOpts...)
+	if err != nil {
+		panic(fmt.Errorf("Could not connect to server: %s", err))
+	}
+	defer conn.Close()
 
-// 	// Setup Crypto client
-// 	cryptoClient := pb.NewCryptoClient(conn)
-// 	// Generate AES key blob for testing
-// 	keyLen := 128
-// 	keyTemplate := ep11.EP11Attributes{
-// 		ep11.CKA_VALUE_LEN:   keyLen / 8,
-// 		ep11.CKA_WRAP:        false,
-// 		ep11.CKA_UNWRAP:      false,
-// 		ep11.CKA_ENCRYPT:     true,
-// 		ep11.CKA_DECRYPT:     true,
-// 		ep11.CKA_EXTRACTABLE: false,
-// 		ep11.CKA_TOKEN:       true,
-// 	}
+	// Setup Crypto client
+	cryptoClient := pb.NewCryptoClient(conn)
+	// Generate AES key blob for testing
+	keyLen := 128
+	keyTemplate := ep11.EP11Attributes{
+		ep11.CKA_VALUE_LEN:   keyLen / 8,
+		ep11.CKA_WRAP:        false,
+		ep11.CKA_UNWRAP:      false,
+		ep11.CKA_ENCRYPT:     true,
+		ep11.CKA_DECRYPT:     true,
+		ep11.CKA_EXTRACTABLE: false,
+		ep11.CKA_TOKEN:       true,
+	}
 
-// 	keygenmsg := &pb.GenerateKeyRequest{
-// 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
-// 		Template: util.AttributeMap(keyTemplate),
-// 		KeyId:    uuid.NewV4().String(),
-// 	}
+	keygenmsg := &pb.GenerateKeyRequest{
+		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
+		Template: util.AttributeMap(keyTemplate),
+	}
 
-// 	generateKeyResponse, err := cryptoClient.GenerateKey(context.Background(), keygenmsg)
-// 	if err != nil {
-// 		panic(fmt.Errorf("GenerateKey Error: %s", err))
-// 	}
+	generateKeyResponse, err := cryptoClient.GenerateKey(context.Background(), keygenmsg)
+	if err != nil {
+		panic(fmt.Errorf("GenerateKey Error: %s", err))
+	}
 
-// 	fmt.Println("Generated original AES key that will be rewrapped")
+	fmt.Println("Generated original AES key that will be rewrapped")
 
-// 	// Encrypt data using generated AES key blob. The encrypted data will be used later in the test
-// 	// The data will be decrypted by the re-wrapped AES key blob.
-// 	rngTemplate := &pb.GenerateRandomRequest{
-// 		Len: (uint64)(ep11.AES_BLOCK_SIZE),
-// 	}
-// 	rng, err := cryptoClient.GenerateRandom(context.Background(), rngTemplate)
-// 	if err != nil {
-// 		panic(fmt.Errorf("GenerateRandom Error: %s", err))
-// 	}
-// 	iv := rng.Rnd[:ep11.AES_BLOCK_SIZE]
-// 	plain := []byte("This text will be used to confirm a successful key blob re-encrypt operation")
+	// Encrypt data using generated AES key blob. The encrypted data will be used later in the test
+	// The data will be decrypted by the re-wrapped AES key blob.
+	rngTemplate := &pb.GenerateRandomRequest{
+		Len: (uint64)(ep11.AES_BLOCK_SIZE),
+	}
+	rng, err := cryptoClient.GenerateRandom(context.Background(), rngTemplate)
+	if err != nil {
+		panic(fmt.Errorf("GenerateRandom Error: %s", err))
+	}
+	iv := rng.Rnd[:ep11.AES_BLOCK_SIZE]
+	plain := []byte("This text will be used to confirm a successful key blob re-encrypt operation")
 
-// 	encryptRequest := &pb.EncryptSingleRequest{
-// 		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-// 		Key:   generateKeyResponse.Key,
-// 		Plain: plain,
-// 	}
+	encryptRequest := &pb.EncryptSingleRequest{
+		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
+		Key:   generateKeyResponse.Key,
+		Plain: plain,
+	}
 
-// 	origEncryptResponse, err := cryptoClient.EncryptSingle(context.Background(), encryptRequest)
-// 	if err != nil {
-// 		panic(fmt.Errorf("Failed EncryptSingle [%s]", err))
-// 	}
+	origEncryptResponse, err := cryptoClient.EncryptSingle(context.Background(), encryptRequest)
+	if err != nil {
+		panic(fmt.Errorf("Failed EncryptSingle [%s]", err))
+	}
 
-// 	fmt.Println("Encrypted message using original wrapped AES key")
+	fmt.Println("Encrypted message using original wrapped AES key")
 
-// 	// Call ReEncrypt function
-// 	reencryptRequest := &pb.ReEncryptRequest{
-// 		WrappedKey: generateKeyResponse.Key,
-// 	}
+	// Call ReEncrypt function
+	reencryptRequest := &pb.ReEncryptRequest{
+		WrappedKey: generateKeyResponse.Key,
+	}
 
-// 	sigs := make(chan os.Signal, 1)
-// 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
-// 	msg := make(chan string, 1)
-// 	go func() {
-// 		for {
-// 			var s string
-// 			fmt.Scan(&s)
-// 			msg <- s
-// 		}
-// 	}()
+	msg := make(chan string, 1)
+	go func() {
+		for {
+			var s string
+			fmt.Scan(&s)
+			msg <- s
+		}
+	}()
 
-// 	// Pause here until user is ready to rewrap key blobs
-// 	util.Pause(msg, sigs, "Press Ctrl-c after the domain has been placed into the committed state in order to continue with the ReEncrypt action")
+	// Pause here until user is ready to rewrap key blobs
+	util.Pause(msg, sigs, "Press Ctrl-c after the domain has been placed into the committed state in order to continue with the ReEncrypt action")
 
-// 	reencryptResponse, err := cryptoClient.ReEncrypt(context.Background(), reencryptRequest)
-// 	if err != nil {
-// 		panic(fmt.Errorf("Received error for ReEncrypt operation: %s", err))
-// 	}
+	reencryptResponse, err := cryptoClient.ReEncrypt(context.Background(), reencryptRequest)
+	if err != nil {
+		panic(fmt.Errorf("Received error for ReEncrypt operation: %s", err))
+	}
 
-// 	fmt.Println("ReEncrypt action has completed")
-// 	fmt.Println("Original wrapped AES key has been rewrapped with the new wrapping key")
+	fmt.Println("ReEncrypt action has completed")
+	fmt.Println("Original wrapped AES key has been rewrapped with the new wrapping key")
 
-// 	// Pause here until domain has been finalized
-// 	util.Pause(msg, sigs, "Press Ctrl-c after the card has been finalized in order to continue testing the new wrapped key")
+	// Pause here until domain has been finalized
+	util.Pause(msg, sigs, "Press Ctrl-c after the card has been finalized in order to continue testing the new wrapped key")
 
-// 	// Test encrypting same plain text with new key
-// 	encryptRequest = &pb.EncryptSingleRequest{
-// 		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-// 		Key:   reencryptResponse.WrappedKey,
-// 		Plain: plain,
-// 	}
+	// Test encrypting same plain text with new key
+	encryptRequest = &pb.EncryptSingleRequest{
+		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
+		Key:   reencryptResponse.RewrappedKey,
+		Plain: plain,
+	}
 
-// 	encryptResponse, err := cryptoClient.EncryptSingle(context.Background(), encryptRequest)
-// 	if err != nil {
-// 		panic(fmt.Errorf("Failed EncryptSingle [%s]", err))
-// 	}
+	encryptResponse, err := cryptoClient.EncryptSingle(context.Background(), encryptRequest)
+	if err != nil {
+		panic(fmt.Errorf("Failed EncryptSingle [%s]", err))
+	}
 
-// 	fmt.Println("Encrypted message using rewrapped AES key")
+	fmt.Println("Encrypted message using rewrapped AES key")
 
-// 	// Decrypt data that was encrypted with the new wrapped AES key
-// 	decryptRequest := &pb.DecryptSingleRequest{
-// 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-// 		Key:      reencryptResponse.WrappedKey,
-// 		Ciphered: encryptResponse.Ciphered,
-// 	}
-// 	decryptResponse, err := cryptoClient.DecryptSingle(context.Background(), decryptRequest)
-// 	if err != nil {
-// 		panic(fmt.Errorf("Failed DecryptSingle using rewrapped AES key [%s]", err))
-// 	}
+	// Decrypt data that was encrypted with the new wrapped AES key
+	decryptRequest := &pb.DecryptSingleRequest{
+		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
+		Key:      reencryptResponse.RewrappedKey,
+		Ciphered: encryptResponse.Ciphered,
+	}
+	decryptResponse, err := cryptoClient.DecryptSingle(context.Background(), decryptRequest)
+	if err != nil {
+		panic(fmt.Errorf("Failed DecryptSingle using rewrapped AES key [%s]", err))
+	}
 
-// 	// Compare decrypted response (using the second wrapping key) with the original plain text
-// 	if !reflect.DeepEqual(plain, decryptResponse.Plain) {
-// 		panic(fmt.Errorf("Failed comparing plain text of cipher single using reencrypted AES key"))
-// 	}
+	// Compare decrypted response (using the second wrapping key) with the original plain text
+	if !reflect.DeepEqual(plain, decryptResponse.Plain) {
+		panic(fmt.Errorf("Failed comparing plain text of cipher single using reencrypted AES key"))
+	}
 
-// 	fmt.Println("Successfully decrypted new data with rewrapped AES key")
+	fmt.Println("Successfully decrypted new data with rewrapped AES key")
 
-// 	// Decrypt initial data that was encrypted with new wrapping key
-// 	decryptRequest = &pb.DecryptSingleRequest{
-// 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-// 		Key:      reencryptResponse.WrappedKey,
-// 		Ciphered: origEncryptResponse.Ciphered,
-// 	}
-// 	decryptResponse, err = cryptoClient.DecryptSingle(context.Background(), decryptRequest)
-// 	if err != nil {
-// 		panic(fmt.Errorf("Failed DecryptSingle using rewrapped AES key [%s]", err))
-// 	}
+	// Decrypt initial data that was encrypted with new wrapping key
+	decryptRequest = &pb.DecryptSingleRequest{
+		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
+		Key:      reencryptResponse.RewrappedKey,
+		Ciphered: origEncryptResponse.Ciphered,
+	}
+	decryptResponse, err = cryptoClient.DecryptSingle(context.Background(), decryptRequest)
+	if err != nil {
+		panic(fmt.Errorf("Failed DecryptSingle using rewrapped AES key [%s]", err))
+	}
 
-// 	// Compare decrypted response (using the second wrapping key) with the original plain text
-// 	if !reflect.DeepEqual(plain, decryptResponse.Plain) {
-// 		panic(fmt.Errorf("Failed comparing plain text of cipher single using rewrapped AES key"))
-// 	}
+	// Compare decrypted response (using the second wrapping key) with the original plain text
+	if !reflect.DeepEqual(plain, decryptResponse.Plain) {
+		panic(fmt.Errorf("Failed comparing plain text of cipher single using rewrapped AES key"))
+	}
 
-// 	fmt.Println("Successfully decrypted original data with rewrapped AES key")
+	fmt.Println("Successfully decrypted original data with rewrapped AES key")
 
-// 	return
+	return
 
-// 	// Output:
-// 	// Generated original AES key that will be rewrapped
-// 	// Encrypted message using original wrapped AES key
-// 	//
-// 	// ReEncrypt action has completed
-// 	// Original wrapped AES key has been rewrapped with the new wrapping key
-// 	//
-// 	// Encrypted message using rewrapped AES key
-// 	// Successfully decrypted new data with rewrapped AES key
-// 	// Successfully decrypted original data with rewrapped AES key
-// }
+	// Output:
+	// Generated original AES key that will be rewrapped
+	// Encrypted message using original wrapped AES key
+	//
+	// ReEncrypt action has completed
+	// Original wrapped AES key has been rewrapped with the new wrapping key
+	//
+	// Encrypted message using rewrapped AES key
+	// Successfully decrypted new data with rewrapped AES key
+	// Successfully decrypted original data with rewrapped AES key
+}
