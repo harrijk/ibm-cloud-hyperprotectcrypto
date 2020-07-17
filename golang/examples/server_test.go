@@ -12,11 +12,13 @@ import (
 	"crypto/sha256"
 	"crypto/tls"
 	"encoding/asn1"
+	"flag"
 	"fmt"
 	"os"
 	"os/signal"
 	"reflect"
 	"syscall"
+	"testing"
 
 	"github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11"
 	pb "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/grpc"
@@ -28,6 +30,8 @@ import (
 // The following IBM Cloud items need to be changed prior to running the sample program
 const address = "<grep11_server_address>:<port>"
 
+var skip bool
+
 var callOpts = []grpc.DialOption{
 	grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})),
 	grpc.WithPerRPCCredentials(&util.IAMPerRPCCredentials{
@@ -35,6 +39,13 @@ var callOpts = []grpc.DialOption{
 		Endpoint: "<https://<iam_ibm_cloud_endpoint>",
 		Instance: "<hpcs_instance_id>",
 	}),
+}
+
+func TestMain(m *testing.M) {
+	flag.BoolVar(&skip, "skip", true, "skip re-encrypt test")
+	flag.Parse()
+
+	m.Run()
 }
 
 // Example_getMechanismInfo retrieves a mechanism list and retrieves detailed information for the CKM_RSA_PKCS mechanism
@@ -89,12 +100,12 @@ func Example_encryptAndDecrypt() {
 		ep11.CKA_TOKEN:       true,  // ignored by EP11
 	}
 
-	keygenmsg := &pb.GenerateKeyRequest{
+	keyGenMsg := &pb.GenerateKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_KEY_GEN},
 		Template: util.AttributeMap(keyTemplate),
 	}
 
-	generateKeyStatus, err := cryptoClient.GenerateKey(context.Background(), keygenmsg)
+	generateKeyStatus, err := cryptoClient.GenerateKey(context.Background(), keyGenMsg)
 	if err != nil {
 		panic(fmt.Errorf("GenerateKey Error: %s", err))
 	}
@@ -112,7 +123,7 @@ func Example_encryptAndDecrypt() {
 
 	encipherInitInfo := &pb.EncryptInitRequest{
 		Mech: &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-		Key:  generateKeyStatus.Key, // you may want to store this
+		Key:  generateKeyStatus.KeyBytes, // you may want to store this
 	}
 	cipherStateInit, err := cryptoClient.EncryptInit(context.Background(), encipherInitInfo)
 	if err != nil {
@@ -154,7 +165,7 @@ func Example_encryptAndDecrypt() {
 
 	decipherInitInfo := &pb.DecryptInitRequest{
 		Mech: &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-		Key:  generateKeyStatus.Key, // you may want to store this
+		Key:  generateKeyStatus.KeyBytes, // you may want to store this
 	}
 	decipherStateInit, err := cryptoClient.DecryptInit(context.Background(), decipherInitInfo)
 	if err != nil {
@@ -311,7 +322,7 @@ func Example_signAndVerifyUsingRSAKeyPair() {
 	// Sign data
 	signInitRequest := &pb.SignInitRequest{
 		Mech:    &pb.Mechanism{Mechanism: ep11.CKM_SHA1_RSA_PKCS},
-		PrivKey: generateKeyPairStatus.PrivKey,
+		PrivKey: generateKeyPairStatus.PrivKeyBytes,
 	}
 	signInitResponse, err := cryptoClient.SignInit(context.Background(), signInitRequest)
 	if err != nil {
@@ -331,7 +342,7 @@ func Example_signAndVerifyUsingRSAKeyPair() {
 
 	verifyInitRequest := &pb.VerifyInitRequest{
 		Mech:   &pb.Mechanism{Mechanism: ep11.CKM_SHA1_RSA_PKCS},
-		PubKey: generateKeyPairStatus.PubKey,
+		PubKey: generateKeyPairStatus.PubKeyBytes,
 	}
 	verifyInitResponse, err := cryptoClient.VerifyInit(context.Background(), verifyInitRequest)
 	if err != nil {
@@ -398,7 +409,7 @@ func Example_signAndVerifyUsingECDSAKeyPair() {
 	// Sign data
 	signInitRequest := &pb.SignInitRequest{
 		Mech:    &pb.Mechanism{Mechanism: ep11.CKM_ECDSA},
-		PrivKey: generateKeyPairStatus.PrivKey,
+		PrivKey: generateKeyPairStatus.PrivKeyBytes,
 	}
 	signInitResponse, err := cryptoClient.SignInit(context.Background(), signInitRequest)
 	if err != nil {
@@ -417,7 +428,7 @@ func Example_signAndVerifyUsingECDSAKeyPair() {
 
 	verifyInitRequest := &pb.VerifyInitRequest{
 		Mech:   &pb.Mechanism{Mechanism: ep11.CKM_ECDSA},
-		PubKey: generateKeyPairStatus.PubKey,
+		PubKey: generateKeyPairStatus.PubKeyBytes,
 	}
 	verifyInitResponse, err := cryptoClient.VerifyInit(context.Background(), verifyInitRequest)
 	if err != nil {
@@ -485,7 +496,7 @@ func Example_signAndVerifyToTestErrorHandling() {
 	// Sign data
 	signInitRequest := &pb.SignInitRequest{
 		Mech:    &pb.Mechanism{Mechanism: ep11.CKM_ECDSA},
-		PrivKey: generateKeyPairStatus.PrivKey,
+		PrivKey: generateKeyPairStatus.PrivKeyBytes,
 	}
 	signInitResponse, err := cryptoClient.SignInit(context.Background(), signInitRequest)
 	if err != nil {
@@ -507,7 +518,7 @@ func Example_signAndVerifyToTestErrorHandling() {
 
 	verifyInitRequest := &pb.VerifyInitRequest{
 		Mech:   &pb.Mechanism{Mechanism: ep11.CKM_ECDSA},
-		PubKey: generateKeyPairStatus.PubKey,
+		PubKey: generateKeyPairStatus.PubKeyBytes,
 	}
 	verifyInitResponse, err := cryptoClient.VerifyInit(context.Background(), verifyInitRequest)
 	if err != nil {
@@ -592,14 +603,14 @@ func Example_wrapAndUnwrapKey() {
 
 	wrapKeyRequest := &pb.WrapKeyRequest{
 		Mech: &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS},
-		KeK:  generateKeyPairStatus.PubKey,
-		Key:  generateNewKeyStatus.Key,
+		KeK:  generateKeyPairStatus.PubKeyBytes,
+		Key:  generateNewKeyStatus.KeyBytes,
 	}
 	wrapKeyResponse, err := cryptoClient.WrapKey(context.Background(), wrapKeyRequest)
 	if err != nil {
 		panic(fmt.Errorf("Wrap AES key error: %s", err))
 	}
-	fmt.Println("Wraped AES key")
+	fmt.Println("Wrapped AES key")
 
 	desUnwrapKeyTemplate := ep11.EP11Attributes{
 		ep11.CKA_CLASS:       ep11.CKO_SECRET_KEY,
@@ -611,25 +622,25 @@ func Example_wrapAndUnwrapKey() {
 	}
 	unwrapRequest := &pb.UnwrapKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_RSA_PKCS},
-		KeK:      generateKeyPairStatus.PrivKey,
+		KeK:      generateKeyPairStatus.PrivKeyBytes,
 		Wrapped:  wrapKeyResponse.Wrapped,
 		Template: util.AttributeMap(desUnwrapKeyTemplate),
 	}
-	unWrapedResponse, err := cryptoClient.UnwrapKey(context.Background(), unwrapRequest)
+	unWrappedResponse, err := cryptoClient.UnwrapKey(context.Background(), unwrapRequest)
 	if err != nil {
 		panic(fmt.Errorf("Unwrap AES key error: %s", err))
 	}
-	if !bytes.Equal(generateNewKeyStatus.GetCheckSum()[:3], unWrapedResponse.GetCheckSum()[:3]) {
+	if !bytes.Equal(generateNewKeyStatus.GetCheckSum()[:3], unWrappedResponse.GetCheckSum()[:3]) {
 		panic(fmt.Errorf("Unwrap AES key has a different checksum than the original key"))
 	} else {
-		fmt.Println("Unwraped AES key")
+		fmt.Println("Unwrapped AES key")
 	}
 
 	// Output:
 	// Generated AES key
 	// Generated PKCS key pair
-	// Wraped AES key
-	// Unwraped AES key
+	// Wrapped AES key
+	// Unwrapped AES key
 }
 
 // Example_deriveKey generates ECDHE key pairs for Bob and Alice and then generates AES keys for both of them.
@@ -682,14 +693,14 @@ func Example_deriveKey() {
 		ep11.CKA_ENCRYPT:   true,
 		ep11.CKA_DECRYPT:   true,
 	}
-	combinedCoordinates, err := util.GetPubkeyBytesFromSPKI(bobECKeypairResponse.PubKey)
+	combinedCoordinates, err := util.GetPubkeyBytesFromSPKI(bobECKeypairResponse.PubKeyBytes)
 	if err != nil {
 		panic(fmt.Errorf("Bob's EC key cannot obtain coordinates: %s", err))
 	}
 	aliceDerivekeyRequest := &pb.DeriveKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_ECDH1_DERIVE, Parameter: &pb.Mechanism_ParameterB{ParameterB: combinedCoordinates}},
 		Template: util.AttributeMap(deriveKeyTemplate),
-		BaseKey:  aliceECKeypairResponse.PrivKey,
+		BaseKey:  aliceECKeypairResponse.PrivKeyBytes,
 	}
 	aliceDerivekeyResponse, err := cryptoClient.DeriveKey(context.Background(), aliceDerivekeyRequest)
 	if err != nil {
@@ -697,14 +708,14 @@ func Example_deriveKey() {
 	}
 
 	// Derive AES key for Bob
-	combinedCoordinates, err = util.GetPubkeyBytesFromSPKI(aliceECKeypairResponse.PubKey)
+	combinedCoordinates, err = util.GetPubkeyBytesFromSPKI(aliceECKeypairResponse.PubKeyBytes)
 	if err != nil {
 		panic(fmt.Errorf("Alice's EC key cannot obtain coordinates: %s", err))
 	}
 	bobDerivekeyRequest := &pb.DeriveKeyRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_ECDH1_DERIVE, Parameter: &pb.Mechanism_ParameterB{ParameterB: combinedCoordinates}},
 		Template: util.AttributeMap(deriveKeyTemplate),
-		BaseKey:  bobECKeypairResponse.PrivKey,
+		BaseKey:  bobECKeypairResponse.PrivKeyBytes,
 	}
 	bobDerivekeyResponse, err := cryptoClient.DeriveKey(context.Background(), bobDerivekeyRequest)
 	if err != nil {
@@ -722,7 +733,7 @@ func Example_deriveKey() {
 	}
 	iv := rng.Rnd[:ep11.AES_BLOCK_SIZE]
 	encryptRequest := &pb.EncryptSingleRequest{
-		Key:   aliceDerivekeyResponse.NewKey,
+		Key:   aliceDerivekeyResponse.NewKeyBytes,
 		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
 		Plain: msg,
 	}
@@ -732,7 +743,7 @@ func Example_deriveKey() {
 	}
 
 	decryptRequest := &pb.DecryptSingleRequest{
-		Key:      bobDerivekeyResponse.NewKey,
+		Key:      bobDerivekeyResponse.NewKeyBytes,
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
 		Ciphered: encryptResponse.Ciphered,
 	}
@@ -764,6 +775,11 @@ func Example_deriveKey() {
 // required states.
 
 func Example_reEncryptKey() {
+	if skip {
+		fmt.Printf("Skipping the reencrypt test. To enable use the go test parameter \"-skip=false\"\n")
+		return
+	}
+
 	conn, err := grpc.Dial(address, callOpts...)
 	if err != nil {
 		panic(fmt.Errorf("Could not connect to server: %s", err))
@@ -810,7 +826,7 @@ func Example_reEncryptKey() {
 
 	encryptRequest := &pb.EncryptSingleRequest{
 		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-		Key:   generateKeyResponse.Key,
+		Key:   generateKeyResponse.KeyBytes,
 		Plain: plain,
 	}
 
@@ -823,7 +839,7 @@ func Example_reEncryptKey() {
 
 	// Call ReEncrypt function
 	reencryptRequest := &pb.ReEncryptRequest{
-		WrappedKey: generateKeyResponse.Key,
+		WrappedKey: generateKeyResponse.KeyBytes,
 	}
 
 	sigs := make(chan os.Signal, 1)

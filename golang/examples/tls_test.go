@@ -51,7 +51,7 @@ func generateECDSAKeyPair(cryptoClient pb.CryptoClient) ([]byte, []byte, error) 
 	if err != nil {
 		return nil, nil, fmt.Errorf("Generate ECDSA key pair error: %s", err)
 	}
-	return ecKeypairResponse.PrivKey, ecKeypairResponse.PubKey, nil
+	return ecKeypairResponse.PrivKeyBytes, ecKeypairResponse.PubKeyBytes, nil
 }
 
 func createECDSASelfSignedCert(privKey *util.EP11PrivateKey, commonName string, sigAlg x509.SignatureAlgorithm) ([]byte, error) {

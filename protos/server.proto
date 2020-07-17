@@ -204,7 +204,7 @@ service Crypto {
 	//     CK_MECHANISM_PTR mech,
 	//     CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
 	//     const unsigned char *pin, size_t pinlen,
-	//     unsigned char *key, size_t *keylen,
+	//     unsigned char *keyBytes, size_t *keyByteslen,
 	//     unsigned char *checkSum, size_t *checkSumlen,
 	//     target_t target) ;
 	rpc GenerateKey(GenerateKeyRequest) returns (GenerateKeyResponse) {}
@@ -214,8 +214,8 @@ service Crypto {
 	//     CK_ATTRIBUTE_PTR pubKeyTemplateBytes, CK_ULONG pubKeyTemplateByteslen,
 	//     CK_ATTRIBUTE_PTR privKeyTemplateBytes, CK_ULONG privKeyTemplateByteslen,
 	//     const unsigned char *pin, size_t pinlen,
-	//     unsigned char *privKey, size_t *privKeylen,
-	//     unsigned char *pubKey, size_t *pubKeylen,
+	//     unsigned char *privKeyBytes, size_t *privKeyByteslen,
+	//     unsigned char *pubKeyBytes, size_t *pubKeyByteslen,
 	//     target_t target) ;
 	rpc GenerateKeyPair(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {}
 
@@ -235,7 +235,7 @@ service Crypto {
 	//     const unsigned char *pin, size_t pinlen,
 	//     const CK_MECHANISM_PTR mech,
 	//     const CK_ATTRIBUTE_PTR templateBytes, CK_ULONG templateByteslen,
-	//     unsigned char *unwrapped, size_t *unwrappedlen,
+	//     unsigned char *unwrappedBytes, size_t *unwrappedByteslen,
 	//     CK_BYTE_PTR checkSum, CK_ULONG *checkSumlen,
 	//     target_t target) ;
 	rpc UnwrapKey(UnwrapKeyRequest) returns (UnwrapKeyResponse) {}
@@ -246,7 +246,7 @@ service Crypto {
 	//     const unsigned char *baseKey, size_t baseKeylen,
 	//     const unsigned char *data, size_t datalen,
 	//     const unsigned char *pin, size_t pinlen,
-	//     unsigned char *newKey, size_t *newKeylen,
+	//     unsigned char *newKeyBytes, size_t *newKeyByteslen,
 	//     unsigned char *checkSum, size_t *checkSumlen,
 	//     target_t target) ;
 	rpc DeriveKey(DeriveKeyRequest) returns (DeriveKeyResponse) {}
@@ -528,8 +528,9 @@ message GenerateKeyRequest {
 }
 
 message GenerateKeyResponse {
-	bytes Key = 4;
+	bytes KeyBytes = 4;
 	bytes CheckSum = 5;
+	KeyBlob Key = 7;
 }
 
 message GenerateKeyPairRequest {
@@ -541,8 +542,10 @@ message GenerateKeyPairRequest {
 }
 
 message GenerateKeyPairResponse {
-	bytes PrivKey = 5;
-	bytes PubKey = 6;
+	bytes PrivKeyBytes = 5;
+	bytes PubKeyBytes = 6;
+	KeyBlob PrivKey = 9;
+	KeyBlob PubKey = 10;
 }
 
 message WrapKeyRequest {
@@ -566,8 +569,9 @@ message UnwrapKeyRequest {
 }
 
 message UnwrapKeyResponse {
-	bytes Unwrapped = 7;
+	bytes UnwrappedBytes = 7;
 	bytes CheckSum = 8;
+	KeyBlob Unwrapped = 10;
 }
 
 message DeriveKeyRequest {
@@ -579,8 +583,9 @@ message DeriveKeyRequest {
 }
 
 message DeriveKeyResponse {
-	bytes NewKey = 6;
+	bytes NewKeyBytes = 6;
 	bytes CheckSum = 7;
+	KeyBlob NewKey = 9;
 }
 
 message GetMechanismListRequest {
@@ -707,4 +712,12 @@ message AttributeValue {
 		bool AttributeTF = 2;
 		int64 AttributeI = 3;
 	}
+}
+
+message KeyBlob {
+	bytes KeyBlobID = 1;   // UUID
+	int64 Version = 2;     // Incrementing version counter ("Lamport timer"), to prevent inter-client races
+	bytes TxID = 3;        // Random 'version', to detect replays on same client
+	map<uint64,AttributeValue> Attributes = 4 [(gogoproto.castkey) = "github.com/ibm-developer/ibm-cloud-hyperprotectcrypto/golang/ep11.Attribute"];
+	repeated bytes KeyBlobs = 5;
 }
