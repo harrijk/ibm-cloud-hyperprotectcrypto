@@ -42,7 +42,7 @@ var callOpts = []grpc.DialOption{
 }
 
 func TestMain(m *testing.M) {
-	flag.BoolVar(&skip, "skip", true, "skip re-encrypt test")
+	flag.BoolVar(&skip, "skip", true, "skip rewrapKeyBlob test")
 	flag.Parse()
 
 	m.Run()
@@ -766,7 +766,7 @@ func Example_deriveKey() {
 	// Alice and Bob get the same derived key
 }
 
-// Example_reEncryptKey re-encrypts generated key blobs with the new committed wrapping key that is contained within with the HSM.
+// Example_rewrapKeyBlob re-encrypts generated key blobs with the new committed wrapping key that is contained within with the HSM.
 // Keys that have been re-encrypted can only be used (e.g., encrypt, decrypt) after the HSM has been finalized with the new
 // committed wrapping key.
 // See figure 8 on page 27 and page 37 of https://www.ibm.com/downloads/cas/WXRDPRAN for additional information.
@@ -774,9 +774,9 @@ func Example_deriveKey() {
 // has been completed.  There needs to be coordination with your HPCS cloud service contact in order to place your HSM into the
 // required states.
 
-func Example_reEncryptKey() {
+func Example_rewrapKeyBlob() {
 	if skip {
-		fmt.Printf("Skipping the reencrypt test. To enable use the go test parameter \"-skip=false\"\n")
+		fmt.Printf("Skipping the rewrapKeyBlob test. To enable, use the go test parameter \"-skip=false\"\n")
 		return
 	}
 
@@ -837,8 +837,8 @@ func Example_reEncryptKey() {
 
 	fmt.Println("Encrypted message using original wrapped AES key")
 
-	// Call ReEncrypt function
-	reencryptRequest := &pb.ReEncryptRequest{
+	// Call RewrapKeyBlob function
+	rewrapKeyBlobRequest := &pb.RewrapKeyBlobRequest{
 		WrappedKey: generateKeyResponse.KeyBytes,
 	}
 
@@ -855,14 +855,14 @@ func Example_reEncryptKey() {
 	}()
 
 	// Pause here until user is ready to rewrap key blobs
-	util.Pause(msg, sigs, "Press Ctrl-c after the domain has been placed into the committed state in order to continue with the ReEncrypt action")
+	util.Pause(msg, sigs, "Press Ctrl-c after the domain has been placed into the committed state in order to continue with the RewrapKeyBlob action")
 
-	reencryptResponse, err := cryptoClient.ReEncrypt(context.Background(), reencryptRequest)
+	rewrapKeyBlobResponse, err := cryptoClient.RewrapKeyBlob(context.Background(), rewrapKeyBlobRequest)
 	if err != nil {
-		panic(fmt.Errorf("Received error for ReEncrypt operation: %s", err))
+		panic(fmt.Errorf("Received error for RewrapKeyBlob operation: %s", err))
 	}
 
-	fmt.Println("ReEncrypt action has completed")
+	fmt.Println("RewrapKeyBlob action has completed")
 	fmt.Println("Original wrapped AES key has been rewrapped with the new wrapping key")
 
 	// Pause here until domain has been finalized
@@ -871,7 +871,7 @@ func Example_reEncryptKey() {
 	// Test encrypting same plain text with new key
 	encryptRequest = &pb.EncryptSingleRequest{
 		Mech:  &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-		Key:   reencryptResponse.RewrappedKey,
+		Key:   rewrapKeyBlobResponse.RewrappedKey,
 		Plain: plain,
 	}
 
@@ -885,7 +885,7 @@ func Example_reEncryptKey() {
 	// Decrypt data that was encrypted with the new wrapped AES key
 	decryptRequest := &pb.DecryptSingleRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-		Key:      reencryptResponse.RewrappedKey,
+		Key:      rewrapKeyBlobResponse.RewrappedKey,
 		Ciphered: encryptResponse.Ciphered,
 	}
 	decryptResponse, err := cryptoClient.DecryptSingle(context.Background(), decryptRequest)
@@ -903,7 +903,7 @@ func Example_reEncryptKey() {
 	// Decrypt initial data that was encrypted with new wrapping key
 	decryptRequest = &pb.DecryptSingleRequest{
 		Mech:     &pb.Mechanism{Mechanism: ep11.CKM_AES_CBC_PAD, Parameter: &pb.Mechanism_ParameterB{ParameterB: iv}},
-		Key:      reencryptResponse.RewrappedKey,
+		Key:      rewrapKeyBlobResponse.RewrappedKey,
 		Ciphered: origEncryptResponse.Ciphered,
 	}
 	decryptResponse, err = cryptoClient.DecryptSingle(context.Background(), decryptRequest)
@@ -924,7 +924,7 @@ func Example_reEncryptKey() {
 	// Generated original AES key that will be rewrapped
 	// Encrypted message using original wrapped AES key
 	//
-	// ReEncrypt action has completed
+	// RewrapKeyBlob action has completed
 	// Original wrapped AES key has been rewrapped with the new wrapping key
 	//
 	// Encrypted message using rewrapped AES key

@@ -84,6 +84,7 @@ const (
 	XCP_ADMQ_INTERNAL_STATE     AdminCommand = 0x0001000e
 	XCP_ADMQ_IMPORTER_CERT      AdminCommand = 0x0001000f
 	XCP_ADMQ_AUDIT_STATE        AdminCommand = 0x00010010
+	XCP_ADMQ_LASTCMD_DOM_MASK   AdminCommand = 0x00010011
 
 	CKA_CLASS                         Attribute = 0x00000000
 	CKA_TOKEN                         Attribute = 0x00000001
@@ -190,6 +191,7 @@ const (
 	CKA_SUPPORTED_CMS_ATTRIBUTES      Attribute = 0x00000503
 	CKA_WRAP_TEMPLATE                 Attribute = 0x40000211
 	CKA_UNWRAP_TEMPLATE               Attribute = 0x40000212
+	CKA_DERIVE_TEMPLATE               Attribute = 0x40000213
 	CKA_ALLOWED_MECHANISMS            Attribute = 0x40000600
 	CKA_VENDOR_DEFINED                Attribute = 0x80000000
 	CKA_IBM_RESTRICTABLE              Attribute = CKA_VENDOR_DEFINED + 0x10001
@@ -204,6 +206,7 @@ const (
 	CKA_IBM_STD_COMPLIANCE1           Attribute = CKA_VENDOR_DEFINED + 0x1000a
 	CKA_IBM_PROTKEY_EXTRACTABLE       Attribute = CKA_VENDOR_DEFINED + 0x1000c
 	CKA_IBM_PROTKEY_NEVER_EXTRACTABLE Attribute = CKA_VENDOR_DEFINED + 0x1000d
+	CKA_IBM_PQC_PARAMS                Attribute = CKA_VENDOR_DEFINED + 0x1000e
 	CKA_IBM_WIRETEST                  Attribute = CKA_VENDOR_DEFINED + 0x20001
 	CKA_VENDOR_DEFINED_GREP11         Attribute = CKA_VENDOR_DEFINED + 0x40000
 	CKA_GREP11_RAW_KEYBLOB            Attribute = CKA_VENDOR_DEFINED_GREP11 + 0x1
@@ -289,7 +292,10 @@ const (
 	XCP_CPB_WRAP_WITH_RAW_SPKI ControlPoint = 0x0000002d
 	XCP_CPB_ALG_DH             ControlPoint = 0x0000002e
 	XCP_CPB_DERIVE             ControlPoint = 0x0000002f
+	XCP_CPB_ALG_EC_25519       ControlPoint = 0x00000037
 	XCP_CPB_ALG_NBSI2017       ControlPoint = 0x0000003d
+	XCP_CPB_CPACF_PK           ControlPoint = 0x00000040
+	XCP_CPB_ALG_PQC            ControlPoint = 0x00000041
 
 	FNID_Login             FunctionID = 0x00000001
 	FNID_Logout            FunctionID = 0x00000002
@@ -341,50 +347,51 @@ const (
 	XCP_IMPRKEY_EC_P521  ImporterKeyType = 0x00000003
 	XCP_IMPRKEY_RSA_3072 ImporterKeyType = 0x00000007
 
-	CKK_RSA             KeyType = 0x00000000
-	CKK_DSA             KeyType = 0x00000001
-	CKK_DH              KeyType = 0x00000002
-	CKK_EC              KeyType = 0x00000003
-	CKK_ECDSA           KeyType = 0x00000003
-	CKK_X9_42_DH        KeyType = 0x00000004
-	CKK_KEA             KeyType = 0x00000005
-	CKK_GENERIC_SECRET  KeyType = 0x00000010
-	CKK_RC2             KeyType = 0x00000011
-	CKK_RC4             KeyType = 0x00000012
-	CKK_DES             KeyType = 0x00000013
-	CKK_DES2            KeyType = 0x00000014
-	CKK_DES3            KeyType = 0x00000015
-	CKK_CAST            KeyType = 0x00000016
-	CKK_CAST3           KeyType = 0x00000017
-	CKK_CAST128         KeyType = 0x00000018
-	CKK_CAST5           KeyType = 0x00000018
-	CKK_RC5             KeyType = 0x00000019
-	CKK_IDEA            KeyType = 0x0000001a
-	CKK_SKIPJACK        KeyType = 0x0000001b
-	CKK_BATON           KeyType = 0x0000001c
-	CKK_JUNIPER         KeyType = 0x0000001d
-	CKK_CDMF            KeyType = 0x0000001e
-	CKK_AES             KeyType = 0x0000001f
-	CKK_BLOWFISH        KeyType = 0x00000020
-	CKK_TWOFISH         KeyType = 0x00000021
-	CKK_SECURID         KeyType = 0x00000022
-	CKK_HOTP            KeyType = 0x00000023
-	CKK_ACTI            KeyType = 0x00000024
-	CKK_CAMELLIA        KeyType = 0x00000025
-	CKK_ARIA            KeyType = 0x00000026
-	CKK_SHA512_224_HMAC KeyType = 0x00000027
-	CKK_SHA512_256_HMAC KeyType = 0x00000028
-	CKK_SHA512_T_HMAC   KeyType = 0x00000029
-	CKK_SHA_1_HMAC      KeyType = 0x00000040
-	CKK_SHA224_HMAC     KeyType = 0x00000041
-	CKK_SHA256_HMAC     KeyType = 0x00000042
-	CKK_SHA384_HMAC     KeyType = 0x00000043
-	CKK_SHA512_HMAC     KeyType = 0x00000044
-	CKK_SEED            KeyType = 0x00000050
-	CKK_GOSTR3410       KeyType = 0x00000060
-	CKK_GOSTR3411       KeyType = 0x00000061
-	CKK_GOST28147       KeyType = 0x00000062
-	CKK_VENDOR_DEFINED  KeyType = 0x80000000
+	CKK_RSA               KeyType = 0x00000000
+	CKK_DSA               KeyType = 0x00000001
+	CKK_DH                KeyType = 0x00000002
+	CKK_EC                KeyType = 0x00000003
+	CKK_ECDSA             KeyType = 0x00000003
+	CKK_X9_42_DH          KeyType = 0x00000004
+	CKK_KEA               KeyType = 0x00000005
+	CKK_GENERIC_SECRET    KeyType = 0x00000010
+	CKK_RC2               KeyType = 0x00000011
+	CKK_RC4               KeyType = 0x00000012
+	CKK_DES               KeyType = 0x00000013
+	CKK_DES2              KeyType = 0x00000014
+	CKK_DES3              KeyType = 0x00000015
+	CKK_CAST              KeyType = 0x00000016
+	CKK_CAST3             KeyType = 0x00000017
+	CKK_CAST128           KeyType = 0x00000018
+	CKK_CAST5             KeyType = 0x00000018
+	CKK_RC5               KeyType = 0x00000019
+	CKK_IDEA              KeyType = 0x0000001a
+	CKK_SKIPJACK          KeyType = 0x0000001b
+	CKK_BATON             KeyType = 0x0000001c
+	CKK_JUNIPER           KeyType = 0x0000001d
+	CKK_CDMF              KeyType = 0x0000001e
+	CKK_AES               KeyType = 0x0000001f
+	CKK_BLOWFISH          KeyType = 0x00000020
+	CKK_TWOFISH           KeyType = 0x00000021
+	CKK_SECURID           KeyType = 0x00000022
+	CKK_HOTP              KeyType = 0x00000023
+	CKK_ACTI              KeyType = 0x00000024
+	CKK_CAMELLIA          KeyType = 0x00000025
+	CKK_ARIA              KeyType = 0x00000026
+	CKK_MD5_HMAC          KeyType = 0x00000027
+	CKK_SHA_1_HMAC        KeyType = 0x00000028
+	CKK_RIPEMD128_HMAC    KeyType = 0x00000029
+	CKK_RIPEMD160_HMAC    KeyType = 0x0000002a
+	CKK_SHA256_HMAC       KeyType = 0x0000002b
+	CKK_SHA384_HMAC       KeyType = 0x0000002c
+	CKK_SHA512_HMAC       KeyType = 0x0000002d
+	CKK_SHA224_HMAC       KeyType = 0x0000002e
+	CKK_SEED              KeyType = 0x0000002f
+	CKK_GOSTR3410         KeyType = 0x00000030
+	CKK_GOSTR3411         KeyType = 0x00000031
+	CKK_GOST28147         KeyType = 0x00000032
+	CKK_VENDOR_DEFINED    KeyType = 0x80000000
+	CKK_IBM_PQC_DILITHIUM KeyType = CKK_VENDOR_DEFINED + 0x10023
 
 	CKM_RSA_PKCS_KEY_PAIR_GEN          Mechanism = 0x00000000
 	CKM_RSA_PKCS                       Mechanism = 0x00000001
@@ -404,11 +411,10 @@ const (
 	CKM_DSA_KEY_PAIR_GEN               Mechanism = 0x00000010
 	CKM_DSA                            Mechanism = 0x00000011
 	CKM_DSA_SHA1                       Mechanism = 0x00000012
-	CKM_DSA_FIPS_G_GEN                 Mechanism = 0x00000013
-	CKM_DSA_SHA224                     Mechanism = 0x00000014
-	CKM_DSA_SHA256                     Mechanism = 0x00000015
-	CKM_DSA_SHA384                     Mechanism = 0x00000016
-	CKM_DSA_SHA512                     Mechanism = 0x00000017
+	CKM_DSA_SHA224                     Mechanism = 0x00000013
+	CKM_DSA_SHA256                     Mechanism = 0x00000014
+	CKM_DSA_SHA384                     Mechanism = 0x00000015
+	CKM_DSA_SHA512                     Mechanism = 0x00000016
 	CKM_DH_PKCS_KEY_PAIR_GEN           Mechanism = 0x00000020
 	CKM_DH_PKCS_DERIVE                 Mechanism = 0x00000021
 	CKM_X9_42_DH_KEY_PAIR_GEN          Mechanism = 0x00000030
@@ -650,6 +656,10 @@ const (
 	CKM_EC_KEY_PAIR_GEN                Mechanism = 0x00001040
 	CKM_ECDSA                          Mechanism = 0x00001041
 	CKM_ECDSA_SHA1                     Mechanism = 0x00001042
+	CKM_ECDSA_SHA224                   Mechanism = 0x00001043
+	CKM_ECDSA_SHA256                   Mechanism = 0x00001044
+	CKM_ECDSA_SHA384                   Mechanism = 0x00001045
+	CKM_ECDSA_SHA512                   Mechanism = 0x00001046
 	CKM_ECDH1_DERIVE                   Mechanism = 0x00001050
 	CKM_ECDH1_COFACTOR_DERIVE          Mechanism = 0x00001051
 	CKM_ECMQV_DERIVE                   Mechanism = 0x00001052
@@ -671,9 +681,9 @@ const (
 	CKM_AES_CTR                        Mechanism = 0x00001086
 	CKM_AES_GCM                        Mechanism = 0x00001087
 	CKM_AES_CCM                        Mechanism = 0x00001088
-	CKM_AES_CMAC_GENERAL               Mechanism = 0x00001089
+	CKM_AES_CTS                        Mechanism = 0x00001089
 	CKM_AES_CMAC                       Mechanism = 0x0000108a
-	CKM_AES_CTS                        Mechanism = 0x0000108b
+	CKM_AES_CMAC_GENERAL               Mechanism = 0x0000108b
 	CKM_AES_XCBC_MAC                   Mechanism = 0x0000108c
 	CKM_AES_XCBC_MAC_96                Mechanism = 0x0000108d
 	CKM_AES_GMAC                       Mechanism = 0x0000108e
@@ -716,6 +726,10 @@ const (
 	CKM_RSA_PKCS_TPM_1_1               Mechanism = 0x00004001
 	CKM_RSA_PKCS_OAEP_TPM_1_1          Mechanism = 0x00004002
 	CKM_VENDOR_DEFINED                 Mechanism = 0x80000000
+	CKM_IBM_SHA3_224                   Mechanism = CKM_VENDOR_DEFINED + 0x10001
+	CKM_IBM_SHA3_256                   Mechanism = CKM_VENDOR_DEFINED + 0x10002
+	CKM_IBM_SHA3_384                   Mechanism = CKM_VENDOR_DEFINED + 0x10003
+	CKM_IBM_SHA3_512                   Mechanism = CKM_VENDOR_DEFINED + 0x10004
 	CKM_IBM_CMAC                       Mechanism = CKM_VENDOR_DEFINED + 0x10007
 	CKM_IBM_ECDSA_SHA224               Mechanism = CKM_VENDOR_DEFINED + 0x10008
 	CKM_IBM_ECDSA_SHA256               Mechanism = CKM_VENDOR_DEFINED + 0x10009
@@ -728,7 +742,18 @@ const (
 	CKM_IBM_SHA512_224                 Mechanism = CKM_VENDOR_DEFINED + 0x10013
 	CKM_IBM_SHA512_256_HMAC            Mechanism = CKM_VENDOR_DEFINED + 0x10014
 	CKM_IBM_SHA512_224_HMAC            Mechanism = CKM_VENDOR_DEFINED + 0x10015
+	CKM_IBM_EC_X25519                  Mechanism = CKM_VENDOR_DEFINED + 0x1001b
+	CKM_IBM_ED25519_SHA512             Mechanism = CKM_VENDOR_DEFINED + 0x1001c
+	CKM_IBM_EC_X448                    Mechanism = CKM_VENDOR_DEFINED + 0x1001e
+	CKM_IBM_ED448_SHA3                 Mechanism = CKM_VENDOR_DEFINED + 0x1001f
 	CKM_IBM_SIPHASH                    Mechanism = CKM_VENDOR_DEFINED + 0x10021
+	CKM_IBM_DILITHIUM                  Mechanism = CKM_VENDOR_DEFINED + 0x10023
+	CKM_IBM_SHA3_224_HMAC              Mechanism = CKM_VENDOR_DEFINED + 0x10025
+	CKM_IBM_SHA3_256_HMAC              Mechanism = CKM_VENDOR_DEFINED + 0x10026
+	CKM_IBM_SHA3_384_HMAC              Mechanism = CKM_VENDOR_DEFINED + 0x10027
+	CKM_IBM_SHA3_512_HMAC              Mechanism = CKM_VENDOR_DEFINED + 0x10028
+	CKM_IBM_EC_X25519_RAW              Mechanism = CKM_VENDOR_DEFINED + 0x10029
+	CKM_IBM_EC_X448_RAW                Mechanism = CKM_VENDOR_DEFINED + 0x10030
 	CKM_IBM_CLEARKEY_TRANSPORT         Mechanism = CKM_VENDOR_DEFINED + 0x20001
 	CKM_IBM_ATTRIBUTEBOUND_WRAP        Mechanism = CKM_VENDOR_DEFINED + 0x20004
 	CKM_IBM_TRANSPORTKEY               Mechanism = CKM_VENDOR_DEFINED + 0x20005
@@ -736,6 +761,7 @@ const (
 	CKM_IBM_ECDH1_DERIVE_RAW           Mechanism = CKM_VENDOR_DEFINED + 0x20007
 	CKM_IBM_WIRETEST                   Mechanism = CKM_VENDOR_DEFINED + 0x30004
 	CKM_IBM_RETAINKEY                  Mechanism = CKM_VENDOR_DEFINED + 0x40001
+	CKM_IBM_CPACF_WRAP                 Mechanism = CKM_VENDOR_DEFINED + 0x60001
 
 	CKF_DONT_BLOCK                     MechanismInfoFlag = 0x00000001
 	CKF_HW                             MechanismInfoFlag = 0x00000001
@@ -891,14 +917,13 @@ const (
 	CKR_MUTEX_NOT_LOCKED                 Return = 0x000001a1
 	CKR_NEW_PIN_MODE                     Return = 0x000001b0
 	CKR_NEXT_OTP                         Return = 0x000001b1
-	CKR_EXCEEDED_MAX_ITERATIONS          Return = 0x000001c0
-	CKR_FIPS_SELF_TEST_FAILED            Return = 0x000001c1
-	CKR_LIBRARY_LOAD_FAILED              Return = 0x000001c2
-	CKR_PIN_TOO_WEAK                     Return = 0x000001c3
-	CKR_PUBLIC_KEY_INVALID               Return = 0x000001c4
+	CKR_EXCEEDED_MAX_ITERATIONS          Return = 0x000001b5
+	CKR_FIPS_SELF_TEST_FAILED            Return = 0x000001b6
+	CKR_LIBRARY_LOAD_FAILED              Return = 0x000001b7
+	CKR_PIN_TOO_WEAK                     Return = 0x000001b8
+	CKR_PUBLIC_KEY_INVALID               Return = 0x000001b9
 	CKR_FUNCTION_REJECTED                Return = 0x00000200
 	CKR_VENDOR_DEFINED                   Return = 0x80000000
-	CKR_IBM_TARGET_INVALID               Return = CKR_VENDOR_DEFINED + 0x1003
 	CKR_IBM_WKID_MISMATCH                Return = CKR_VENDOR_DEFINED + 0x10001
 	CKR_IBM_INTERNAL_ERROR               Return = CKR_VENDOR_DEFINED + 0x10002
 	CKR_IBM_TRANSPORT_ERROR              Return = CKR_VENDOR_DEFINED + 0x10003
@@ -914,6 +939,8 @@ const (
 	CKR_IBM_TRANSPORT_LIMIT              Return = CKR_VENDOR_DEFINED + 0x10010
 	CKR_IBM_FCV_NOT_SET                  Return = CKR_VENDOR_DEFINED + 0x10011
 	CKR_IBM_PERF_CATEGORY_INVALID        Return = CKR_VENDOR_DEFINED + 0x10012
+	CKR_IBM_API_MISMATCH                 Return = CKR_VENDOR_DEFINED + 0x10013
+	CKR_IBM_TARGET_INVALID               Return = CKR_VENDOR_DEFINED + 0x10030
 	CKR_VENDOR_DEFINED_GREP11            Return = CKR_VENDOR_DEFINED + 0x40000
 	CKR_IBM_GREP11_NOT_AUTHENTICATED     Return = CKR_VENDOR_DEFINED_GREP11 + 0x1
 	CKR_IBM_GREP11_CANNOT_UNMARSHAL      Return = CKR_VENDOR_DEFINED_GREP11 + 0x2
@@ -996,6 +1023,7 @@ var (
 		"XCP_ADMQ_INTERNAL_STATE":     XCP_ADMQ_INTERNAL_STATE,
 		"XCP_ADMQ_IMPORTER_CERT":      XCP_ADMQ_IMPORTER_CERT,
 		"XCP_ADMQ_AUDIT_STATE":        XCP_ADMQ_AUDIT_STATE,
+		"XCP_ADMQ_LASTCMD_DOM_MASK":   XCP_ADMQ_LASTCMD_DOM_MASK,
 	}
 	AdminCommandValueToName = map[AdminCommand]string{
 		XCP_ADM_ADMIN_LOGIN:         "XCP_ADM_ADMIN_LOGIN",
@@ -1050,6 +1078,7 @@ var (
 		XCP_ADMQ_INTERNAL_STATE:     "XCP_ADMQ_INTERNAL_STATE",
 		XCP_ADMQ_IMPORTER_CERT:      "XCP_ADMQ_IMPORTER_CERT",
 		XCP_ADMQ_AUDIT_STATE:        "XCP_ADMQ_AUDIT_STATE",
+		XCP_ADMQ_LASTCMD_DOM_MASK:   "XCP_ADMQ_LASTCMD_DOM_MASK",
 	}
 	AttributeNameToValue = map[string]Attribute{
 		"CKA_CLASS":                         CKA_CLASS,
@@ -1157,6 +1186,7 @@ var (
 		"CKA_SUPPORTED_CMS_ATTRIBUTES":      CKA_SUPPORTED_CMS_ATTRIBUTES,
 		"CKA_WRAP_TEMPLATE":                 CKA_WRAP_TEMPLATE,
 		"CKA_UNWRAP_TEMPLATE":               CKA_UNWRAP_TEMPLATE,
+		"CKA_DERIVE_TEMPLATE":               CKA_DERIVE_TEMPLATE,
 		"CKA_ALLOWED_MECHANISMS":            CKA_ALLOWED_MECHANISMS,
 		"CKA_VENDOR_DEFINED":                CKA_VENDOR_DEFINED,
 		"CKA_IBM_RESTRICTABLE":              CKA_IBM_RESTRICTABLE,
@@ -1171,6 +1201,7 @@ var (
 		"CKA_IBM_STD_COMPLIANCE1":           CKA_IBM_STD_COMPLIANCE1,
 		"CKA_IBM_PROTKEY_EXTRACTABLE":       CKA_IBM_PROTKEY_EXTRACTABLE,
 		"CKA_IBM_PROTKEY_NEVER_EXTRACTABLE": CKA_IBM_PROTKEY_NEVER_EXTRACTABLE,
+		"CKA_IBM_PQC_PARAMS":                CKA_IBM_PQC_PARAMS,
 		"CKA_IBM_WIRETEST":                  CKA_IBM_WIRETEST,
 		"CKA_VENDOR_DEFINED_GREP11":         CKA_VENDOR_DEFINED_GREP11,
 		"CKA_GREP11_RAW_KEYBLOB":            CKA_GREP11_RAW_KEYBLOB,
@@ -1280,6 +1311,7 @@ var (
 		CKA_SUPPORTED_CMS_ATTRIBUTES:      "CKA_SUPPORTED_CMS_ATTRIBUTES",
 		CKA_WRAP_TEMPLATE:                 "CKA_WRAP_TEMPLATE",
 		CKA_UNWRAP_TEMPLATE:               "CKA_UNWRAP_TEMPLATE",
+		CKA_DERIVE_TEMPLATE:               "CKA_DERIVE_TEMPLATE",
 		CKA_ALLOWED_MECHANISMS:            "CKA_ALLOWED_MECHANISMS",
 		CKA_VENDOR_DEFINED:                "CKA_VENDOR_DEFINED",
 		CKA_IBM_RESTRICTABLE:              "CKA_IBM_RESTRICTABLE",
@@ -1294,6 +1326,7 @@ var (
 		CKA_IBM_STD_COMPLIANCE1:           "CKA_IBM_STD_COMPLIANCE1",
 		CKA_IBM_PROTKEY_EXTRACTABLE:       "CKA_IBM_PROTKEY_EXTRACTABLE",
 		CKA_IBM_PROTKEY_NEVER_EXTRACTABLE: "CKA_IBM_PROTKEY_NEVER_EXTRACTABLE",
+		CKA_IBM_PQC_PARAMS:                "CKA_IBM_PQC_PARAMS",
 		CKA_IBM_WIRETEST:                  "CKA_IBM_WIRETEST",
 		CKA_VENDOR_DEFINED_GREP11:         "CKA_VENDOR_DEFINED_GREP11",
 		CKA_GREP11_RAW_KEYBLOB:            "CKA_GREP11_RAW_KEYBLOB",
@@ -1416,7 +1449,10 @@ var (
 		"XCP_CPB_WRAP_WITH_RAW_SPKI": XCP_CPB_WRAP_WITH_RAW_SPKI,
 		"XCP_CPB_ALG_DH":             XCP_CPB_ALG_DH,
 		"XCP_CPB_DERIVE":             XCP_CPB_DERIVE,
+		"XCP_CPB_ALG_EC_25519":       XCP_CPB_ALG_EC_25519,
 		"XCP_CPB_ALG_NBSI2017":       XCP_CPB_ALG_NBSI2017,
+		"XCP_CPB_CPACF_PK":           XCP_CPB_CPACF_PK,
+		"XCP_CPB_ALG_PQC":            XCP_CPB_ALG_PQC,
 	}
 	ControlPointValueToName = map[ControlPoint]string{
 		XCP_CPB_ADD_CPBS:           "XCP_CPB_ADD_CPBS",
@@ -1467,7 +1503,10 @@ var (
 		XCP_CPB_WRAP_WITH_RAW_SPKI: "XCP_CPB_WRAP_WITH_RAW_SPKI",
 		XCP_CPB_ALG_DH:             "XCP_CPB_ALG_DH",
 		XCP_CPB_DERIVE:             "XCP_CPB_DERIVE",
+		XCP_CPB_ALG_EC_25519:       "XCP_CPB_ALG_EC_25519",
 		XCP_CPB_ALG_NBSI2017:       "XCP_CPB_ALG_NBSI2017",
+		XCP_CPB_CPACF_PK:           "XCP_CPB_CPACF_PK",
+		XCP_CPB_ALG_PQC:            "XCP_CPB_ALG_PQC",
 	}
 	FunctionIDNameToValue = map[string]FunctionID{
 		"FNID_Login":             FNID_Login,
@@ -1574,94 +1613,96 @@ var (
 		XCP_IMPRKEY_RSA_3072: "XCP_IMPRKEY_RSA_3072",
 	}
 	KeyTypeNameToValue = map[string]KeyType{
-		"CKK_RSA":             CKK_RSA,
-		"CKK_DSA":             CKK_DSA,
-		"CKK_DH":              CKK_DH,
-		"CKK_EC":              CKK_EC,
-		"CKK_ECDSA":           CKK_ECDSA,
-		"CKK_X9_42_DH":        CKK_X9_42_DH,
-		"CKK_KEA":             CKK_KEA,
-		"CKK_GENERIC_SECRET":  CKK_GENERIC_SECRET,
-		"CKK_RC2":             CKK_RC2,
-		"CKK_RC4":             CKK_RC4,
-		"CKK_DES":             CKK_DES,
-		"CKK_DES2":            CKK_DES2,
-		"CKK_DES3":            CKK_DES3,
-		"CKK_CAST":            CKK_CAST,
-		"CKK_CAST3":           CKK_CAST3,
-		"CKK_CAST128":         CKK_CAST128,
-		"CKK_CAST5":           CKK_CAST5,
-		"CKK_RC5":             CKK_RC5,
-		"CKK_IDEA":            CKK_IDEA,
-		"CKK_SKIPJACK":        CKK_SKIPJACK,
-		"CKK_BATON":           CKK_BATON,
-		"CKK_JUNIPER":         CKK_JUNIPER,
-		"CKK_CDMF":            CKK_CDMF,
-		"CKK_AES":             CKK_AES,
-		"CKK_BLOWFISH":        CKK_BLOWFISH,
-		"CKK_TWOFISH":         CKK_TWOFISH,
-		"CKK_SECURID":         CKK_SECURID,
-		"CKK_HOTP":            CKK_HOTP,
-		"CKK_ACTI":            CKK_ACTI,
-		"CKK_CAMELLIA":        CKK_CAMELLIA,
-		"CKK_ARIA":            CKK_ARIA,
-		"CKK_SHA512_224_HMAC": CKK_SHA512_224_HMAC,
-		"CKK_SHA512_256_HMAC": CKK_SHA512_256_HMAC,
-		"CKK_SHA512_T_HMAC":   CKK_SHA512_T_HMAC,
-		"CKK_SHA_1_HMAC":      CKK_SHA_1_HMAC,
-		"CKK_SHA224_HMAC":     CKK_SHA224_HMAC,
-		"CKK_SHA256_HMAC":     CKK_SHA256_HMAC,
-		"CKK_SHA384_HMAC":     CKK_SHA384_HMAC,
-		"CKK_SHA512_HMAC":     CKK_SHA512_HMAC,
-		"CKK_SEED":            CKK_SEED,
-		"CKK_GOSTR3410":       CKK_GOSTR3410,
-		"CKK_GOSTR3411":       CKK_GOSTR3411,
-		"CKK_GOST28147":       CKK_GOST28147,
-		"CKK_VENDOR_DEFINED":  CKK_VENDOR_DEFINED,
+		"CKK_RSA":               CKK_RSA,
+		"CKK_DSA":               CKK_DSA,
+		"CKK_DH":                CKK_DH,
+		"CKK_EC":                CKK_EC,
+		"CKK_ECDSA":             CKK_ECDSA,
+		"CKK_X9_42_DH":          CKK_X9_42_DH,
+		"CKK_KEA":               CKK_KEA,
+		"CKK_GENERIC_SECRET":    CKK_GENERIC_SECRET,
+		"CKK_RC2":               CKK_RC2,
+		"CKK_RC4":               CKK_RC4,
+		"CKK_DES":               CKK_DES,
+		"CKK_DES2":              CKK_DES2,
+		"CKK_DES3":              CKK_DES3,
+		"CKK_CAST":              CKK_CAST,
+		"CKK_CAST3":             CKK_CAST3,
+		"CKK_CAST128":           CKK_CAST128,
+		"CKK_CAST5":             CKK_CAST5,
+		"CKK_RC5":               CKK_RC5,
+		"CKK_IDEA":              CKK_IDEA,
+		"CKK_SKIPJACK":          CKK_SKIPJACK,
+		"CKK_BATON":             CKK_BATON,
+		"CKK_JUNIPER":           CKK_JUNIPER,
+		"CKK_CDMF":              CKK_CDMF,
+		"CKK_AES":               CKK_AES,
+		"CKK_BLOWFISH":          CKK_BLOWFISH,
+		"CKK_TWOFISH":           CKK_TWOFISH,
+		"CKK_SECURID":           CKK_SECURID,
+		"CKK_HOTP":              CKK_HOTP,
+		"CKK_ACTI":              CKK_ACTI,
+		"CKK_CAMELLIA":          CKK_CAMELLIA,
+		"CKK_ARIA":              CKK_ARIA,
+		"CKK_MD5_HMAC":          CKK_MD5_HMAC,
+		"CKK_SHA_1_HMAC":        CKK_SHA_1_HMAC,
+		"CKK_RIPEMD128_HMAC":    CKK_RIPEMD128_HMAC,
+		"CKK_RIPEMD160_HMAC":    CKK_RIPEMD160_HMAC,
+		"CKK_SHA256_HMAC":       CKK_SHA256_HMAC,
+		"CKK_SHA384_HMAC":       CKK_SHA384_HMAC,
+		"CKK_SHA512_HMAC":       CKK_SHA512_HMAC,
+		"CKK_SHA224_HMAC":       CKK_SHA224_HMAC,
+		"CKK_SEED":              CKK_SEED,
+		"CKK_GOSTR3410":         CKK_GOSTR3410,
+		"CKK_GOSTR3411":         CKK_GOSTR3411,
+		"CKK_GOST28147":         CKK_GOST28147,
+		"CKK_VENDOR_DEFINED":    CKK_VENDOR_DEFINED,
+		"CKK_IBM_PQC_DILITHIUM": CKK_IBM_PQC_DILITHIUM,
 	}
 	KeyTypeValueToName = map[KeyType]string{
-		CKK_RSA:             "CKK_RSA",
-		CKK_DSA:             "CKK_DSA",
-		CKK_DH:              "CKK_DH",
-		CKK_ECDSA:           "CKK_ECDSA",
-		CKK_X9_42_DH:        "CKK_X9_42_DH",
-		CKK_KEA:             "CKK_KEA",
-		CKK_GENERIC_SECRET:  "CKK_GENERIC_SECRET",
-		CKK_RC2:             "CKK_RC2",
-		CKK_RC4:             "CKK_RC4",
-		CKK_DES:             "CKK_DES",
-		CKK_DES2:            "CKK_DES2",
-		CKK_DES3:            "CKK_DES3",
-		CKK_CAST:            "CKK_CAST",
-		CKK_CAST3:           "CKK_CAST3",
-		CKK_CAST128:         "CKK_CAST128",
-		CKK_RC5:             "CKK_RC5",
-		CKK_IDEA:            "CKK_IDEA",
-		CKK_SKIPJACK:        "CKK_SKIPJACK",
-		CKK_BATON:           "CKK_BATON",
-		CKK_JUNIPER:         "CKK_JUNIPER",
-		CKK_CDMF:            "CKK_CDMF",
-		CKK_AES:             "CKK_AES",
-		CKK_BLOWFISH:        "CKK_BLOWFISH",
-		CKK_TWOFISH:         "CKK_TWOFISH",
-		CKK_SECURID:         "CKK_SECURID",
-		CKK_HOTP:            "CKK_HOTP",
-		CKK_ACTI:            "CKK_ACTI",
-		CKK_CAMELLIA:        "CKK_CAMELLIA",
-		CKK_ARIA:            "CKK_ARIA",
-		CKK_SHA512_224_HMAC: "CKK_SHA512_224_HMAC",
-		CKK_SHA512_256_HMAC: "CKK_SHA512_256_HMAC",
-		CKK_SHA512_T_HMAC:   "CKK_SHA512_T_HMAC",
-		CKK_SHA_1_HMAC:      "CKK_SHA_1_HMAC",
-		CKK_SHA224_HMAC:     "CKK_SHA224_HMAC",
-		CKK_SHA256_HMAC:     "CKK_SHA256_HMAC",
-		CKK_SHA384_HMAC:     "CKK_SHA384_HMAC",
-		CKK_SHA512_HMAC:     "CKK_SHA512_HMAC",
-		CKK_SEED:            "CKK_SEED",
-		CKK_GOSTR3410:       "CKK_GOSTR3410",
-		CKK_GOSTR3411:       "CKK_GOSTR3411",
-		CKK_GOST28147:       "CKK_GOST28147",
-		CKK_VENDOR_DEFINED:  "CKK_VENDOR_DEFINED",
+		CKK_RSA:               "CKK_RSA",
+		CKK_DSA:               "CKK_DSA",
+		CKK_DH:                "CKK_DH",
+		CKK_ECDSA:             "CKK_ECDSA",
+		CKK_X9_42_DH:          "CKK_X9_42_DH",
+		CKK_KEA:               "CKK_KEA",
+		CKK_GENERIC_SECRET:    "CKK_GENERIC_SECRET",
+		CKK_RC2:               "CKK_RC2",
+		CKK_RC4:               "CKK_RC4",
+		CKK_DES:               "CKK_DES",
+		CKK_DES2:              "CKK_DES2",
+		CKK_DES3:              "CKK_DES3",
+		CKK_CAST:              "CKK_CAST",
+		CKK_CAST3:             "CKK_CAST3",
+		CKK_CAST128:           "CKK_CAST128",
+		CKK_RC5:               "CKK_RC5",
+		CKK_IDEA:              "CKK_IDEA",
+		CKK_SKIPJACK:          "CKK_SKIPJACK",
+		CKK_BATON:             "CKK_BATON",
+		CKK_JUNIPER:           "CKK_JUNIPER",
+		CKK_CDMF:              "CKK_CDMF",
+		CKK_AES:               "CKK_AES",
+		CKK_BLOWFISH:          "CKK_BLOWFISH",
+		CKK_TWOFISH:           "CKK_TWOFISH",
+		CKK_SECURID:           "CKK_SECURID",
+		CKK_HOTP:              "CKK_HOTP",
+		CKK_ACTI:              "CKK_ACTI",
+		CKK_CAMELLIA:          "CKK_CAMELLIA",
+		CKK_ARIA:              "CKK_ARIA",
+		CKK_MD5_HMAC:          "CKK_MD5_HMAC",
+		CKK_SHA_1_HMAC:        "CKK_SHA_1_HMAC",
+		CKK_RIPEMD128_HMAC:    "CKK_RIPEMD128_HMAC",
+		CKK_RIPEMD160_HMAC:    "CKK_RIPEMD160_HMAC",
+		CKK_SHA256_HMAC:       "CKK_SHA256_HMAC",
+		CKK_SHA384_HMAC:       "CKK_SHA384_HMAC",
+		CKK_SHA512_HMAC:       "CKK_SHA512_HMAC",
+		CKK_SHA224_HMAC:       "CKK_SHA224_HMAC",
+		CKK_SEED:              "CKK_SEED",
+		CKK_GOSTR3410:         "CKK_GOSTR3410",
+		CKK_GOSTR3411:         "CKK_GOSTR3411",
+		CKK_GOST28147:         "CKK_GOST28147",
+		CKK_VENDOR_DEFINED:    "CKK_VENDOR_DEFINED",
+		CKK_IBM_PQC_DILITHIUM: "CKK_IBM_PQC_DILITHIUM",
 	}
 	MechanismNameToValue = map[string]Mechanism{
 		"CKM_RSA_PKCS_KEY_PAIR_GEN":          CKM_RSA_PKCS_KEY_PAIR_GEN,
@@ -1682,7 +1723,6 @@ var (
 		"CKM_DSA_KEY_PAIR_GEN":               CKM_DSA_KEY_PAIR_GEN,
 		"CKM_DSA":                            CKM_DSA,
 		"CKM_DSA_SHA1":                       CKM_DSA_SHA1,
-		"CKM_DSA_FIPS_G_GEN":                 CKM_DSA_FIPS_G_GEN,
 		"CKM_DSA_SHA224":                     CKM_DSA_SHA224,
 		"CKM_DSA_SHA256":                     CKM_DSA_SHA256,
 		"CKM_DSA_SHA384":                     CKM_DSA_SHA384,
@@ -1928,6 +1968,10 @@ var (
 		"CKM_EC_KEY_PAIR_GEN":                CKM_EC_KEY_PAIR_GEN,
 		"CKM_ECDSA":                          CKM_ECDSA,
 		"CKM_ECDSA_SHA1":                     CKM_ECDSA_SHA1,
+		"CKM_ECDSA_SHA224":                   CKM_ECDSA_SHA224,
+		"CKM_ECDSA_SHA256":                   CKM_ECDSA_SHA256,
+		"CKM_ECDSA_SHA384":                   CKM_ECDSA_SHA384,
+		"CKM_ECDSA_SHA512":                   CKM_ECDSA_SHA512,
 		"CKM_ECDH1_DERIVE":                   CKM_ECDH1_DERIVE,
 		"CKM_ECDH1_COFACTOR_DERIVE":          CKM_ECDH1_COFACTOR_DERIVE,
 		"CKM_ECMQV_DERIVE":                   CKM_ECMQV_DERIVE,
@@ -1949,9 +1993,9 @@ var (
 		"CKM_AES_CTR":                        CKM_AES_CTR,
 		"CKM_AES_GCM":                        CKM_AES_GCM,
 		"CKM_AES_CCM":                        CKM_AES_CCM,
-		"CKM_AES_CMAC_GENERAL":               CKM_AES_CMAC_GENERAL,
-		"CKM_AES_CMAC":                       CKM_AES_CMAC,
 		"CKM_AES_CTS":                        CKM_AES_CTS,
+		"CKM_AES_CMAC":                       CKM_AES_CMAC,
+		"CKM_AES_CMAC_GENERAL":               CKM_AES_CMAC_GENERAL,
 		"CKM_AES_XCBC_MAC":                   CKM_AES_XCBC_MAC,
 		"CKM_AES_XCBC_MAC_96":                CKM_AES_XCBC_MAC_96,
 		"CKM_AES_GMAC":                       CKM_AES_GMAC,
@@ -1994,6 +2038,10 @@ var (
 		"CKM_RSA_PKCS_TPM_1_1":               CKM_RSA_PKCS_TPM_1_1,
 		"CKM_RSA_PKCS_OAEP_TPM_1_1":          CKM_RSA_PKCS_OAEP_TPM_1_1,
 		"CKM_VENDOR_DEFINED":                 CKM_VENDOR_DEFINED,
+		"CKM_IBM_SHA3_224":                   CKM_IBM_SHA3_224,
+		"CKM_IBM_SHA3_256":                   CKM_IBM_SHA3_256,
+		"CKM_IBM_SHA3_384":                   CKM_IBM_SHA3_384,
+		"CKM_IBM_SHA3_512":                   CKM_IBM_SHA3_512,
 		"CKM_IBM_CMAC":                       CKM_IBM_CMAC,
 		"CKM_IBM_ECDSA_SHA224":               CKM_IBM_ECDSA_SHA224,
 		"CKM_IBM_ECDSA_SHA256":               CKM_IBM_ECDSA_SHA256,
@@ -2006,7 +2054,18 @@ var (
 		"CKM_IBM_SHA512_224":                 CKM_IBM_SHA512_224,
 		"CKM_IBM_SHA512_256_HMAC":            CKM_IBM_SHA512_256_HMAC,
 		"CKM_IBM_SHA512_224_HMAC":            CKM_IBM_SHA512_224_HMAC,
+		"CKM_IBM_EC_X25519":                  CKM_IBM_EC_X25519,
+		"CKM_IBM_ED25519_SHA512":             CKM_IBM_ED25519_SHA512,
+		"CKM_IBM_EC_X448":                    CKM_IBM_EC_X448,
+		"CKM_IBM_ED448_SHA3":                 CKM_IBM_ED448_SHA3,
 		"CKM_IBM_SIPHASH":                    CKM_IBM_SIPHASH,
+		"CKM_IBM_DILITHIUM":                  CKM_IBM_DILITHIUM,
+		"CKM_IBM_SHA3_224_HMAC":              CKM_IBM_SHA3_224_HMAC,
+		"CKM_IBM_SHA3_256_HMAC":              CKM_IBM_SHA3_256_HMAC,
+		"CKM_IBM_SHA3_384_HMAC":              CKM_IBM_SHA3_384_HMAC,
+		"CKM_IBM_SHA3_512_HMAC":              CKM_IBM_SHA3_512_HMAC,
+		"CKM_IBM_EC_X25519_RAW":              CKM_IBM_EC_X25519_RAW,
+		"CKM_IBM_EC_X448_RAW":                CKM_IBM_EC_X448_RAW,
 		"CKM_IBM_CLEARKEY_TRANSPORT":         CKM_IBM_CLEARKEY_TRANSPORT,
 		"CKM_IBM_ATTRIBUTEBOUND_WRAP":        CKM_IBM_ATTRIBUTEBOUND_WRAP,
 		"CKM_IBM_TRANSPORTKEY":               CKM_IBM_TRANSPORTKEY,
@@ -2014,6 +2073,7 @@ var (
 		"CKM_IBM_ECDH1_DERIVE_RAW":           CKM_IBM_ECDH1_DERIVE_RAW,
 		"CKM_IBM_WIRETEST":                   CKM_IBM_WIRETEST,
 		"CKM_IBM_RETAINKEY":                  CKM_IBM_RETAINKEY,
+		"CKM_IBM_CPACF_WRAP":                 CKM_IBM_CPACF_WRAP,
 	}
 	MechanismValueToName = map[Mechanism]string{
 		CKM_RSA_PKCS_KEY_PAIR_GEN:          "CKM_RSA_PKCS_KEY_PAIR_GEN",
@@ -2034,7 +2094,6 @@ var (
 		CKM_DSA_KEY_PAIR_GEN:               "CKM_DSA_KEY_PAIR_GEN",
 		CKM_DSA:                            "CKM_DSA",
 		CKM_DSA_SHA1:                       "CKM_DSA_SHA1",
-		CKM_DSA_FIPS_G_GEN:                 "CKM_DSA_FIPS_G_GEN",
 		CKM_DSA_SHA224:                     "CKM_DSA_SHA224",
 		CKM_DSA_SHA256:                     "CKM_DSA_SHA256",
 		CKM_DSA_SHA384:                     "CKM_DSA_SHA384",
@@ -2271,6 +2330,10 @@ var (
 		CKM_EC_KEY_PAIR_GEN:                "CKM_EC_KEY_PAIR_GEN",
 		CKM_ECDSA:                          "CKM_ECDSA",
 		CKM_ECDSA_SHA1:                     "CKM_ECDSA_SHA1",
+		CKM_ECDSA_SHA224:                   "CKM_ECDSA_SHA224",
+		CKM_ECDSA_SHA256:                   "CKM_ECDSA_SHA256",
+		CKM_ECDSA_SHA384:                   "CKM_ECDSA_SHA384",
+		CKM_ECDSA_SHA512:                   "CKM_ECDSA_SHA512",
 		CKM_ECDH1_DERIVE:                   "CKM_ECDH1_DERIVE",
 		CKM_ECDH1_COFACTOR_DERIVE:          "CKM_ECDH1_COFACTOR_DERIVE",
 		CKM_ECMQV_DERIVE:                   "CKM_ECMQV_DERIVE",
@@ -2292,9 +2355,9 @@ var (
 		CKM_AES_CTR:                        "CKM_AES_CTR",
 		CKM_AES_GCM:                        "CKM_AES_GCM",
 		CKM_AES_CCM:                        "CKM_AES_CCM",
-		CKM_AES_CMAC_GENERAL:               "CKM_AES_CMAC_GENERAL",
-		CKM_AES_CMAC:                       "CKM_AES_CMAC",
 		CKM_AES_CTS:                        "CKM_AES_CTS",
+		CKM_AES_CMAC:                       "CKM_AES_CMAC",
+		CKM_AES_CMAC_GENERAL:               "CKM_AES_CMAC_GENERAL",
 		CKM_AES_XCBC_MAC:                   "CKM_AES_XCBC_MAC",
 		CKM_AES_XCBC_MAC_96:                "CKM_AES_XCBC_MAC_96",
 		CKM_AES_GMAC:                       "CKM_AES_GMAC",
@@ -2337,6 +2400,10 @@ var (
 		CKM_RSA_PKCS_TPM_1_1:               "CKM_RSA_PKCS_TPM_1_1",
 		CKM_RSA_PKCS_OAEP_TPM_1_1:          "CKM_RSA_PKCS_OAEP_TPM_1_1",
 		CKM_VENDOR_DEFINED:                 "CKM_VENDOR_DEFINED",
+		CKM_IBM_SHA3_224:                   "CKM_IBM_SHA3_224",
+		CKM_IBM_SHA3_256:                   "CKM_IBM_SHA3_256",
+		CKM_IBM_SHA3_384:                   "CKM_IBM_SHA3_384",
+		CKM_IBM_SHA3_512:                   "CKM_IBM_SHA3_512",
 		CKM_IBM_CMAC:                       "CKM_IBM_CMAC",
 		CKM_IBM_ECDSA_SHA224:               "CKM_IBM_ECDSA_SHA224",
 		CKM_IBM_ECDSA_SHA256:               "CKM_IBM_ECDSA_SHA256",
@@ -2349,7 +2416,18 @@ var (
 		CKM_IBM_SHA512_224:                 "CKM_IBM_SHA512_224",
 		CKM_IBM_SHA512_256_HMAC:            "CKM_IBM_SHA512_256_HMAC",
 		CKM_IBM_SHA512_224_HMAC:            "CKM_IBM_SHA512_224_HMAC",
+		CKM_IBM_EC_X25519:                  "CKM_IBM_EC_X25519",
+		CKM_IBM_ED25519_SHA512:             "CKM_IBM_ED25519_SHA512",
+		CKM_IBM_EC_X448:                    "CKM_IBM_EC_X448",
+		CKM_IBM_ED448_SHA3:                 "CKM_IBM_ED448_SHA3",
 		CKM_IBM_SIPHASH:                    "CKM_IBM_SIPHASH",
+		CKM_IBM_DILITHIUM:                  "CKM_IBM_DILITHIUM",
+		CKM_IBM_SHA3_224_HMAC:              "CKM_IBM_SHA3_224_HMAC",
+		CKM_IBM_SHA3_256_HMAC:              "CKM_IBM_SHA3_256_HMAC",
+		CKM_IBM_SHA3_384_HMAC:              "CKM_IBM_SHA3_384_HMAC",
+		CKM_IBM_SHA3_512_HMAC:              "CKM_IBM_SHA3_512_HMAC",
+		CKM_IBM_EC_X25519_RAW:              "CKM_IBM_EC_X25519_RAW",
+		CKM_IBM_EC_X448_RAW:                "CKM_IBM_EC_X448_RAW",
 		CKM_IBM_CLEARKEY_TRANSPORT:         "CKM_IBM_CLEARKEY_TRANSPORT",
 		CKM_IBM_ATTRIBUTEBOUND_WRAP:        "CKM_IBM_ATTRIBUTEBOUND_WRAP",
 		CKM_IBM_TRANSPORTKEY:               "CKM_IBM_TRANSPORTKEY",
@@ -2357,6 +2435,7 @@ var (
 		CKM_IBM_ECDH1_DERIVE_RAW:           "CKM_IBM_ECDH1_DERIVE_RAW",
 		CKM_IBM_WIRETEST:                   "CKM_IBM_WIRETEST",
 		CKM_IBM_RETAINKEY:                  "CKM_IBM_RETAINKEY",
+		CKM_IBM_CPACF_WRAP:                 "CKM_IBM_CPACF_WRAP",
 	}
 	MechanismInfoFlagNameToValue = map[string]MechanismInfoFlag{
 		"CKF_DONT_BLOCK":                     CKF_DONT_BLOCK,
@@ -2535,7 +2614,6 @@ var (
 		"CKR_PUBLIC_KEY_INVALID":               CKR_PUBLIC_KEY_INVALID,
 		"CKR_FUNCTION_REJECTED":                CKR_FUNCTION_REJECTED,
 		"CKR_VENDOR_DEFINED":                   CKR_VENDOR_DEFINED,
-		"CKR_IBM_TARGET_INVALID":               CKR_IBM_TARGET_INVALID,
 		"CKR_IBM_WKID_MISMATCH":                CKR_IBM_WKID_MISMATCH,
 		"CKR_IBM_INTERNAL_ERROR":               CKR_IBM_INTERNAL_ERROR,
 		"CKR_IBM_TRANSPORT_ERROR":              CKR_IBM_TRANSPORT_ERROR,
@@ -2551,6 +2629,8 @@ var (
 		"CKR_IBM_TRANSPORT_LIMIT":              CKR_IBM_TRANSPORT_LIMIT,
 		"CKR_IBM_FCV_NOT_SET":                  CKR_IBM_FCV_NOT_SET,
 		"CKR_IBM_PERF_CATEGORY_INVALID":        CKR_IBM_PERF_CATEGORY_INVALID,
+		"CKR_IBM_API_MISMATCH":                 CKR_IBM_API_MISMATCH,
+		"CKR_IBM_TARGET_INVALID":               CKR_IBM_TARGET_INVALID,
 		"CKR_VENDOR_DEFINED_GREP11":            CKR_VENDOR_DEFINED_GREP11,
 		"CKR_IBM_GREP11_NOT_AUTHENTICATED":     CKR_IBM_GREP11_NOT_AUTHENTICATED,
 		"CKR_IBM_GREP11_CANNOT_UNMARSHAL":      CKR_IBM_GREP11_CANNOT_UNMARSHAL,
@@ -2655,7 +2735,6 @@ var (
 		CKR_PUBLIC_KEY_INVALID:               "CKR_PUBLIC_KEY_INVALID",
 		CKR_FUNCTION_REJECTED:                "CKR_FUNCTION_REJECTED",
 		CKR_VENDOR_DEFINED:                   "CKR_VENDOR_DEFINED",
-		CKR_IBM_TARGET_INVALID:               "CKR_IBM_TARGET_INVALID",
 		CKR_IBM_WKID_MISMATCH:                "CKR_IBM_WKID_MISMATCH",
 		CKR_IBM_INTERNAL_ERROR:               "CKR_IBM_INTERNAL_ERROR",
 		CKR_IBM_TRANSPORT_ERROR:              "CKR_IBM_TRANSPORT_ERROR",
@@ -2671,6 +2750,8 @@ var (
 		CKR_IBM_TRANSPORT_LIMIT:              "CKR_IBM_TRANSPORT_LIMIT",
 		CKR_IBM_FCV_NOT_SET:                  "CKR_IBM_FCV_NOT_SET",
 		CKR_IBM_PERF_CATEGORY_INVALID:        "CKR_IBM_PERF_CATEGORY_INVALID",
+		CKR_IBM_API_MISMATCH:                 "CKR_IBM_API_MISMATCH",
+		CKR_IBM_TARGET_INVALID:               "CKR_IBM_TARGET_INVALID",
 		CKR_VENDOR_DEFINED_GREP11:            "CKR_VENDOR_DEFINED_GREP11",
 		CKR_IBM_GREP11_NOT_AUTHENTICATED:     "CKR_IBM_GREP11_NOT_AUTHENTICATED",
 		CKR_IBM_GREP11_CANNOT_UNMARSHAL:      "CKR_IBM_GREP11_CANNOT_UNMARSHAL",

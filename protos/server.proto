@@ -276,6 +276,7 @@ service Crypto {
 	//     target_t target) ;
 	rpc SetAttributeValue(SetAttributeValueRequest) returns (SetAttributeValueResponse) {}
 
+    rpc RewrapKeyBlob (RewrapKeyBlobRequest) returns (RewrapKeyBlobResponse) {}
     rpc ReEncrypt (ReEncryptRequest) returns (ReEncryptResponse) {}
 }
 
@@ -704,6 +705,15 @@ message ReEncryptRequest {
 
 message ReEncryptResponse {
 	bytes RewrappedKey = 1;
+}
+
+message RewrapKeyBlobRequest {
+	bytes WrappedKey = 1;
+}
+
+message RewrapKeyBlobResponse {
+	bytes RewrappedKey = 1;
+	KeyBlob KeyBlob = 2;
 }
 
 message AttributeValue {
